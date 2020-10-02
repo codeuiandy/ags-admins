@@ -6,6 +6,7 @@ import Grpicon from './Group.png'
 import {httpPostFormData,httpPut,httpPatch} from '../helpers/httpMethods'
 import {hideLoader, showLoader} from '../helpers/loader'
 import {NotificationManager} from 'react-notifications'
+import axios from 'axios'
 export const CreateGroup=(props)=>  {
     let [Group , setGroup] = useState({
     
@@ -30,8 +31,23 @@ console.log(Group.previewImg)
 useEffect(() => {
     // console.log("edit details useEffect",getEditDetails)
     getEditGroup()
-    
-    
+
+    const instance = axios.create({
+    baseURL: 'https://www.timmzy.com/api/v1/admin/',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMmUyOTA0OGMtMGNjYS00MmQzLWJmOTEtYzU0MzBhMTczMzkwIiwidXNlcm5hbWUiOiJ0b2JpbG9iYSIsImV4cCI6MTYzMjM4NTE3NCwiZW1haWwiOiJ0ZXN0dG9iaUBnbWFpbC5jb20iLCJvcmlnX2lhdCI6MTYwMTI4MTE3NH0.5jleNvn-WxsOre2ztk3OKklvNzRG84xdSYr4QsXtOZM'
+    }
+  });
+  instance.patch('/groups/9beb1fe1-47cc-4e26-ae22-1dea4bdf38b3/', {
+    "name": "Another",
+  }).then(function (response) {
+    // handle success
+    console.log(response);
+  }).catch(function (error) {
+    // handle error
+    console.log(error.response);
+  })
     
 }, [getEditDetails,console.log(Group)])
 

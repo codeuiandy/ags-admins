@@ -237,12 +237,18 @@ export default class grpMembers extends Component {
 
 			
 		];
-		const body = datas.map((data, index) => ({
-			groupname: data.groupname,
+		const body = this.props.getGroupMembers.map((data, index) => ({
+			groupname: <Link to="/user_info">{`${data.first_name} ${data.last_name} `}</Link>,
 			joinOn: data.joinOn,
-            userImage:data.userImage,
-			admin: data.admin,
-			posts: data.posts,
+       userImage:  <img className="userProfilePic" src={data.photo} />,
+			admin:
+			<select
+				class="form-control adminSelect" id="exampleFormControlSelect1">
+					<option value="freeEvent">Member</option>
+				   <option value="paidEvent">Make Admin</option>
+				  
+				</select>,
+			posts: data.posts ,
 			location: data.location,
 			action: (
 				<a>

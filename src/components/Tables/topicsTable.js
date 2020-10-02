@@ -19,9 +19,9 @@ const	bodyRow = () => {
 			followers:data.followers.length,
 			description:data.description === null || data.description === undefined || data.description == "" ? "No description added": data.description,
 			action: (
-				<a>
+				<span>
 
-<Link to="/create_topic" >
+<Link to="/create_topic_edit_topic" >
 						{" "}
 						<span
 						
@@ -45,7 +45,7 @@ const	bodyRow = () => {
 
 
 
-				</a>)
+				</span>)
 		}));
 		return body;
 	};

@@ -6,7 +6,7 @@ import Layout from '../Layout/index'
 import ImageIcon from '../Posts/Vector.png'
 import ImageIcon2 from './Vector.png'
 import UserRoute from '../UserRoute/Route'
-import {httpPostFormData,httpPut} from '../helpers/httpMethods'
+import {httpPatch, httpPostFormData,httpPut} from '../helpers/httpMethods'
 import {hideLoader, showLoader} from '../helpers/loader'
 import {NotificationManager} from 'react-notifications'
 
@@ -57,7 +57,7 @@ const getEditTopic=()=>{
              const img = topic.thumbnail === ""?"" :formData.append('thumbnail', currenThumbnailtFile) 
         //   const data = topic
         //   console.log(data)
-              let res = await httpPut(`topics/${getEditDetails.edit_id}/`,formData)
+              let res = await httpPatch(`topics/${getEditDetails.edit_id}/`,formData)
              console.log("res status",res) 
              if (res.status === 200) {
                      hideLoader()

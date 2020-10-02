@@ -1,16 +1,29 @@
-import React, { Component } from 'react'
+import React, { useEffect,useState } from 'react'
+import {httpGet} from '../helpers/httpMethods'
+import { showLoader,hideLoader } from '../helpers/loader'
 import Layout from '../Layout/index'
 import './index.css'
 import {Link} from 'react-router-dom'
-import GrpUpdates from './GrpUpdates'
-import UserRoute from '../UserRoute/Route'
 import ViewGrpStatictics from './viewGrpStatictics'
  import ClosedGrpRequests from '../Tables/closedGrpRequests'
-export default class viewGroup extends Component {
-    render() {
+export  const ViewGroup =(props)=> {
+   const Uid = props.match.params.id
+    const [getTopTenGrpsData, SetgetTopTenGrpsData] = useState([])
+
+    const getTopTenGrps = async()=>{
+        showLoader()
+        const res = await httpGet(`groups/${Uid}/`)
+        SetgetTopTenGrpsData(res.data)
+        hideLoader()
+        }
+    
+        useEffect(() => {
+            getTopTenGrps()
+          }, []); 
+
         return (
             <Layout RouteUserLayout={
-                this.props.history
+                props.history
             } activepage="keepOpenGroup" page="groups-overview" >
 
                 <div className="viewgroupTitle"> <h1>Bright Minds Fish Club</h1></div>
@@ -18,7 +31,7 @@ export default class viewGroup extends Component {
                 <div className="grp-overview">
     <div className="grp-overview1">
     <h1>  Total Posts</h1>
-    <p>1223</p>
+    <p>{getTopTenGrpsData.number_of_post}</p>
     </div>
 
     <div className="grp-overview1">
@@ -48,8 +61,8 @@ export default class viewGroup extends Component {
         <div className="grp-overview1">
        
 
-       <h1><Link to="/group_members">Members</Link></h1>
-<p><Link to="/group_members">12</Link></p>
+       <h1 onClick={()=>props.history.push(`/group_members/${getTopTenGrpsData.id}`)}> Members</h1>
+<p onClick={()=>props.history.push(`/group_members/${getTopTenGrpsData.id}`)}>{getTopTenGrpsData.members_count}</p>
        </div>
 </div>
                
@@ -64,4 +77,3 @@ export default class viewGroup extends Component {
             </Layout>
         )
     }
-}

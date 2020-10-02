@@ -1,9 +1,28 @@
-import React, { Component } from 'react'
+import React, { useEffect,useState } from 'react'
+import {httpGet} from '../helpers/httpMethods'
 import {Link} from 'react-router-dom'
-export default class GrpUpdates extends Component {
-    render() {
+import { showLoader,hideLoader } from '../helpers/loader'
+
+ const GrpUpdates = ()=> {
+const [getTopTenGrpsData, SetgetTopTenGrpsData] = useState([])
+
+const getTopTenGrps = async()=>{
+    showLoader()
+    const res = await httpGet('groups/')
+    SetgetTopTenGrpsData(res.data)
+    hideLoader()
+    }
+
+    useEffect(() => {
+        getTopTenGrps()
+      }, []); 
+      
+
+    
+
         return (
             <div>
+                {console.log(getTopTenGrpsData)}
                 <div className="grpInfo1">
                     <div className="grpInfoChildHeader1">Top Groups</div>
                     <div className="grpInfoChildHeader2">10 Least Performing Groups</div>
@@ -53,11 +72,17 @@ export default class GrpUpdates extends Component {
                     </div>
                     <div className="grpInfoChild4">
                     <ul>
-                            <li><Link to="/view_group">Led Zeppelin </Link></li>
-                            <li><Link to="/view_group">Deep Purple </Link></li>
-                            <li><Link to="/view_group">Black Sabbath</Link> </li>
-                            <li><Link to="/view_group">The Who The Eagles</Link> </li>
-                            <li><Link to="/view_group">The Doors Pink Floyd </Link></li>
+
+                        {
+                            getTopTenGrpsData.slice(0,10).map((data, i) => {
+                            return(
+                                
+                            <li><Link to={`/view_group/${data.id}`}>{data.name}</Link></li>
+                               
+                            )
+                            })
+                        }
+                           
                            
                             <li><Link to="/all_groups">View More</Link></li>
                         </ul>
@@ -67,4 +92,5 @@ export default class GrpUpdates extends Component {
             </div>
         )
     }
-}
+
+export default GrpUpdates
