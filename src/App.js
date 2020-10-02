@@ -56,7 +56,7 @@ function App() {
 						<Route exact path="/user-overview" component={UsersOverView} />
 						<Route exact path="/all_users" component={Allusers} />
 						<Route exact path="/all_reported_users" component={AllReportedUsers} />
-						<Route exact path="/user_info" component={UserInfo} />
+						<Route exact path="/user_info/:id" component={UserInfo} />
 						<Route exact path="/view_group/:id" component={ViewGroup} />
 						<Route exact path="/group_members/:id" component={GrpMembersView} />
 						<Route exact path="/event_overview" component={EventOverview} />

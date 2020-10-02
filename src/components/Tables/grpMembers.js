@@ -238,7 +238,7 @@ export default class grpMembers extends Component {
 			
 		];
 		const body = this.props.getGroupMembers.map((data, index) => ({
-			groupname: <Link to="/user_info">{`${data.first_name} ${data.last_name} `}</Link>,
+			groupname: <Link to={`/user_info/${data.id}`}>{`${data.first_name} ${data.last_name} `}</Link>,
 			joinOn: data.joinOn,
        userImage:  <img className="userProfilePic" src={data.photo} />,
 			admin:
@@ -253,7 +253,7 @@ export default class grpMembers extends Component {
 			action: (
 				<a>
 
-<Link to="/view_group" >
+<Link to={`/user_info/${data.id}`} >
 						{" "}
 						<span
 						style={{fontSize:"14px"}}

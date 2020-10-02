@@ -26,7 +26,7 @@ export  const ViewGroup =(props)=> {
                 props.history
             } activepage="keepOpenGroup" page="groups-overview" >
 
-                <div className="viewgroupTitle"> <h1>Bright Minds Fish Club</h1></div>
+                <div className="viewgroupTitle"> <h1>{getTopTenGrpsData.name}</h1></div>
                
                 <div className="grp-overview">
     <div className="grp-overview1">
@@ -39,7 +39,7 @@ export  const ViewGroup =(props)=> {
 
  Total Comments</h1>
    
-<p>12</p>
+<p>{getTopTenGrpsData.total_comment}</p>
 
 
         </div>
@@ -47,7 +47,7 @@ export  const ViewGroup =(props)=> {
         <div className="grp-overview1">
        
         <h1>Total Likes</h1>
-<p>12</p>
+<p>{getTopTenGrpsData.total_likes}</p>
         </div>
 
 

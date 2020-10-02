@@ -5,6 +5,10 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import UserRoute from '../UserRoute/Route'
 import UserPosts from '../Tables/userPosts'
+import {httpGet} from '../helpers/httpMethods'
+import { showLoader,hideLoader } from '../helpers/loader'
+
+
 
 export default class userInfo extends Component {
     constructor(props){
@@ -55,8 +59,13 @@ export default class userInfo extends Component {
         ],
             postController:"profile",
             startDate:new Date(),
+            userInfo:[]
         }
+
+       
     }
+
+    
 
     SwitchPostType=(postType)=>{
      if (postType === "profile") {
@@ -85,9 +94,24 @@ export default class userInfo extends Component {
     }
 
     }
+
+    componentDidMount(){
+        this.userInfo()
+    }
+
+    userInfo = async()=>{
+        const Uid = this.props.match.params.id
+        showLoader()
+        const res = await httpGet(`users/${Uid}/`)
+        this.setState({userInfo:res.data})
+        hideLoader()
+        }
+    
     
     render() {
         let Switch = this.state.postController
+        let userInfo = this.state.userInfo
+        console.log(">>>>userInfo",userInfo)
         return (
            
             <Layout RouteUserLayout={
@@ -138,11 +162,11 @@ export default class userInfo extends Component {
                      <div className="userinfoName">
                 <div className="main-username347">
                     <h1>
-                        Andrew Okeke
+                      {userInfo.length<=0?"Loading...":`${userInfo.first_name} ${userInfo.last_name}`}
                     </h1>
 
                     <h2>
-                        Va Canada
+                    {userInfo.length<=0?"Loading...":`${userInfo.nationality} `}
                     </h2>
                 </div>
 
@@ -160,11 +184,11 @@ export default class userInfo extends Component {
                    <div className="aboutUserFlex">
                        <div className="data1">
                            <span>Date of Birth:</span>
-                           <span className="userIn">12 March 1991</span>
+                           <span className="userIn"> {userInfo.length<=0?"Loading...":`${userInfo.date_of_birth} `}</span>
                        </div>
                        <div className="data1">
                            <span>Nationality:</span>
-                           <span>Nigeria</span>
+                           <span> {userInfo.length<=0?"Loading...":`${userInfo.nationality} `}</span>
                        </div>
                    </div>
 
@@ -172,12 +196,11 @@ export default class userInfo extends Component {
                    <div className="aboutUserFlex">
                        <div className="data1">
                            <span>Bio:</span>
-                           <span  className="userIn">Lead Product Design for Apple. I’m from Dublin
-                           . I practice for 4 years</span>
+                           <span  className="userIn"> {userInfo.length<=0?"Loading...":`${userInfo.bio === null ? "User didn't add a bio":userInfo.bio} `}</span>
                        </div>
                        <div className="data1">
                            <span>Email:</span>
-                           <span>lindsey.stroud@gmail.com</span>
+                           <span>{userInfo.length<=0?"Loading...":`${userInfo.email} `}</span>
                        </div>
                    </div>
 
@@ -185,11 +208,11 @@ export default class userInfo extends Component {
                    <div className="aboutUserFlex">
                        <div className="data1">
                            <span>Job Title:</span>
-                           <span className="userIn">Lead Product Design</span>
+                           <span className="userIn">{userInfo.length<=0?"Loading...":`${userInfo.job <=0 ?"No job title added":userInfo.job.map((data)=>data) } `}</span>
                        </div>
                        <div className="data1">
                            <span>Profession:</span>
-                           <span>Desingner</span>
+                           <span>{userInfo.length<=0?"Loading...":`${userInfo.job_title} `}</span>
                        </div>
                    </div>
 
@@ -198,7 +221,7 @@ export default class userInfo extends Component {
                    <div className="aboutUserFlex">
                        <div className="data1">
                            <span>Industry:</span>
-                           <span className="userIn">Technology</span>
+                           <span className="userIn">{userInfo.length<=0?"Loading...":`${userInfo.industry} `}</span>
                        </div>
                        <div className="data1">
                            <span>Location:</span>
@@ -224,7 +247,15 @@ export default class userInfo extends Component {
                    <div className="aboutUserFlex">
                        <div className="data1">
                            <span>Institution:</span>
-                           <span className="userIn">New York State University</span>
+                           {userInfo.length<=0?"Loading...":`${userInfo.interest.map(
+                                   (data)=>{
+                                   return  <p>{data}</p>
+                                      
+                                   }
+                               )} `}
+                           <span className="userIn">
+                               
+                           </span>
                        </div>
                        <div style={{marginLeft:"auto"}} className="data1">
                            <span>Location:</span>
@@ -233,13 +264,18 @@ export default class userInfo extends Component {
                    </div>
 <br/>
 
-                   <div className="aboutUserFlex">
+                   <div className="aboutUserFlex aboutUserFlexBTN">
                        <div className="data1 dataButtons">
                            <span>Interest</span>
                            <span className="userIn">
-                               <button>Reading</button>
-                               <button>Finance</button>
-                               <button>Programming</button>
+                    
+                               <button> {userInfo.length<=0?"Loading...":`${userInfo.interest.map(
+                                   (data)=>{
+                                        return data
+                                      
+                                   }
+                               )} `}</button>
+                            
                            </span>
                        </div>
                        <div style={{marginLeft:"auto"}} className="">
@@ -267,26 +303,32 @@ export default class userInfo extends Component {
                    </div>
 
 
-                   <div className="aboutUserFlex">
+                   <div className="aboutUserFlex aboutUserFlexBTN">
                        <div className="data1 dataButtons">
                            <span>Groups</span>
                            <span className="userIn">
-                               <button>Reading</button>
-                               <button>Finance</button>
-                               <button>Programming</button>
+                           <button> {userInfo.length<=0?"Loading...":`${userInfo.my_groups.map(
+                                   (data)=>{
+                                        return data.name
+                                      
+                                   }
+                               )} `}</button>
                            </span>
                        </div>
                       
                    </div>
 <br/>
 
-                   <div className="aboutUserFlex">
+                   <div className="aboutUserFlex aboutUserFlexBTN">
                        <div className="data1 dataButtons">
                            <span>Topics</span>
                            <span className="userIn">
-                               <button>Reading</button>
-                               <button>Finance</button>
-                               <button>Programming</button>
+                           {userInfo.length<=0?"Loading...":`${userInfo.my_topics <=0?"User do not belongs to topic": userInfo.my_topics.map(
+                                   (data)=>{
+                                        return data.name
+                                      
+                                   }
+                               )} `}
                            </span>
                        </div>
                        

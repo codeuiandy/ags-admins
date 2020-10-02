@@ -75,6 +75,7 @@ font-size: 15px;
         flex-direction: column;
     }
 
+
     .dataButtons span:nth-child(2){
         margin-top: 10px;
         display: flex;
@@ -183,4 +184,9 @@ font-size: 15px;
 
     .tab1{
         width: 60vw;
+    }
+
+    .aboutUserFlexBTN{
+     height: 60px;
+    
     }
