@@ -1,0 +1,370 @@
+.postsOverview{
+    display: grid;
+    grid-template-columns: 40vw 40vw;
+    width: 90vw;
+   height: 300px;
+   margin-top: 15px;
+}
+
+.postChart1{
+    
+    background-color: white;
+   margin-right: 20px;
+   padding-top: 20px;
+   border-radius: 5px;
+   height: 350px;
+   margin-bottom: 130px;
+}
+
+.postChart2{
+    border-radius: 5px;
+    background-color: white;
+    padding-top: 20px;
+    height: fit-content;
+    height: 350px;
+}
+
+.postsRoutes{
+    display: flex;
+    background-color: white;
+    width: fit-content;
+    height: 50px;
+    border-radius: 5px 5px 0 0;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    border-bottom: 2px solid  #90a0b738;
+margin-top: 20px;
+padding-left: 30px;
+}
+/* .postsRoutes div:nth-child(1)
+{
+    color: red;
+    margin-left: 10px;
+
+} */
+.postsRoutes div {
+    color: #334D6E;
+    font-weight: 600;
+    cursor: pointer;
+ 
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-right: 90px;
+    display: block;
+    text-align: center;
+    margin-right: 20px;
+    font-size: 15px;
+    margin-bottom: 11px;
+}
+.postsRoutes .activePost{
+    margin-bottom: 0;
+}
+.postsRoutes .activePost::after{
+    display: block;
+    content: "";
+    background-color: orange;
+    width: 103px;
+    height: 3px;
+    position: relative;
+    top: 2px;
+    margin-top: 10px;
+}
+
+.createPosts{
+    background-color: white;
+    width: 60vw;
+    border-radius: 0 5px 5px 5px;
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 100px;
+    /* padding-top: 30px; */
+    margin-bottom: 50px;
+}
+
+.createAds{
+    padding-bottom: 20px;
+}
+
+.createPostInner{
+    width: 70%;
+    border: 1px solid rgba(196, 196, 196, 0.6);
+    margin-top: 50px;
+    border-radius: 3px;
+    padding-bottom: 10px;
+}
+
+.adverPostInner{
+    border: none;
+}
+
+.postForm{
+    margin-top: 0;
+    border: 0;
+}
+
+.postForm textarea{
+    border-radius: 0;
+    border: 1px solid rgba(196, 196, 196, 0.6);
+    height: 150px;
+   outline: none !important;
+   background: rgba(228, 228, 228, 0.2);
+}
+
+.postForm input{
+    border-radius: 0;
+    border: 1px solid rgba(196, 196, 196, 0.6);
+    height: 70px;
+   outline: none !important;
+   background: rgba(228, 228, 228, 0.2);
+}
+
+.postFormAdvert input{
+    height: 50px;
+}
+
+.postForm textarea::placeholder{
+    padding-left: 10px;
+    padding-top: 50px;
+    color: #999999;
+    font-size: 15px;
+}
+
+.postActions{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.postAction{
+    width: 50px;
+    height: 50px;
+    display: flex;
+    position: relative;
+}
+.postAction input{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 10;
+    opacity: 0;
+    cursor: pointer;
+}
+ 
+.postActions span{
+    position: relative;
+    z-index: 5;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 1px;
+    padding: 20px;
+    background-color: #FFFFFF;
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.12);
+    border-radius: 10px;
+
+}
+
+.postActions span img{
+  position: relative;
+  bottom: 14px;
+  right: 8px;
+}
+
+.postButton button{
+    background: #FDAD00;
+border-radius: 5px;
+border: none;
+width: 110px;
+height: 40px;
+color: white;
+font-weight: 600;
+font-size: 18px;
+}
+
+
+.postUserSelection{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.postUserSelection input{
+    width: 80%;
+    background: #FFFFFF;
+border: 0.5px solid rgba(0, 0, 0, 0.24);
+margin: 10px;
+padding: 7px;
+border-radius: 5px;
+}
+
+.postUserSelection label{
+    font-weight: 600;
+    color: #999999;
+}
+
+.postUserSelection input::placeholder{
+    font-size: 13px;
+    color: #999999;
+}
+.postPollDuration{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.postPollDuration input{
+    width: 70px;
+    margin-right: 40px;
+    margin-top: 10px;
+    border: 0.5px solid rgba(0, 0, 0, 0.24);
+}
+
+.pollbyn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.reportePostTable{
+    background-color: white;
+    padding: 50px;
+    width: 100%;
+    margin-bottom: 30px;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+.allPostsOverview{
+    background-color: white;
+    margin-top: 73px;
+    width: 80vw;
+    margin-bottom: 20px;
+    padding: 40px;
+    border-radius: 5px;
+}
+
+.switchChart{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 0 20px 0 20px;
+}
+
+.switchCharcts span{
+    color: red;
+    display: block;
+    text-align: center;
+    cursor: pointer;
+}
+
+.switchCharcts .activeChart:after{
+    text-align: center;
+    content: "";
+    background: red;
+    display: block;
+    height: 5px;
+    width: 110px;
+    border-radius: 5px;
+}
+
+.switchCharcts .reportedCharts:after{
+    text-align: center;
+    content: "";
+    background: red;
+    display: block;
+    height: 5px;
+    width: 110px;
+    border-radius: 5px;
+}
+
+.switchCharcts {
+    color: red;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 0 20px 0 20px;
+}
+
+
+
+.switchChart span{
+    color: orange;
+    display: block;
+    text-align: center;
+    cursor: pointer;
+}
+
+.switchChart .activeChart:after{
+    text-align: center;
+    content: "";
+    background: orange;
+    display: block;
+    height: 5px;
+    width: 110px;
+    border-radius: 5px;
+}
+
+.switchChart .reportedCharts:after{
+    text-align: center;
+    content: "";
+    background: red;
+    display: block;
+    height: 5px;
+    width: 110px;
+    border-radius: 5px;
+}
+
+
+.postAdvert{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: auto;
+}
+
+.datePickerAdverrt input{
+    border: 1px solid rgba(196, 196, 196, 0.6);
+    outline: none !important;
+    background: rgba(228, 228, 228, 0.2);
+}
+
+.datePickerAdverrt label{
+   color: grey;
+   margin: 0;
+}
+
+.postTofeedLayout{
+    width: 80vw;
+    background-color: white;
+    overflow: hidden;
+    padding: 30px;
+    margin-bottom: 20px;
+    border-radius: 0 5px 5px 0;
+}
+
+
+.postChart1 h1{
+    font-size: 18px;
+    margin-left: 15px;
+    margin-top: 0;
+    padding-top: -7px;
+    margin-top: -8px;
+    margin-left: 18px;
+    color: #334D6E;
+}
+
+.postChart2 h1{
+    font-size: 18px;
+    margin-left: 15px;
+    margin-top: 0;
+    padding-top: -7px;
+    margin-top: -8px;
+    margin-left: 18px;
+    color: #334D6E;
+}

@@ -1,0 +1,405 @@
+#app {
+	width: 100%;
+	height: fit-content;
+	background-color: white;
+	border-radius: 5px;
+	padding: 10px;
+	padding-left: 40px;
+	overflow: hidden;
+	margin: 10px 10px 10px 0;
+	padding-bottom: 30px;
+}
+
+.headerDashBoard h1 {
+	font-style: normal;
+	font-weight: normal;
+	font-size: 18px;
+	line-height: 16px;
+	letter-spacing: 0.01em;
+	color: #6a707e;
+	margin-left: 10px;
+	
+}
+
+.headerDashBoard h1 span {
+	color: orange;
+}
+
+.dashbordOverview {
+	display: flex;
+	width: 100%;
+}
+
+.dashbordOverview .overviewWrap {
+	margin-right: auto;
+}
+
+.dashbordOverview .overviewWrap h1 {
+	margin-bottom: 2px;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 30px;
+	color: #151522;
+}
+
+.dashbordOverview .overviewWrap hr {
+	width: 286px;
+	border: 1px solid #999999;
+}
+
+.dashbordOverview .overviewWrap span {
+	margin-right: 10px;
+	color: #999999;
+}
+
+.staticticsOverView {
+	display: flex;
+	margin-bottom: 10px;
+}
+
+.staticticsOverView div {
+	margin-right: 80px;
+	margin-top: 10px;
+}
+
+.staticticsOverView div h1 {
+	margin-bottom: 0;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 21px;
+	color: #151522;
+}
+
+.staticticsOverView div h1::before {
+	content: "";
+	/* padding: 10px;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-radius: 5px; */
+	background-color: red;
+}
+
+.staticticsOverView div h2 {
+	margin-top: 0;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 17px;
+	color: #151522;
+}
+.apexcharts-toolbar {
+	display: none !important;
+}
+.responsiveChart {
+	width: 95%;
+	height: 300px;
+	padding-bottom: 300px;
+}
+.recents {
+	display: grid;
+	grid-template-areas:
+		"introGrid1 introGrid2"
+		"main  grid2 "
+		"main   grid3";
+	grid-gap: 10px;
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+.introGrid1 {
+	grid-area: introGrid1;
+	font-weight: 600;
+	font-size: 20px;
+	color: #151522;
+}
+
+.introGrid2 {
+	grid-area: introGrid2;
+	font-weight: 600;
+	font-size: 20px;
+	color: #151522;
+}
+.recents .recents1 {
+	background-color: white;
+	width: 60vw;
+	height: 300px;
+	grid-area: main;
+	border-radius: 10px;
+}
+
+.recents .recents2 {
+	background-color: white;
+	width: 230px;
+
+	height: 150px;
+	grid-area: grid2;
+	border-radius: 5px;
+}
+.recents .recents3 {
+	background-color: white;
+	width: 230px;
+	height: 150px;
+	grid-area: grid3;
+	border-radius: 5px;
+}
+.innerUpdates div {
+	margin: 5px;
+	padding: 5px;
+}
+
+.recentMain {
+	display: flex;
+}
+
+
+
+.recentMain span {
+	white-space: nowrap;
+	margin-left: auto;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 13px;
+	line-height: 18px;
+	/* identical to box height */
+
+	letter-spacing: 0.01em;
+
+	/* table_gray */
+
+	color: #707683;
+}
+
+.eventR {
+	display: flex;
+}
+
+.eventR img {
+	width: 50%;
+	height: 140px;
+	margin: 5px;
+}
+.about-event span {
+	font-style: normal;
+	font-weight: bold;
+	font-size: 16px;
+	line-height: 19px;
+	letter-spacing: 0.01em;
+
+	/* table_gray */
+
+	color: #707683;
+}
+
+.about-event div {
+	font-size: 14px;
+	line-height: 19px;
+	letter-spacing: 0.01em;
+
+	/* table_gray */
+
+	color: #707683;
+	margin-top: 6px;
+}
+.eventDate{
+	font-size: 14px;
+	line-height: 19px;
+	letter-spacing: 0.01em;
+
+	/* table_gray */
+
+	color: #707683;
+	margin-top: 6px;
+}
+/* RESPONSIVE DESIGN */
+
+@media(min-width:1166px){
+	.recentMain div {
+		white-space: nowrap;
+		color: #707683;
+		font-size: 17px;
+		
+	}
+}
+
+@media (max-width: 1166px) {
+	.dashbordOverview .overviewWrap hr {
+		width: auto;
+	}
+}
+
+@media (max-width: 638px) {
+	.dashbordOverview {
+		display: none;
+	}
+}
+
+@media(max-width:880px){
+	.responsiveChart {
+		width: 95%;
+		height: 300px;
+		padding-bottom: 130px;
+	}
+}
+
+@media(max-width:500px){
+	.responsiveChart {
+		width: 95%;
+		height: fit-content;
+		padding-bottom: 0px;
+	}
+}
+@media(max-width:1263px){
+	#app {
+		
+		padding-left: 10px;
+		padding: 10px;
+		margin-bottom: 0;
+		padding-bottom: 0;
+	}
+	
+	.introGrid1, .introGrid2{
+		margin-left: 10px;
+	}
+	.innerUpdates div {
+		margin: 5px;
+		padding: 0px;
+	}
+	.recentMain {
+		display: flex;
+		flex-direction: column;
+		width: 90vw;
+	}
+	.recents {
+		display: grid;
+		grid-template-areas:
+			"introGrid1 ."
+			"main  main "
+			"introGrid2 ."
+			"grid2   grid3";
+		grid-gap: 10px;
+		margin-top: 20px;
+		margin-bottom: 10px;
+	}
+
+	.introGrid1 {
+		grid-area: introGrid1;
+	
+		
+	}
+	
+	.introGrid2 {
+		grid-area: introGrid2;
+		margin-top: 15px;
+		
+	}
+	.recents .recents1 {
+	
+		width: 100vw;
+		height: 300px;
+		grid-area: main;
+		
+	}
+	
+	.recents .recents2 {
+		width: fit-content;
+	
+		height: 150px;
+		grid-area: grid2;
+		
+	}
+	.recents .recents3 {
+		
+		width: fit-content;
+		height: 150px;
+		grid-area: grid3;
+		
+	}
+	
+.recentMain div {
+	white-space: wrap !important;
+	width: 90vw;
+}
+
+.recentMain span {
+	white-space: wrap !important;
+	
+}
+}
+
+
+
+
+
+@media(max-width:543px){
+		
+	.recentMain div {
+		white-space: wrap !important;
+		width: 90vw;
+}
+
+.recentMain span {
+	white-space: wrap !important;
+	margin-right: 10px;
+	
+}
+	.recents {
+		display: grid;
+		grid-template-areas:
+			"introGrid1 ."
+			"main  main "
+			"introGrid2 ."
+			"grid2  ."
+			'grid3 .';
+
+		grid-gap: 10px;
+		margin-top: 20px;
+		margin-bottom: 10px;
+	}
+
+	.introGrid1 {
+		grid-area: introGrid1;
+	
+		
+	}
+	
+	.introGrid2 {
+		grid-area: introGrid2;
+		
+		
+	}
+	.recents .recents1 {
+	
+		width: 90vw;
+		height: 100%;
+		grid-area: main;
+		margin: 10px;
+		padding-left: 5px;
+		padding-right: 10px;
+		
+	}
+	
+	.recents .recents2 {
+		width: 95vw;
+	
+		height: 150px;
+		grid-area: grid2;
+	justify-content: center;
+	align-items: center;
+	margin: 10px;
+	}
+	.recents .recents3 {
+		
+		width: 95vw;
+		height: 150px;
+		grid-area: grid3;
+		
+		justify-self: center;
+		align-self: center;
+		margin: auto;
+		
+	}
+	.eventR {
+		display: flex;
+		width: 100vw;
+	}
+}

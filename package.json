@@ -1,0 +1,62 @@
+{
+  "name": "ags-admin",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "apexcharts": "^3.19.3",
+    "axios": "^0.19.2",
+    "bootstrap-sass": "^3.4.1",
+    "chart.js": "^2.9.3",
+    "font-awesome": "^4.7.0",
+    "framer-motion": "^2.3.0",
+    "jquery": "^3.5.1",
+    "lodash": "^4.17.19",
+    "moment": "^2.27.0",
+    "moment-timezone": "^0.5.31",
+    "react": "^16.13.1",
+    "react-animejs": "^0.5.4",
+    "react-apexcharts": "^1.3.7",
+    "react-bs-datatable": "^2.1.1",
+    "react-chartjs-2": "^2.9.0",
+    "react-content-loader": "^5.1.0",
+    "react-custom-scrollbars": "^4.2.1",
+    "react-datepicker": "^3.1.3",
+    "react-dom": "^16.13.1",
+    "react-hold-on": "^1.0.1",
+    "react-moment": "^0.9.7",
+    "react-multiple-image-input": "^1.0.0",
+    "react-native-svg": "^12.1.0",
+    "react-notifications": "^1.6.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1",
+    "react-tilt": "^0.1.4",
+    "react-toastify": "^6.0.8",
+    "react-tooltip": "^4.2.7",
+    "react-transition-group": "^4.4.1",
+    "recoil": "0.0.13"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "CI=false react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

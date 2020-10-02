@@ -1,0 +1,76 @@
+.topics-page{
+    background-color: white;
+    width: 60vw;
+    padding: 20px;
+    border-radius: 5px;
+ padding-top: 30px;
+ margin-top: 15px;
+}
+
+.topics-page h1{
+    font-size: 17px;
+    color: #334D6E;
+    margin-top: 10px;
+}
+.topics-page form label{
+    color: #334D6E;
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+.topics-page form input {
+    width: 70%;
+ 
+}
+
+.topics-page form textarea {
+    width: 70%;
+    height: 100px;
+}
+
+.topics-page form textarea::placeholder{
+    padding-top: 30px;
+}
+
+.topicActions{
+    justify-content: flex-start;
+    margin-left: 0;
+}
+
+.topicActions{
+    margin-left: 0 !important;
+    padding-left: 0;
+    padding: 0 !important;
+    padding-top: 10px !important;
+}
+
+.addTopicBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 75%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.addTopicBtn button{
+    border: none;
+    font-weight: 500;
+    color: white;
+    background: #FDAD00;
+    width: 120px;
+    height: 40px;
+    margin-right: 5px;
+    border-radius: 5px;
+    filter: drop-shadow(1px 2px 1px rgba(255, 255, 255, 0.253));
+    outline: none;
+}
+
+.allTopics{
+    padding: 50px;
+    background-color: white;
+    width:100%;
+    margin-bottom: 40px;
+    border-radius: 5px;
+    margin-top: 15px;
+}

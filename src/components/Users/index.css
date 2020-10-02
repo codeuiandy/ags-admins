@@ -1,0 +1,186 @@
+.fewUserWrap{
+    margin-top: 20px;
+    width: 80vw;
+    height: fit-content;
+    background-color: white;
+    padding: 50px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.listOfusers{
+    margin-top: 60px;
+}
+
+.listOfusers:nth-child(1){
+    color: #151522;
+}
+
+.seeAllGrps{
+    
+color: #109CF1;
+font-weight: 600;
+margin-left: 6px;
+}
+
+.allusersWrap{
+    background-color: white;
+    width: fit-content;
+    padding: 40px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+.userProfile{
+    background-color: white;
+    width: 100%;
+    padding: 20px;
+    border-radius: 0 5px 5px 5px;
+    margin-bottom: 20px;
+}
+
+.aboutUserFlex{
+    display: flex;
+    
+    margin-bottom: 15px;
+}
+
+.aboutUserFlex div:nth-child(1){
+   width: 290px;
+       
+       }
+
+.aboutUserFlex div:nth-child(2){
+ margin-left: auto;
+    
+    }
+
+.aboutUserFlex .data1 span:nth-child(1){
+color: #334D6E;
+margin-right: 7px;
+font-weight: 500;
+font-size: 15px;
+
+}
+
+.aboutUserFlex .data1 span:nth-child(2){
+    color: #334D6E;
+    font-size: 14px;
+   
+    }
+
+    .dataButtons{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .dataButtons span:nth-child(2){
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        width: 300px;
+    }
+
+    .dataButtons span:nth-child(2) button{
+        margin-right: 8px;
+        background-color: transparent;
+        border: 1px solid #FDAD00;
+        padding: 5px 10px 5px 10px;
+    }
+
+    .circleUserNetwork1{
+        background-image: url(./facebookCircle.png);
+        background-repeat: no-repeat;
+      width:50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 10px;
+      margin-top: 20px;
+    }
+
+    .circleUserNetwork2{
+        background-image: url(./facebookCircle.png);
+        background-repeat: no-repeat;
+      width:50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+        margin: 5px;
+        margin-top: 20px;
+    }
+
+
+    .circleUserNetwork3{
+        background-image: url(./twitter.png);
+        background-repeat: no-repeat;
+      width:50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+        margin: 5px;
+        margin-top: 20px;
+    }
+
+
+    .circleUserNetwork4{
+        background-image: url(./gmailCircle.png);
+        background-repeat: no-repeat;
+      width:50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+        margin: 5px;
+        margin-top: 20px;
+        
+    }
+
+    .circleUserFacebook i{
+        color: white;
+        font-size: 20px;
+    }
+
+    .usernetwork{
+        color: white;
+        cursor: pointer;
+    }
+
+    .userProfileRoute{
+        width: fit-content;
+       height: 35px;
+       padding-bottom: -2px;
+    }
+
+    .userinfoName{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 5px;
+    }
+
+    .main-username347 h1:first-child{
+        font-size: 18px;
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+
+    .main-username347 h2:last-child{
+        font-size: 13px;
+        color: #334D6E;
+        margin-top: 5px;
+        margin-bottom: 20px;
+    }
+
+    .userQuickactions i{
+        color: #334D6E;
+        margin: 10px;
+        cursor: pointer;
+    }
+
+    .tab1{
+        width: 60vw;
+    }

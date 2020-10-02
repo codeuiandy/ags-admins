@@ -1,0 +1,10 @@
+.AppButton {
+	border: none;
+
+	border-radius: 10px;
+	outline: none;
+	cursor: pointer;
+}
+.AppButton:hover {
+	filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.295));
+}
