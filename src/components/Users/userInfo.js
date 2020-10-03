@@ -21,7 +21,8 @@ export default class userInfo extends Component {
             userInfo:[],
             Userinterest:[],
             UserGroups:[],
-            UserTopics:[]
+            UserTopics:[],
+            UserEducation:[],
         }
 
        
@@ -69,7 +70,8 @@ export default class userInfo extends Component {
             userInfo:res.data,
             Userinterest:res.data.interest,
             UserGroups:res.data.my_groups,
-            UserTopics:res.data.my_topics
+            UserTopics:res.data.my_topics,
+            UserEducation:res.data.education
         })
         hideLoader()
         }
@@ -175,11 +177,11 @@ export default class userInfo extends Component {
                    <div className="aboutUserFlex">
                        <div className="data1">
                            <span>Job Title:</span>
-                           <span className="userIn">{userInfo.length<=0?"Loading...":`${userInfo.job <=0 ?"No job title added":userInfo.job.map((data)=>data) } `}</span>
+                           <span className="userIn">{userInfo.length<=0?"Loading...":`${userInfo.job_title} `}</span>
                        </div>
                        <div className="data1">
                            <span>Profession:</span>
-                           <span>{userInfo.length<=0?"Loading...":`${userInfo.job_title} `}</span>
+                           <span>{userInfo.length<=0?"Loading...":`${userInfo.profession} `}</span>
                        </div>
                    </div>
 
@@ -192,7 +194,7 @@ export default class userInfo extends Component {
                        </div>
                        <div className="data1">
                            <span>Location:</span>
-                           <span>Va canada</span>
+                           <span>{userInfo.length<=0?"Loading...":`${userInfo.location} `} </span>
                        </div>
                    </div>
 
@@ -214,20 +216,16 @@ export default class userInfo extends Component {
                    <div className="aboutUserFlex">
                        <div className="data1">
                            <span>Institution:</span>
-                           {userInfo.length<=0?"Loading...":`${userInfo.interest.map(
-                                   (data)=>{
-                                   return  <p>{data}</p>
-                                      
-                                   }
-                               )} `}
+                           {
+                        this.state.UserEducation.length >0 ?this.state.UserEducation.map((data)=>{
+                            return  <p>{ data}</p>
+                        }):"No details was added"
+                    }
                            <span className="userIn">
                                
                            </span>
                        </div>
-                       <div style={{marginLeft:"auto"}} className="data1">
-                           <span>Location:</span>
-                           <span>New York, USA</span>
-                       </div>
+
                    </div>
 <br/>
 
@@ -236,9 +234,9 @@ export default class userInfo extends Component {
                            <span>Interest</span>
                            <span className="userIn">
                     {
-                        this.state.Userinterest.map((data)=>{
-                            return  <button>{data === undefined ? "User don't belong to any intreast" : data}</button>
-                        })
+                        this.state.Userinterest.length>0 ? this.state.Userinterest.map((data)=>{
+                            return  <button>{data}</button>
+                        }):"User don't belong to any intreast"
                     }
                          
                             
@@ -274,9 +272,9 @@ export default class userInfo extends Component {
                            <span>Groups</span>
                            <span className="userIn">
                            {
-                        this.state.UserGroups.map((data)=>{
-                            return  <button>{data.name === undefined ? "User don't belong to any group" : data.name}</button>
-                        })
+                        this.state.UserGroups.length>0? this.state.UserGroups.map((data)=>{
+                            return  <button>{data.name === undefined?"User don't belong to any group":data.name}</button>
+                        }):"User don't belong to any group"
                     }
                            </span>
                        </div>
@@ -289,9 +287,9 @@ export default class userInfo extends Component {
                            <span>Topics</span>
                            <span className="userIn">
                            {
-                        this.state.UserTopics.map((data)=>{
-                         return  <button>{data.name === undefined ? "User don't belong to any topic" : data.name}</button>
-                        })
+                        this.state.UserTopics.length>0? this.state.UserTopics.map((data)=>{
+                            return  <button>{data.name === undefined?"User don't belong to any topic":data.name}</button>
+                        }):"User don't belong to any group"
                     }
                            </span>
                        </div>
