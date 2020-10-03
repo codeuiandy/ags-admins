@@ -14,52 +14,14 @@ export default class userInfo extends Component {
     constructor(props){
         super(props)
         this.state={
-            userPosts:[{
-                name:"Get rich and die rich",
-                email:"lorem is fg aishu iysxyus  joe dem",
-                joined:"12/10/2020",
-                registrationDate:"12/12/2020",
-                recentActivity:"12/2/2020"
-            },
-            {
-                name:"Get rich and die rich",
-                email:"lorem is fg aishu iysxyus  joe dem",
-                joined:"12/10/2020",
-                registrationDate:"12/12/2020",
-                recentActivity:"12/2/2020"
-            },
-
-            {
-                name:"Man daev joekendo",
-                email:"lorem is fg aishu iysxyus  joe dem",
-                joined:"12/10/2020",
-                registrationDate:"12/12/2020",
-                recentActivity:"12/2/2020"
-            }
-
-            ,{
-                name:"kohn Get rich and die rich",
-                email:"lorem is fg aishu iysxyus  joe dem",
-                joined:"12/10/2020",
-                registrationDate:"12/12/2020",
-                recentActivity:"12/2/2020"
-            },{
-                name:"Get rich and die rich",
-                email:"lorem is fg aishu iysxyus  joe dem",
-                joined:"12/10/2020",
-                registrationDate:"12/12/2020",
-                recentActivity:"12/2/2020"
-            },{
-                name:"Get rich and die rich",
-                email:"lorem is fg aishu iysxyus  joe dem",
-                joined:"12/10/2020",
-                registrationDate:"12/12/2020",
-                recentActivity:"12/2/2020"
-            }
+            userPosts:[
         ],
             postController:"profile",
             startDate:new Date(),
-            userInfo:[]
+            userInfo:[],
+            Userinterest:[],
+            UserGroups:[],
+            UserTopics:[]
         }
 
        
@@ -103,7 +65,12 @@ export default class userInfo extends Component {
         const Uid = this.props.match.params.id
         showLoader()
         const res = await httpGet(`users/${Uid}/`)
-        this.setState({userInfo:res.data})
+        this.setState({
+            userInfo:res.data,
+            Userinterest:res.data.interest,
+            UserGroups:res.data.my_groups,
+            UserTopics:res.data.my_topics
+        })
         hideLoader()
         }
     
@@ -268,13 +235,12 @@ export default class userInfo extends Component {
                        <div className="data1 dataButtons">
                            <span>Interest</span>
                            <span className="userIn">
-                    
-                               <button> {userInfo.length<=0?"Loading...":`${userInfo.interest.map(
-                                   (data)=>{
-                                        return data
-                                      
-                                   }
-                               )} `}</button>
+                    {
+                        this.state.Userinterest.map((data)=>{
+                            return  <button>{data === undefined ? "User don't belong to any intreast" : data}</button>
+                        })
+                    }
+                         
                             
                            </span>
                        </div>
@@ -307,28 +273,26 @@ export default class userInfo extends Component {
                        <div className="data1 dataButtons">
                            <span>Groups</span>
                            <span className="userIn">
-                           <button> {userInfo.length<=0?"Loading...":`${userInfo.my_groups.map(
-                                   (data)=>{
-                                        return data.name
-                                      
-                                   }
-                               )} `}</button>
+                           {
+                        this.state.UserGroups.map((data)=>{
+                            return  <button>{data.name === undefined ? "User don't belong to any group" : data.name}</button>
+                        })
+                    }
                            </span>
                        </div>
                       
                    </div>
 <br/>
 
-                   <div className="aboutUserFlex aboutUserFlexBTN">
+                   <div style={{marginTop:"-23px"}} className="aboutUserFlex aboutUserFlexBTN">
                        <div className="data1 dataButtons">
                            <span>Topics</span>
                            <span className="userIn">
-                           {userInfo.length<=0?"Loading...":`${userInfo.my_topics <=0?"User do not belongs to topic": userInfo.my_topics.map(
-                                   (data)=>{
-                                        return data.name
-                                      
-                                   }
-                               )} `}
+                           {
+                        this.state.UserTopics.map((data)=>{
+                         return  <button>{data.name === undefined ? "User don't belong to any topic" : data.name}</button>
+                        })
+                    }
                            </span>
                        </div>
                        
