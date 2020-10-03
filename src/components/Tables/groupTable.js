@@ -15,7 +15,7 @@ let [getDeletDetails, setDeletDetails] = useRecoilState(delet_edit_Handle)
 const	bodyRow = () => {
 		
 		const body = props.getGroup === null ? [] : props.getGroup.map((data, index) => (console.log("data...",data),{
-			title:data.name,
+		title:<Link to={`view_group/${data.id}`}>{data.name}</Link>,
 			Members:data.members_count,
 			closed:data.closed === true ?"Closed Group": "Open Group",
 			description:data.description === null || data.description === undefined || data.description == "" ? "No description added": data.description,
