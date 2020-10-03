@@ -150,7 +150,18 @@ font-size: 15px;
         color: white;
         cursor: pointer;
     }
+.disableLink{
+    cursor: not-allowed;
+    opacity: 0.5;
+    text-decoration: none;
+    position: relative;
+    z-index: 10;
+}
 
+.socialLinks-user-details a{
+    position: relative;
+    z-index: 5;
+}
     .userProfileRoute{
         width: fit-content;
        height: 35px;

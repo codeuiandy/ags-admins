@@ -5,7 +5,8 @@ import Chart from "react-apexcharts";
 class viewGrpStatictics extends Component {
   constructor(props) {
     super(props);
-
+    console.log(this.props)
+    let{today_post_count, today_likes_count, today_comment_count} = this.props.getGroupDetailsData
     this.state = {
       options: {
         chart: {
@@ -18,7 +19,7 @@ class viewGrpStatictics extends Component {
       series: [
         {
           name: "series",
-          data: [30, 40, 95]
+          data: [30, 40, 0]
         },
     
     
@@ -31,21 +32,23 @@ class viewGrpStatictics extends Component {
   }
 
   render() {
+    console.log(this.props.getGroupDetailsData)
+    let{today_post_count, today_likes_count, today_comment_count} = this.props.getGroupDetailsData
     return (
       <div className="app">
         <div className="row">
         <div className="col col-md-6 col-sm-12">
           <div className="mixed-chart">
           <div className="grpoDetails">
-              <span>Today Posts </span> <span>30</span>
+    <span>Today Posts </span> <span>{today_post_count}</span>
+          </div>
+  
+          <div className="grpoDetails">
+    <span>Today Likes</span> <span>{ today_likes_count}</span>
           </div>
 
           <div className="grpoDetails">
-              <span>Today Likes</span> <span>40</span>
-          </div>
-
-          <div className="grpoDetails">
-              <span>Today Comments </span> <span>95</span>
+    <span>Today Comments </span> <span>{today_comment_count}</span>
           </div>
           </div>  
 

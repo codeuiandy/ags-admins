@@ -8,17 +8,17 @@ import ViewGrpStatictics from './viewGrpStatictics'
  import ClosedGrpRequests from '../Tables/closedGrpRequests'
 export  const ViewGroup =(props)=> {
    const Uid = props.match.params.id
-    const [getTopTenGrpsData, SetgetTopTenGrpsData] = useState([])
+    const [getGroupDetailsData, SetgetGroupDetailsData] = useState([])
 
-    const getTopTenGrps = async()=>{
+    const getGroupDetails = async()=>{
         showLoader()
         const res = await httpGet(`groups/${Uid}/`)
-        SetgetTopTenGrpsData(res.data)
+        SetgetGroupDetailsData(res.data)
         hideLoader()
         }
     
         useEffect(() => {
-            getTopTenGrps()
+            getGroupDetails()
           }, []); 
 
         return (
@@ -26,12 +26,12 @@ export  const ViewGroup =(props)=> {
                 props.history
             } activepage="keepOpenGroup" page="groups-overview" >
 
-                <div className="viewgroupTitle"> <h1>{getTopTenGrpsData.name}</h1></div>
+                <div className="viewgroupTitle"> <h1>{getGroupDetailsData.name}</h1></div>
                
                 <div className="grp-overview">
     <div className="grp-overview1">
     <h1>  Total Posts</h1>
-    <p>{getTopTenGrpsData.number_of_post}</p>
+    <p>{getGroupDetailsData.number_of_post}</p>
     </div>
 
     <div className="grp-overview1">
@@ -39,7 +39,7 @@ export  const ViewGroup =(props)=> {
 
  Total Comments</h1>
    
-<p>{getTopTenGrpsData.total_comment}</p>
+<p>{getGroupDetailsData.total_comment}</p>
 
 
         </div>
@@ -47,7 +47,7 @@ export  const ViewGroup =(props)=> {
         <div className="grp-overview1">
        
         <h1>Total Likes</h1>
-<p>{getTopTenGrpsData.total_likes}</p>
+<p>{getGroupDetailsData.total_likes}</p>
         </div>
 
 
@@ -61,13 +61,13 @@ export  const ViewGroup =(props)=> {
         <div className="grp-overview1">
        
 
-       <h1 onClick={()=>props.history.push(`/group_members/${getTopTenGrpsData.id}`)}> Members</h1>
-<p onClick={()=>props.history.push(`/group_members/${getTopTenGrpsData.id}`)}>{getTopTenGrpsData.members_count}</p>
+       <h1 onClick={()=>props.history.push(`/group_members/${getGroupDetailsData.id}`)}> Members</h1>
+<p onClick={()=>props.history.push(`/group_members/${getGroupDetailsData.id}`)}>{getGroupDetailsData.members_count}</p>
        </div>
 </div>
                
 <div className="grp-overview-table">
-<ViewGrpStatictics/>
+<ViewGrpStatictics getGroupDetailsData={getGroupDetailsData}/>
 </div>
 <div className="viewgroupTitle" style={{marginBottom:"20px",marginTop:"-20px",marginLeft:"3px"}}> <h1>Group Join Request</h1></div>
       <div className="closedGRpRequests">

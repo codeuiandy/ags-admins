@@ -128,8 +128,10 @@ export default class userInfo extends Component {
                 Switch === "profile" ? (
                     <div>
                      <div className="userProfile tab1">
+                     <img style={{width:"80px",height:"80px",borderRadius:"40px"}} src={userInfo.photo}/>
                      <div className="userinfoName">
                 <div className="main-username347">
+                    
                     <h1>
                       {userInfo.length<=0?"Loading...":`${userInfo.first_name} ${userInfo.last_name}`}
                     </h1>
@@ -242,22 +244,26 @@ export default class userInfo extends Component {
                             
                            </span>
                        </div>
-                       <div style={{marginLeft:"auto"}} className="">
+                       <div style={{marginLeft:"auto"}} className="socialLinks-user-details">
                            <p style={{display:"flex"}}>
-                               <p className="circleUserNetwork1">
-                               <i class="fab fa-facebook-f usernetwork"></i>
+                           
+                           <p className={`circleUserNetwork1 ${userInfo.facebook_id === null ? "disableLink":""} `}>
+                               <a target="blank" href={`${userInfo.facebook_id === null ? "" :userInfo.facebook_id }`} class={`fab fa-facebook-f usernetwork ${userInfo.facebook_id === null ? "disableLink":""} `}></a>
                                </p>
 
-                               <p className="circleUserNetwork2">
-                               <i class="fab fa-linkedin-in usernetwork"></i>
+                               <p className={`circleUserNetwork2 ${userInfo.linkedin_id === null ? "disableLink":""} `}>
+                               <a target="blank"  href={`${userInfo.linkedin_id === null ? "" :userInfo.linkedin_id }`} class={`fab fa-linkedin-in usernetwork
+                                 ${userInfo.linkedin_id === null ? "disableLink":""}`}></a>
                                </p>
 
                                <p className="circleUserNetwork4">
-                               <i class="far fa-envelope usernetwork"></i>
+                               <a target="blank" href={`mailto:${userInfo.email}`} class="far fa-envelope usernetwork"></a>
                                </p>
 
-                               <p className="circleUserNetwork3">
-                               <i class="fab fa-twitter usernetwork"></i>
+                              
+
+                               <p className={`circleUserNetwork3 ${userInfo.twitter_id === null ? "disableLink":""} `}>
+                               <a  href={`${userInfo.twitter_id === null ? "" :userInfo.twitter_id }`} class={`fab fa-twitter usernetwork ${userInfo.twitter_id === null ? "disableLink":""} `}></a>
                                </p>
 
                               
