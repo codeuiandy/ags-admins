@@ -15,7 +15,7 @@ let [getDeletDetails, setDeletDetails] = useRecoilState(delet_edit_Handle)
 const	bodyRow = () => {
 		
 		const body = props.getTopic === null ? [] : props.getTopic.map((data, index) => (console.log("data...",data),{
-			title:data.title,
+			title:<Link to={`/view_topic/${data.id}`}>{data.title}</Link>,
 			followers:data.followers.length,
 			description:data.description === null || data.description === undefined || data.description == "" ? "No description added": data.description,
 			action: (

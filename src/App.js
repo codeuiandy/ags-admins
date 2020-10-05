@@ -28,6 +28,8 @@ import EventOverview from "./components/Events/eventOverview";
 import AllFeeds from "./components/Posts/allFeeds";
 import 'react-notifications/lib/notifications.css';
 import {Login} from './components/Login/login'
+import {ViewTopic} from './components/Topics/viewTopicDetails'
+import {TopicFollowers} from './components/Topics/topicFollowers'
 import {NotificationManager,NotificationContainer} from 'react-notifications'
 function App() {
 	return (
@@ -58,9 +60,12 @@ function App() {
 						<Route exact path="/all_reported_users" component={AllReportedUsers} />
 						<Route exact path="/user_info/:id" component={UserInfo} />
 						<Route exact path="/view_group/:id" component={ViewGroup} />
+						<Route exact path="/view_topic/:id" component={ViewTopic} />
 						<Route exact path="/group_members/:id" component={GrpMembersView} />
 						<Route exact path="/event_overview" component={EventOverview} />
 						<Route exact path="/all_feeds" component={AllFeeds} />
+						<Route exact path="/topic_followers/:id" component={TopicFollowers} />
+						
 				</Switch>
 			</Router>
 		</div>

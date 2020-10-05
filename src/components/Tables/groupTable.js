@@ -70,7 +70,13 @@ const	header = () => {
 		},
 			
 
-		{ title: "Open/Close", prop: "closed" ,
+
+
+	{
+		title: "Open/Close (filterable)",
+		prop: "closed",
+		sortable: true,
+		filterable: true,
 	},
 			
 			{ title: "Action", prop: "action" ,

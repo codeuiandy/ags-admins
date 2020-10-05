@@ -3,6 +3,7 @@ import ReactTooltip from "react-tooltip";
 import Table from "./customTable";
 import { Link } from "react-router-dom";
 import _ from 'lodash';
+import avatar from '../Users/avatar.png'
 
 export default class allUsers extends Component {
 	constructor(props) {
@@ -12,8 +13,8 @@ export default class allUsers extends Component {
 
 	bodyRow = () => {
 		const body = this.props.allUsers.map((data, index) => ({
-			avatar:<img className="userProfilePic" src={data.avatar} />,
-			name: _.startCase(_.lowerCase(data.name)),
+			avatar:<img className="userProfilePic" src={data.photo === null ? avatar:data.photo} />,
+			name: <Link to={`users/${data.id}`}>{data.first_name}  {data.last_name}</Link>,
 			email:  _.startCase(_.lowerCase(`${data.email}`)),
 
 			subscriptionStatus: _.startCase(_.lowerCase(`${data.subscriptionStatus}`)),
@@ -25,7 +26,7 @@ export default class allUsers extends Component {
 
 <Link to={`edit-payroll/${data.id}`}>
 						{" "}
-						<Link to='user_info'>
+						<Link to={`user_info/${data.id}`}>
 						<span
 						style={{fontSize:"14px"}}
 							className="edit"
@@ -43,12 +44,7 @@ export default class allUsers extends Component {
 						className="fas fa-ban mr-4 add-cursor"
 					></span>
 
-					<span
-					style={{fontSize:"14px"}}
-						className="del"
-						onClick={() => this.props.deletePayroll(data.id)}
-						className="fa fa-trash mr-4 add-cursor"
-					></span>
+				
 
 
 

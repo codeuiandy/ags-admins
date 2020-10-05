@@ -2,18 +2,17 @@ import React, { useEffect,useState } from 'react'
 import {httpGet} from '../helpers/httpMethods'
 import { showLoader,hideLoader } from '../helpers/loader'
 import Layout from '../Layout/index'
-import './index.css'
+// import './index.css'
 import {Link} from 'react-router-dom'
-import ViewGrpStatictics from './viewGrpStatictics'
- import ClosedGrpRequests from '../Tables/closedGrpRequests'
- import moment from 'moment'
-export  const ViewGroup =(props)=> {
+import TopicStatictics from './topicStatictics'
+import moment from 'moment'
+export  const ViewTopic =(props)=> {
    const Uid = props.match.params.id
     const [getGroupDetailsData, SetgetGroupDetailsData] = useState([])
 
     const getGroupDetails = async()=>{
         showLoader()
-        const res = await httpGet(`groups/${Uid}/`)
+        const res = await httpGet(`topics/${Uid}/`)
         SetgetGroupDetailsData(res.data)
         hideLoader()
         }
@@ -23,9 +22,9 @@ export  const ViewGroup =(props)=> {
           }, []); 
 
         return (
-            <Layout RouteUserLayout={
-                props.history
-            } activepage="keepOpenGroup" page="groups-overview" >
+          <Layout RouteUserLayout={
+            props.history
+        } activepage="keepOpenTopics" page="groups-overview" >
 
                 <div className="viewgroupTitle"> <h1>{getGroupDetailsData.name}</h1></div>
                
@@ -62,19 +61,19 @@ export  const ViewGroup =(props)=> {
         <div className="grp-overview1">
        
 
-       <h1 onClick={()=>props.history.push(`/group_members/${getGroupDetailsData.id}`)}> Members</h1>
-<p onClick={()=>props.history.push(`/group_members/${getGroupDetailsData.id}`)}>{getGroupDetailsData.members_count}</p>
+       <h1 onClick={()=>props.history.push(`/topic_followers/${getGroupDetailsData.id}`)}> Members</h1>
+<p onClick={()=>props.history.push(`/topic_followers/${getGroupDetailsData.id}`)}>{getGroupDetailsData.number_of_followers}</p>
        </div>
 </div>
                
 <div className="grp-overview-table">
-<ViewGrpStatictics getGroupDetailsData={getGroupDetailsData}/>
+<TopicStatictics getGroupDetailsData={getGroupDetailsData}/>
 </div>
-<div className="viewgroupTitle" style={{marginBottom:"20px",marginTop:"-20px",marginLeft:"3px"}}> <h1>Group Join Request</h1></div>
+{/* <div className="viewgroupTitle" style={{marginBottom:"20px",marginTop:"-20px",marginLeft:"3px"}}> <h1>Group Join Request</h1></div>
       <div className="closedGRpRequests">
           
           <ClosedGrpRequests/>
-          </div>
+          </div> */}
             </Layout>
         )
     }

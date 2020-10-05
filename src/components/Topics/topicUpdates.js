@@ -77,7 +77,7 @@ const getTopTenGrps = async()=>{
                             topTenTopics.slice(0,10).map((data, i) => {
                             return(
                                 
-                            <li><Link to={`/view_group/${data.id}`}>{data.title}</Link></li>
+                            <li><Link to={`/view_topic/${data.id}`}>{data.title}</Link></li>
                                
                             )
                             })
