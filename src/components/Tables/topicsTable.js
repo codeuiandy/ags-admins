@@ -21,7 +21,7 @@ const	bodyRow = () => {
 			action: (
 				<span>
 
-<Link to="/create_topic_edit_topic" >
+<Link to={`/edit_topic/${data.id}`} >
 						{" "}
 						<span
 						

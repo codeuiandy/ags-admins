@@ -30,6 +30,8 @@ import 'react-notifications/lib/notifications.css';
 import {Login} from './components/Login/login'
 import {ViewTopic} from './components/Topics/viewTopicDetails'
 import {TopicFollowers} from './components/Topics/topicFollowers'
+import {EditGroup} from './components/Groups/editGroup'
+import {EditTopic} from './components/Topics/EditTopic'
 import {NotificationManager,NotificationContainer} from 'react-notifications'
 function App() {
 	return (
@@ -65,7 +67,8 @@ function App() {
 						<Route exact path="/event_overview" component={EventOverview} />
 						<Route exact path="/all_feeds" component={AllFeeds} />
 						<Route exact path="/topic_followers/:id" component={TopicFollowers} />
-						
+						<Route exact path="/edit_group/:id" component={EditGroup} />
+						<Route exact path="/edit_topic/:id" component={EditTopic} />
 				</Switch>
 			</Router>
 		</div>

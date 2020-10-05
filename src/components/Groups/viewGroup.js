@@ -1,12 +1,14 @@
 import React, { useEffect,useState } from 'react'
-import {httpGet} from '../helpers/httpMethods'
+import {httpGet,httpDelete} from '../helpers/httpMethods'
 import { showLoader,hideLoader } from '../helpers/loader'
+import { NotificationManager } from "react-notifications";
 import Layout from '../Layout/index'
 import './index.css'
 import {Link} from 'react-router-dom'
 import ViewGrpStatictics from './viewGrpStatictics'
  import ClosedGrpRequests from '../Tables/closedGrpRequests'
  import moment from 'moment'
+ import {DeleteGroup} from '../Modals/DeleteGroup'
 export  const ViewGroup =(props)=> {
    const Uid = props.match.params.id
     const [getGroupDetailsData, SetgetGroupDetailsData] = useState([])
@@ -22,7 +24,29 @@ export  const ViewGroup =(props)=> {
             getGroupDetails()
           }, []); 
 
+        const  DeleteGroupd =async()=>{
+            
+  try {
+    const res = await httpDelete(`groups/${props.match.params.id}/`)
+    console.log(res)
+    if (res.status === 204) {
+      hideLoader()
+      console.log(res)
+      NotificationManager.success(
+				"Delected Successfully",
+				"Yepp!",
+				3000
+			);
+   props.history.goBack()
+    }
+  } catch (error) {
+    
+  }
+          
+          }
+
         return (
+            <div>
             <Layout RouteUserLayout={
                 props.history
             } activepage="keepOpenGroup" page="groups-overview" >
@@ -75,6 +99,9 @@ export  const ViewGroup =(props)=> {
           
           <ClosedGrpRequests/>
           </div>
+          
             </Layout>
+            <DeleteGroup DeleteGroupd={DeleteGroupd}/>
+            </div>
         )
     }

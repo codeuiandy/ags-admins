@@ -1,11 +1,13 @@
 import React, { useEffect,useState } from 'react'
-import {httpGet} from '../helpers/httpMethods'
+import {httpGet,httpDelete} from '../helpers/httpMethods'
 import { showLoader,hideLoader } from '../helpers/loader'
+import { NotificationManager } from "react-notifications";
 import Layout from '../Layout/index'
 // import './index.css'
 import {Link} from 'react-router-dom'
 import TopicStatictics from './topicStatictics'
 import moment from 'moment'
+import {DeleteTopicModal} from '../Modals/DeleteTopicModal'
 export  const ViewTopic =(props)=> {
    const Uid = props.match.params.id
     const [getGroupDetailsData, SetgetGroupDetailsData] = useState([])
@@ -21,7 +23,30 @@ export  const ViewTopic =(props)=> {
             getGroupDetails()
           }, []); 
 
+
+          const  DeleteTopicx =async()=>{
+            
+            try {
+              const res = await httpDelete(`topics/${props.match.params.id}/`)
+              console.log(res)
+              if (res.status === 204) {
+                hideLoader()
+                console.log(res)
+                NotificationManager.success(
+                  "Delected Successfully",
+                  "Yepp!",
+                  3000
+                );
+             props.history.goBack()
+              }
+            } catch (error) {
+              
+            }
+                    
+                    }
+
         return (
+          <div>
           <Layout RouteUserLayout={
             props.history
         } activepage="keepOpenTopics" page="groups-overview" >
@@ -75,5 +100,7 @@ export  const ViewTopic =(props)=> {
           <ClosedGrpRequests/>
           </div> */}
             </Layout>
+            <DeleteTopicModal DeleteTopicx={DeleteTopicx}/>
+            </div>
         )
     }

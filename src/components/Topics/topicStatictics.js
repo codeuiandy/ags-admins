@@ -1,7 +1,7 @@
 
 import React, { Component } from "react";
 import Chart from "react-apexcharts";
-
+import {Link} from 'react-router-dom'
 class viewGrpStatictics extends Component {
   constructor(props) {
     super(props);
@@ -33,7 +33,7 @@ class viewGrpStatictics extends Component {
 
   render() {
     console.log(this.props.getGroupDetailsData)
-    let{today_post_count, today_likes_count, today_comment_count} = this.props.getGroupDetailsData
+    let{today_post_count, today_likes_count, today_comment_count,id} = this.props.getGroupDetailsData
     return (
       <div className="app">
         <div className="row">
@@ -53,8 +53,8 @@ class viewGrpStatictics extends Component {
           </div>  
 
           <div className="grpActionView">
-              <button>Edit Group</button>
-              <button>Delete Group</button>
+             <Link to={`/edit_topic/${id}`}><button>Edit Topic</button></Link> 
+              <button  type="button"  data-toggle="modal" data-target="#deleteTopicModal" >Delete Topic</button>
           </div>
 
         </div>

@@ -1,13 +1,12 @@
 import React, { useState,useEffect } from 'react'
-import {useRecoilState} from 'recoil'
-import {delet_edit_Handle} from '../../GlobalState/localState'
+
 import Layout from '../Layout/index'
 import Grpicon from './Group.png'
-import {httpPostFormData,httpPut,httpPatch} from '../helpers/httpMethods'
+import {httpPostFormData,httpGet,httpPatch} from '../helpers/httpMethods'
 import {hideLoader, showLoader} from '../helpers/loader'
 import {NotificationManager} from 'react-notifications'
 import axios from 'axios'
-export const CreateGroup=(props)=>  {
+export const EditGroup=(props)=>  {
     let [Group , setGroup] = useState({
     
         name: "",
@@ -19,44 +18,42 @@ export const CreateGroup=(props)=>  {
     
 })
 
-console.log(Group.previewImg)
-
-    let [getEditDetails, setEditDetails] = useRecoilState(delet_edit_Handle)
-    console.log("edit details",getEditDetails)
-
-
-   
-
       
 useEffect(() => {
-    // console.log("edit details useEffect",getEditDetails)
     getEditGroup()
-    
-}, [getEditDetails,console.log(Group)])
-
-const getEditGroup=()=>{
  
-    if (getEditDetails.usedbyGroupsPage===true) {
-        // console.log(">>>edit info",getEditDetails.edit_data.id)
-        console.log("edit details",getEditDetails)
-        setGroup({
-            ...Group,
-          name:getEditDetails.edit_data.name,
-          description:getEditDetails.edit_data.description,
-          editPreview: getEditDetails.edit_data.thumbnail,
-          openOrClose: getEditDetails.edit_data.closed,
-      })
-       }
-}
+}, [])
 
+const getEditGroup=async()=>{
+  showLoader()
+try {
+  const res = await httpGet(`groups/${props.match.params.id}`)
+    console.log("edit details",res)
+    setGroup({
+      ...Group,
+      name:res.data.name,
+      description:res.data.description,
+      editPreview: res.data.thumbnail,
+      openOrClose: res.data.closed,
+  })
+  hideLoader()
+   
 
+} catch (error) {
+  
+}}
+ 
 
-  const CreateTGroup=async()=>{
+    
+  
 
+const CreateTGroup=async()=>{
+  console.log("thumnail",Group.thumbnail)
+  let currenThumbnailtFile = Group.thumbnail[0]
 
-    if (getEditDetails.usedbyGroupsPage===true) {
+   
         showLoader()
-        const currenThumbnailtFile = Group.thumbnail[0]
+       
         try {
             const formData = new FormData();
             formData.append('name', Group.name);
@@ -64,7 +61,7 @@ const getEditGroup=()=>{
             const img = Group.thumbnail === ""?"" :formData.append('thumbnail', currenThumbnailtFile)
             formData.append('close', Group.openOrClose === "true"?true:true); 
             formData.append('hidden', false); 
-              let res = await httpPatch(`groups/${getEditDetails.edit_id}/`,formData)
+              let res = await httpPatch(`groups/${props.match.params.id}/`,formData)
              console.log("res status",res) 
              if (res.status === 200) {
                      hideLoader()
@@ -75,9 +72,7 @@ const getEditGroup=()=>{
                     name: "",
                     description: "",
                     thumbnail: "",
-                    // openOrClose:"false",
-                    // previewImg:null,
-                    // editPreview:""
+          
                   }
               )
 
@@ -101,49 +96,7 @@ const getEditGroup=()=>{
         }
 
 
-    }
-
-    else{
-    showLoader()
-const currenThumbnailtFile = Group.thumbnail[0]
-
-try {
-    const formData = new FormData();
-    formData.append('name', Group.name);
-    formData.append('description', Group.description);
-    formData.append('close', Group.openOrClose); 
-    formData.append('hidden', false); 
-formData.append('thumbnail', currenThumbnailtFile);
-
-
-      console.log(formData)
-      let res = await httpPostFormData("groups/",formData)
-     console.log("res status",res.status) 
-     if (res.status === 201) {
-             hideLoader()
-      console.log(res)
-      setGroup({
-    
-        name: "",
-        description: "",
-        thumbnail: "",
-        openOrClose:false,
-        previewImg:null,
-        editPreview:""
-    
-})
-      NotificationManager.success(
-         "Group created successfully.",
-        "Yepp",
-        3000
-    );
-     }
-    
-  
-      hideLoader()
-} catch (error) {
-    hideLoader()
-}}}
+      }
         return (
             <Layout RouteUserLayout={
                 props.history
@@ -163,14 +116,11 @@ formData.append('thumbnail', currenThumbnailtFile);
                         <input type="file" onChange={(e)=>setGroup({...Group,thumbnail:e.target.files,previewImg:URL.createObjectURL(e.target.files[0]),editPreview:URL.createObjectURL(e.target.files[0])})}  />
                         <div className="getGrpImg">
 
-                        {getEditDetails.usedbyGroupsPage===true?"":
-                      <img title="Change Image" style={{width:"60px",height:"50px",marginBottom:"5px",borderRadius: "4px"}} src={Group.previewImg==null?Grpicon:Group.previewImg} />
-        }      
                      
    
-                     {getEditDetails.usedbyGroupsPage===true?
-                      <img title="Change Image" style={{width:"60px",height:"50px",marginBottom:"5px",borderRadius: "4px"}} src={Group.editPreview==null?Grpicon:Group.editPreview} />:""
-        }      
+               
+                      <img title="Change Image" style={{width:"60px",height:"50px",marginBottom:"5px",borderRadius: "4px"}} src={Group.editPreview==null?Grpicon:Group.editPreview} />
+        
                             <p>Drop Image Here Or <span style={{color:"orange"}}>Browse</span> </p>
                             <p>support .jpg,PNG.</p>
                         </div>
@@ -206,7 +156,7 @@ formData.append('thumbnail', currenThumbnailtFile);
                           
                         </div>
                         <div className="btnCtreate">
-                        <button onClick={CreateTGroup}>{getEditDetails.usedbyGroupsPage===true?"Edit Group":"Create Group"}</button>
+                        <button onClick={CreateTGroup}>Edit Group</button>
                         </div>
                         
                 </div>

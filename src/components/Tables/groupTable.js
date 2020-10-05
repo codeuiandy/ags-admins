@@ -22,11 +22,11 @@ const	bodyRow = () => {
 			action: (
 				<a>
 
-<Link to="/create_group_edit_group" >
+<Link  to={`/edit_group/${data.id}`} >
 						{" "}
 						<span
 						
-						onClick={()=>setDeletDetails({edit_id:data.id,edit_data:data,usedbyGroupsPage:true})}
+					
 						style={{fontSize:"14px"}}
 							className="edit"
 							className="fas fa-pen mr-4 add-cursor"
