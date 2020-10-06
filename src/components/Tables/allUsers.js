@@ -4,7 +4,7 @@ import Table from "./customTable";
 import { Link } from "react-router-dom";
 import _ from 'lodash';
 import avatar from '../Users/avatar.png'
-
+import moment from 'moment'
 export default class allUsers extends Component {
 	constructor(props) {
 		super(props);
@@ -17,32 +17,32 @@ export default class allUsers extends Component {
 			name: <Link to={`users/${data.id}`}>{data.first_name}  {data.last_name}</Link>,
 			email:  _.startCase(_.lowerCase(`${data.email}`)),
 
-			subscriptionStatus: _.startCase(_.lowerCase(`${data.subscriptionStatus}`)),
-			registrationDate: _.startCase(_.lowerCase(`${data.registrationDate}`)),
-			recentActivity:  _.startCase(_.lowerCase(`${data.recentActivity}`)),
+			subscriptionStatus: data.is_active===true?"Active" : "Inactive",
+			registrationDate: _.startCase(_.lowerCase(`${moment(data.registrationDate).format("DD/MM/YYYY")}`)),
+			recentActivity:  _.startCase(_.lowerCase(`${moment(data.registrationDate).format("DD/MM/YYYY")}`)),
 
 			action: (
 				<a>
 
-<Link to={`edit-payroll/${data.id}`}>
+
 						{" "}
 						<Link to={`user_info/${data.id}`}>
-						<span
+						<i
 						style={{fontSize:"14px"}}
 							className="edit"
 							className="fas fa-eye mr-4 add-cursor"
-						></span>
+						></i>
 						</Link>
 						
-					</Link>
+				
 
                           
-					<span
+					<i
 					style={{fontSize:"14px"}}
-						className="del"
-						onClick={() => this.props.deletePayroll(data.id)}
 						className="fas fa-ban mr-4 add-cursor"
-					></span>
+						type="button" data-toggle="modal" data-target="#blockUser"
+						onClick={()=>this.props.getUserId(data.id)}
+					></i>
 
 				
 
@@ -70,7 +70,7 @@ export default class allUsers extends Component {
 			},
 			{ title: "Email", prop: "email", sortable: true },
 
-			{ title: "Status", prop: "subscriptionStatus", sortable: true },
+			{ title: "Status (filterable)", prop: "subscriptionStatus", sortable: true,	filterable: true, },
 
 			{ title: "Registration Date", prop: "registrationDate", sortable: true },
 

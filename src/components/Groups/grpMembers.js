@@ -1,9 +1,9 @@
 import React, { useEffect,useState } from 'react'
 import Layout from '../Layout/index'
 import GrpMembers from '../Tables/grpMembers'
-import {httpGet} from '../helpers/httpMethods'
+import {httpGet,httpPost} from '../helpers/httpMethods'
 import { showLoader,hideLoader } from '../helpers/loader'
-import UserRoute from '../UserRoute/Route'
+import avatar from '../Users/avatar.png'
 export const GrpMembersView =(props)=> {
     const Uid = props.match.params.id
     const [getGroupMembers, SetgetGroupMembers] = useState([])
@@ -19,7 +19,27 @@ export const GrpMembersView =(props)=> {
             groupMembers()
           }, []); 
 
+        const upgradeUserRole =async(UserId,role)=>{
+           
+            if (role === "select") {
+                console.log("listening...")
+            }
 
+            else{
+           console.log(UserId,role)
+            const userCurrentRole = {
+               user_id:UserId,
+               option:role,
+            };
+         
+            try {
+                const res = await httpPost(`groups/${props.match.params.id}/assign_admin/`,userCurrentRole)
+                console.log(res)
+            } catch (error) {
+                
+            }
+        }
+        }
         return (
             <Layout RouteUserLayout={
                 props.history
@@ -27,7 +47,7 @@ export const GrpMembersView =(props)=> {
                    
                    
                 <div className="allGrpsWrapper">
-                <GrpMembers getGroupMembers={getGroupMembers}/>    
+                <GrpMembers getGroupMembers={getGroupMembers} upgradeUserRole={upgradeUserRole}/>    
                 </div>
                 
             </Layout>

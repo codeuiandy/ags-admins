@@ -12,19 +12,22 @@ body {
 }
 
 .centra-margin {
-	height: fit-content;
-	width: calc(100vw - 270px);
+	/* height: fit-content;
+	width: calc(100vw - 300px);
 	position: absolute;
 	top: 100px;
-	padding-left: 20px;
 	z-index: 4;
 	padding-right: 0;
 	overflow: hidden;
 	position: absolute;
-	right:20px;
+left: 250px; */
 	/* display: flex;
 	align-items: center;
 	flex-direction: column; */
+	position: relative;
+	left: 250px;
+	width: calc(100vw - 300px);
+	top: 100px;
 }
 
 .App-header {

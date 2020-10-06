@@ -8,11 +8,12 @@ import {Link} from 'react-router-dom'
 import ViewGrpStatictics from './viewGrpStatictics'
  import ClosedGrpRequests from '../Tables/closedGrpRequests'
  import moment from 'moment'
+ import dateFormater from '../helpers/dateFormater'
  import {DeleteGroup} from '../Modals/DeleteGroup'
 export  const ViewGroup =(props)=> {
    const Uid = props.match.params.id
     const [getGroupDetailsData, SetgetGroupDetailsData] = useState([])
-
+    const [groupJoinRequest, SetgroupJoinRequest] = useState([])
     const getGroupDetails = async()=>{
         showLoader()
         const res = await httpGet(`groups/${Uid}/`)
@@ -22,6 +23,7 @@ export  const ViewGroup =(props)=> {
     
         useEffect(() => {
             getGroupDetails()
+            getGroupJoinRequests()
           }, []); 
 
         const  DeleteGroupd =async()=>{
@@ -43,6 +45,16 @@ export  const ViewGroup =(props)=> {
     
   }
           
+          }
+
+        const  getGroupJoinRequests=async()=>{
+            try {
+              const res = await httpGet(`groups/${props.match.params.id}/get_group_request/`)
+              console.log(res.data)
+              SetgroupJoinRequest(res.data)
+            } catch (error) {
+              
+            }
           }
 
         return (
@@ -80,7 +92,7 @@ export  const ViewGroup =(props)=> {
        
 
         <h1>Last Active Date</h1>
-        <p>{moment(getGroupDetailsData.lastest_update).format("DD/MM/YYYY")}</p>
+        <p>{dateFormater(getGroupDetailsData.lastest_update)}</p>
         </div>
 
         <div className="grp-overview1">
@@ -94,11 +106,21 @@ export  const ViewGroup =(props)=> {
 <div className="grp-overview-table">
 <ViewGrpStatictics getGroupDetailsData={getGroupDetailsData}/>
 </div>
-<div className="viewgroupTitle" style={{marginBottom:"20px",marginTop:"-20px",marginLeft:"3px"}}> <h1>Group Join Request</h1></div>
-      <div className="closedGRpRequests">
-          
-          <ClosedGrpRequests/>
-          </div>
+     
+          {
+            groupJoinRequest.length? 
+            <div>
+               <div className="viewgroupTitle" style={{marginBottom:"20px",marginTop:"-20px",marginLeft:"3px"}}> <h1>Group Join Request</h1></div>
+               <div className="closedGRpRequests">
+            <ClosedGrpRequests groupJoinRequest={groupJoinRequest}/>
+            </div>
+            </div>
+           
+            
+            :""
+          }
+         
+      
           
             </Layout>
             <DeleteGroup DeleteGroupd={DeleteGroupd}/>

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Profolepic from './profilePic.jpg'
 import Table from "./customTable";
 import { Link } from "react-router-dom";
-
+import avatar from '../Users/avatar.png'
 export default class grpMembers extends Component {
 	constructor(props) {
 		super(props);
@@ -10,245 +10,21 @@ export default class grpMembers extends Component {
 	}
 
 	bodyRow = () => {
-		const datas = [
-
-			{
-                groupname: <Link to="/user_info">Okeke Mandela</Link>,
-                userImage:<img className="userProfilePic" src={Profolepic} />,
-				joinOn: "21/12/2020",
-				admin:  <div class="form-group">
-				<select
-			// value={}
-		// 	name="eventFee"
-		//   onChange={}
-				class="form-control adminSelect" id="exampleFormControlSelect1">
-					<option value="freeEvent">Member</option>
-				   <option value="paidEvent">Make Admin</option>
-				  
-				</select>
-			  </div> ,
-				posts: "81",
-			
-			},
-
-			{
-                groupname: <Link to="/user_info">Okeke Mandela</Link>,
-                userImage:<img className="userProfilePic" src={Profolepic} />,
-				joinOn: "21/12/2020",
-				admin:  <div class="form-group">
-				<select
-			// value={}
-		// 	name="eventFee"
-		//   onChange={}
-				class="form-control adminSelect" id="exampleFormControlSelect1">
-					<option value="freeEvent">Member</option>
-				   <option value="paidEvent">Make Admin</option>
-				  
-				</select>
-			  </div> ,
-				posts: "81",
-			
-			},
-
-			{
-                groupname: <Link to="/user_info">Okeke Mandela</Link>,
-                userImage:<img className="userProfilePic" src={Profolepic} />,
-				joinOn: "21/12/2020",
-				admin:  <div class="form-group">
-				<select
-			// value={}
-		// 	name="eventFee"
-		//   onChange={}
-				class="form-control adminSelect" id="exampleFormControlSelect1">
-					<option value="freeEvent">Member</option>
-				   <option value="paidEvent">Make Admin</option>
-				  
-				</select>
-			  </div> ,
-				posts: "81",
-			
-			},	{
-                groupname: <Link to="/user_info">Okeke Mandela</Link>,
-                userImage:<img className="userProfilePic" src={Profolepic} />,
-				joinOn: "21/12/2020",
-				admin:  <div class="form-group">
-				<select
-			// value={}
-		// 	name="eventFee"
-		//   onChange={}
-				class="form-control adminSelect" id="exampleFormControlSelect1">
-					<option value="freeEvent">Member</option>
-				   <option value="paidEvent">Make Admin</option>
-				  
-				</select>
-			  </div> ,
-				posts: "81",
-			
-			},	{
-                groupname: <Link to="/user_info">Okeke Mandela</Link>,
-                userImage:<img className="userProfilePic" src={Profolepic} />,
-				joinOn: "21/12/2020",
-				admin:  <div class="form-group">
-				<select
-			// value={}
-		// 	name="eventFee"
-		//   onChange={}
-				class="form-control adminSelect" id="exampleFormControlSelect1">
-					<option value="freeEvent">Member</option>
-				   <option value="paidEvent">Make Admin</option>
-				  
-				</select>
-			  </div>  ,
-				posts: "81",
-			
-			},	{
-                groupname: <Link to="/user_info">Okeke Mandela</Link>,
-                userImage:<img className="userProfilePic" src={Profolepic} />,
-				joinOn: "21/12/2020",
-				admin:  <div class="form-group">
-				<select
-			// value={}
-		// 	name="eventFee"
-		//   onChange={}
-				class="form-control adminSelect" id="exampleFormControlSelect1">
-					<option value="freeEvent">Member</option>
-				   <option value="paidEvent">Make Admin</option>
-				  
-				</select>
-			  </div> ,
-				posts: "81",
-			
-			},
-			{
-                groupname: <Link to="/user_info">Okeke Mandela</Link>,
-                userImage:<img className="userProfilePic" src={Profolepic} />,
-				joinOn: "21/12/2020",
-				admin:  <div class="form-group">
-				<select
-			// value={}
-		// 	name="eventFee"
-		//   onChange={}
-				class="form-control adminSelect" id="exampleFormControlSelect1">
-					<option value="freeEvent">Member</option>
-				   <option value="paidEvent">Make Admin</option>
-				  
-				</select>
-			  </div>  ,
-				posts: "81",
-			
-			},
-			{
-                groupname: <Link to="/user_info">Okeke Mandela</Link>,
-                userImage:<img className="userProfilePic" src={Profolepic} />,
-				joinOn: "21/12/2020",
-				admin:  <div class="form-group">
-				<select
-			// value={}
-		// 	name="eventFee"
-		//   onChange={}
-				class="form-control adminSelect" id="exampleFormControlSelect1">
-					<option value="freeEvent">Member</option>
-				   <option value="paidEvent">Make Admin</option>
-				  
-				</select>
-			  </div>  ,
-				posts: "81",
-			
-			},
-			{
-                groupname: <Link to="/user_info">Okeke Mandela</Link>,
-                userImage:<img className="userProfilePic" src={Profolepic} />,
-				joinOn: "21/12/2020",
-				admin:  <div class="form-group">
-				<select
-			// value={}
-		// 	name="eventFee"
-		//   onChange={}
-				class="form-control adminSelect" id="exampleFormControlSelect1">
-					<option value="freeEvent">Member</option>
-				   <option value="paidEvent">Make Admin</option>
-				  
-				</select>
-			  </div> ,
-				posts: "81",
-			
-			},
-			{
-                groupname: <Link to="/user_info">Okeke Mandela</Link>,
-                userImage:<img className="userProfilePic" src={Profolepic} />,
-				joinOn: "21/12/2020",
-				admin:  <div class="form-group">
-				<select
-			// value={}
-		// 	name="eventFee"
-		//   onChange={}
-				class="form-control adminSelect" id="exampleFormControlSelect1">
-					<option value="freeEvent">Member</option>
-				   <option value="paidEvent">Make Admin</option>
-				  
-				</select>
-			  </div> ,
-				posts: "81",
-			
-			},
-			{
-                groupname: <Link to="/user_info">Okeke Mandela</Link>,
-                userImage:<img className="userProfilePic" src={Profolepic} />,
-				joinOn: "21/12/2020",
-				admin:  <div class="form-group">
-				<select
-			// value={}
-		// 	name="eventFee"
-		//   onChange={}
-				class="form-control adminSelect" id="exampleFormControlSelect1">
-					<option value="freeEvent">Member</option>
-				   <option value="paidEvent">Make Admin</option>
-				  
-				</select>
-			  </div>  ,
-				posts: "81",
-			
-			},
-
-		{	action: (
-				<a>
-
-<Link >
-						{" "}
-						<span
-						style={{fontSize:"14px"}}
-							className="edit"
-							className="fas fa-eye mr-4 add-cursor"
-						></span>
-					</Link>
-
-				
-                          
-					<span
-					style={{fontSize:"14px"}}
-						className="del"
-					
-						className="fa fa-trash mr-4 add-cursor"
-					></span>
-
-
-
-				</a>)}
-
-			
-		];
+		
 		const body = this.props.getGroupMembers.map((data, index) => ({
 			groupname: <Link to={`/user_info/${data.id}`}>{`${data.first_name} ${data.last_name} `}</Link>,
 			joinOn: data.joinOn,
-       userImage:  <img className="userProfilePic" src={data.photo} />,
+       userImage:  <img className="userProfilePic" src={data.photo === null ? avatar : data.photo} /> ,
 			admin:
 			<select
-				class="form-control adminSelect" id="exampleFormControlSelect1">
-					<option value="freeEvent">Member</option>
-				   <option value="paidEvent">Make Admin</option>
+			onClick={(e)=>this.props.upgradeUserRole(data.id,e.target.value)}
+				class="form-control adminSelect" id="">
+					<option value="select" >Select</option>
+					<option value="remove" >Member</option>
+				   <option value="add">Make Admin</option>
 				  
 				</select>,
-			posts: data.posts ,
+			posts: "10",
 			location: data.location,
 			action: (
 				<a>

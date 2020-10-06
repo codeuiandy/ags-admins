@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import Profolepic from './profilePic.jpg'
 import Table from "./customTable";
 import { Link } from "react-router-dom";
-
+import avatar from '../Users/avatar.png'
+import dateFormater from '../helpers/dateFormater'
 export default class closedGrpRequests extends Component {
 	constructor(props) {
 		super(props);
@@ -128,12 +129,18 @@ export default class closedGrpRequests extends Component {
 
 			
 		];
-		const body = datas.map((data, index) => ({
-			Name: data.Name,
-			requestedOn: data.requestedOn,
+		console.log(this.props.groupJoinRequest)
+		const body = this.props.groupJoinRequest.map((data, index) => ({
+		
+		Name:<Link to={`/user_info/${data.user.id}`}>{`${data.user.first_name} ${data.user.last_name}`}</Link> ,
+			requestedOn: dateFormater(data.created_at),
 
-			UserImage:data.UserImage,
-			Actions: data.Actions,
+			UserImage:<img className="userProfilePic" src={data.user.photo === null ? avatar:data.user.photo} />,
+			Actions: <div className="">
+               
+			<button className="approveClosedGrp">Approve </button>
+			<button className="rejectClosedGrp">Reject </button>
+	</div>,
 			location: data.location,
 
 		
@@ -143,6 +150,9 @@ export default class closedGrpRequests extends Component {
 
 	header = () => {
 		const header = [
+			{ title: "User Image", prop: "UserImage" ,
+		},
+
 			{
 				title: "Name (filterable)",
 				prop: "Name",
@@ -151,8 +161,7 @@ export default class closedGrpRequests extends Component {
 			},
 			
 
-			{ title: "User Image", prop: "UserImage" ,
-            },
+		
             
             { title: "Request Sent On", prop: "requestedOn" ,
 			sortable: true,

@@ -36,9 +36,6 @@ textarea
          box-shadow: none;
 }
 
-.table-responsive{
-  min-width: 70vw !important;
-}
 
 
 .previewImgData{
@@ -47,8 +44,14 @@ textarea
   margin-bottom: 20px;
 }
 
-/* .table-responsivee{
+.table-responsivee{
   background: white;
     padding: 31px;
     border-radius: 5px;
-} */
+    width: 70vw;
+}
+
+i{
+  cursor: pointer !important;
+  margin-right: 5px;
+}
