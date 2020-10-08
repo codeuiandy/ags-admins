@@ -88,7 +88,10 @@ font-size: 15px;
         background-color: transparent;
         border: 1px solid #FDAD00;
         padding: 5px 10px 5px 10px;
+        margin-bottom: 10px;
     }
+
+   
 
     .circleUserNetwork1{
         background-image: url(./facebookCircle.png);
@@ -198,6 +201,6 @@ font-size: 15px;
     }
 
     .aboutUserFlexBTN{
-     height: 60px;
+     height: fit-content;
     
     }

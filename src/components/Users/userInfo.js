@@ -99,6 +99,7 @@ export default class userInfo extends Component {
             UserTopics:res.data.my_topics,
             UserEducation:res.data.education
         })
+        console.log("my topic",res.data.my_topics)
         hideLoader()
         }
 
@@ -292,7 +293,7 @@ export default class userInfo extends Component {
                            <span className="userIn">
                     {
                         this.state.Userinterest.length>0 ? this.state.Userinterest.map((data)=>{
-                            return  <button>{data}</button>
+                            return  <button key={data}>{data}</button>
                         }):"User don't belong to any intreast"
                     }
                          
@@ -332,9 +333,12 @@ export default class userInfo extends Component {
                        <div className="data1 dataButtons">
                            <span>Groups</span>
                            <span className="userIn">
-                           {
-                        this.state.UserGroups.length>0? this.state.UserGroups.map((data)=>{
-                            return  <button>{data.name === undefined?"User don't belong to any group":data.name}</button>
+                        
+
+
+{
+                        this.state.UserGroups.length>0 ? this.state.UserGroups.map((data)=>{
+                            return  <button key={data}>{data.name}</button>
                         }):"User don't belong to any group"
                     }
                            </span>
@@ -348,8 +352,8 @@ export default class userInfo extends Component {
                            <span>Topics</span>
                            <span className="userIn">
                            {
-                        this.state.UserTopics.length>0? this.state.UserTopics.map((data)=>{
-                            return  <button>{data.name === undefined?"User don't belong to any topic":data.name}</button>
+                        this.state.UserTopics.length>0 ? this.state.UserTopics.map((data)=>{
+                            return  <button key={data}>{data.title}</button>
                         }):"User don't belong to any topic"
                     }
                            </span>

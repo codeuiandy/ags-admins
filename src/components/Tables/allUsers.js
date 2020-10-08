@@ -14,7 +14,7 @@ export default class allUsers extends Component {
 	bodyRow = () => {
 		const body = this.props.allUsers.map((data, index) => ({
 			avatar:<img className="userProfilePic" src={data.photo === null ? avatar:data.photo} />,
-			name: <Link to={`users/${data.id}`}>{data.first_name}  {data.last_name}</Link>,
+			name: <Link to={`user_info/${data.id}`}>{data.first_name}  {data.last_name}</Link>,
 			email:  _.startCase(_.lowerCase(`${data.email}`)),
 
 			subscriptionStatus: data.is_active===true?"Active" : "Inactive",
