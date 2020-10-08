@@ -2,34 +2,45 @@ import React, { Component } from "react";
 import Profolepic from './profilePic.jpg'
 import Table from "./customTable";
 import { Link } from "react-router-dom";
-
+import avatar from '../Users/avatar.png'
+import DateFormater from '../helpers/dateFormater'
 export default class topicFollowers extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {};
-	}
-
-	bodyRow = () => {
+	}bodyRow = () => {
 		
-
-	
 		const body = this.props.getGroupMembers.map((data, index) => ({
-			groupname: <Link to={`/user_info/${data.id}`}>{`${data.first_name} ${data.last_name} `}</Link>,
-			joinOn: data.joinOn,
-       userImage:  <img className="userProfilePic" src={data.photo} />,
-			admin:
+		
+			groupname: <Link to={`/user_info/${data.user.id}`}>{`${data.user.first_name} ${data.user.last_name} `}</Link>,
+			joinOn: DateFormater(data.date_joined),
+       userImage:  <img className="userProfilePic" src={data.user.photo === null ? avatar : data.user.photo} /> ,
+			admin:data.is_admin === true ?
 			<select
-				class="form-control adminSelect" id="exampleFormControlSelect1">
-					<option value="freeEvent">Member</option>
-				   <option value="paidEvent">Make Admin</option>
-				  
-				</select>,
-			posts: data.posts ,
+			value="hh"
+			onChange={(e)=>this.props.upgradeUserRole(data.user.id,e.target.value)}
+				class="form-control adminSelect" id="">
+			
+					<option value="select" >Admin</option>
+				   <option value="remove">Remove as an admin</option>
+				
+				</select>:
+					<select
+					value="hh"
+					onChange={(e)=>this.props.upgradeUserRole(data.user.id,e.target.value)}
+						class="form-control adminSelect" id="">
+					
+							<option value="select" >Member</option>
+							 <option value="add">Make Admin</option>
+						
+						</select>
+				,
+			posts: data.number_of_post,
 			location: data.location,
 			action: (
 				<a>
 
-<Link to={`/user_info/${data.id}`} >
+<Link to={`/user_info/${data.user.id}`} >
 						{" "}
 						<span
 						style={{fontSize:"14px"}}
@@ -44,7 +55,7 @@ export default class topicFollowers extends Component {
 					style={{fontSize:"14px"}}
 						className="del"
 					
-						className="fas fa-ban mr-4 add-cursor"
+						className="fa fa-trash mr-4 add-cursor"
 					></span>
 
 
