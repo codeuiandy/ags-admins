@@ -3,33 +3,62 @@ import Profolepic from './profilePic.jpg'
 import Table from "./customTable";
 import { Link } from "react-router-dom";
 import avatar from '../Users/avatar.png'
+import DateFormater from '../helpers/dateFormater'
 export default class grpMembers extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {};
 	}
 
+// 	date_joined: "2020-10-07T11:54:08.778090Z"
+// is_admin: false
+// number_of_post: 0
+// user:
+// bio: null
+// email: "jenniesemporium@gmail.com"
+// first_name: "Remi"
+// id: "de013008-04a7-4bff-a919-302578543341"
+// industry: "Finance"
+// interest: ["reading"]
+// last_name: "Tobi"
+// location: "Chjsjjj"
+// nationality: "Anguilla"
+// photo: null
+// profession: "Cvbh"
+
 	bodyRow = () => {
 		
 		const body = this.props.getGroupMembers.map((data, index) => ({
-			groupname: <Link to={`/user_info/${data.id}`}>{`${data.first_name} ${data.last_name} `}</Link>,
-			joinOn: data.joinOn,
-       userImage:  <img className="userProfilePic" src={data.photo === null ? avatar : data.photo} /> ,
-			admin:
+		
+			groupname: <Link to={`/user_info/${data.user.id}`}>{`${data.user.first_name} ${data.user.last_name} `}</Link>,
+			joinOn: DateFormater(data.date_joined),
+       userImage:  <img className="userProfilePic" src={data.user.photo === null ? avatar : data.user.photo} /> ,
+			admin:data.is_admin === true ?
 			<select
-			onClick={(e)=>this.props.upgradeUserRole(data.id,e.target.value)}
+			value="hh"
+			onChange={(e)=>this.props.upgradeUserRole(data.user.id,e.target.value)}
 				class="form-control adminSelect" id="">
-					<option value="select" >Select</option>
-					<option value="remove" >Member</option>
-				   <option value="add">Make Admin</option>
-				  
-				</select>,
-			posts: "10",
+			
+					<option value="select" >Admin</option>
+				   <option value="remove">Remove as an admin</option>
+				
+				</select>:
+					<select
+					value="hh"
+					onChange={(e)=>this.props.upgradeUserRole(data.user.id,e.target.value)}
+						class="form-control adminSelect" id="">
+					
+							<option value="select" >Member</option>
+							 <option value="add">Make Admin</option>
+						
+						</select>
+				,
+			posts: data.number_of_post,
 			location: data.location,
 			action: (
 				<a>
 
-<Link to={`/user_info/${data.id}`} >
+<Link to={`/user_info/${data.user.id}`} >
 						{" "}
 						<span
 						style={{fontSize:"14px"}}

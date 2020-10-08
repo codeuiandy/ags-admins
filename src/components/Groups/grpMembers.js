@@ -10,8 +10,9 @@ export const GrpMembersView =(props)=> {
 
     const groupMembers = async()=>{
         showLoader()
-        const res = await httpGet(`groups/${Uid}/`)
-        SetgetGroupMembers(res.data.members)
+        const res = await httpGet(`groups/${Uid}/get_members`)
+        SetgetGroupMembers(res.data)
+        console.log(res.data)
         hideLoader()
         }
     
@@ -33,8 +34,10 @@ export const GrpMembersView =(props)=> {
             };
          
             try {
+                showLoader()
                 const res = await httpPost(`groups/${props.match.params.id}/assign_admin/`,userCurrentRole)
                 console.log(res)
+                groupMembers()
             } catch (error) {
                 
             }

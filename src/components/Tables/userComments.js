@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import _ from 'lodash';
 import dateFormater from '../helpers/dateFormater'
 
-export default class userPosts extends Component {
+export default class userComments extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {};
@@ -42,7 +42,7 @@ export default class userPosts extends Component {
 					<span
 					style={{fontSize:"14px"}}
 						className="del"
-						onClick={() => this.props.blockUserData(data.id,"post")}
+						onClick={() => this.props.blockUserData(data.id,"comment")}
 						className="fas fa-ban mr-4 add-cursor"
 					></span>
 
@@ -74,7 +74,7 @@ export default class userPosts extends Component {
 				sortable: true,
 				filterable: true,
 			},
-			{ title: "Post body", prop: "postBody", sortable: true },
+			{ title: "Comments body", prop: "postBody", sortable: true },
 
 			{ title: "Date Added", prop: "joined", sortable: true },
 

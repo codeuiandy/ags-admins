@@ -5,17 +5,16 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import UserRoute from '../UserRoute/Route'
 import UserPosts from '../Tables/userPosts'
-import {httpGet} from '../helpers/httpMethods'
+import {httpGet, httpPost} from '../helpers/httpMethods'
 import { showLoader,hideLoader } from '../helpers/loader'
-
-
+import avatar from './avatar.png'
+import UserComments from '../Tables/userComments'
+import { NotificationManager } from "react-notifications";
 
 export default class userInfo extends Component {
     constructor(props){
         super(props)
         this.state={
-            userPosts:[
-        ],
             postController:"profile",
             startDate:new Date(),
             userInfo:[],
@@ -23,6 +22,8 @@ export default class userInfo extends Component {
             UserGroups:[],
             UserTopics:[],
             UserEducation:[],
+            userPosts:[],
+            userComments:[],
         }
 
        
@@ -60,6 +61,31 @@ export default class userInfo extends Component {
 
     componentDidMount(){
         this.userInfo()
+        this.getUserComments()
+        this.getUserPosts()
+    }
+
+    getUserComments=async()=>{
+        try {
+            const Uid = this.props.match.params.id
+         let res = await httpGet(`users/${Uid}/get_user_comments`)
+         this.setState({userComments:res.data})
+         console.log(res.data)
+        } catch (error) {
+            
+        }
+    }
+
+
+    getUserPosts=async()=>{
+        try {
+            const Uid = this.props.match.params.id
+         let res = await httpGet(`users/${Uid}/get_user_posts`)
+         this.setState({userPosts:res.data})
+         console.log(res.data)
+        } catch (error) {
+            
+        }
     }
 
     userInfo = async()=>{
@@ -75,9 +101,38 @@ export default class userInfo extends Component {
         })
         hideLoader()
         }
+
+        blockUserData=async(blockId,postType)=>{
+            const data = {
+                content_id:blockId,
+                content_type:postType
+            }
+            try {
+                showLoader()
+                const res = await httpPost(`users/content/flag_content/`,data)
+                console.log(res)
+                if (res.status === 201 ) {
+                     NotificationManager.success(
+                    `${postType} blocked`,
+                    "Yeep!",
+                    3000
+                );
+                hideLoader()
+                }
+               
+            } catch (error) {
+                NotificationManager.error(
+                    error,
+                    "Opps!",
+                    3000
+                );
+                hideLoader()
+            }
+        }
     
     
     render() {
+      
         let Switch = this.state.postController
         let userInfo = this.state.userInfo
         console.log(">>>>userInfo",userInfo)
@@ -128,7 +183,7 @@ export default class userInfo extends Component {
                 Switch === "profile" ? (
                     <div>
                      <div className="userProfile tab1">
-                     <img style={{width:"80px",height:"80px",borderRadius:"40px"}} src={userInfo.photo}/>
+                     <img style={{width:"80px",height:"80px",borderRadius:"40px"}} src={userInfo.photo === null? avatar : userInfo.photo}/>
                      <div className="userinfoName">
                 <div className="main-username347">
                     
@@ -295,7 +350,7 @@ export default class userInfo extends Component {
                            {
                         this.state.UserTopics.length>0? this.state.UserTopics.map((data)=>{
                             return  <button>{data.name === undefined?"User don't belong to any topic":data.name}</button>
-                        }):"User don't belong to any group"
+                        }):"User don't belong to any topic"
                     }
                            </span>
                        </div>
@@ -321,11 +376,11 @@ export default class userInfo extends Component {
                  <div className="userinfoName">
             <div className="main-username347">
                 <h1>
-                    Andrew Okeke
+                {userInfo.length<=0?"Loading...":`${userInfo.first_name} ${userInfo.last_name}`}
                 </h1>
 
                 <h2>
-                    Va Canada
+                {userInfo.length<=0?"Loading...":`${userInfo.nationality} `}
                 </h2>
             </div>
 
@@ -337,7 +392,7 @@ export default class userInfo extends Component {
             </div>
             </div>
  <br/>
- <UserPosts userPosts={this.state.userPosts}/>
+ <UserPosts blockUserData={this.blockUserData} userPosts={this.state.userPosts}/>
             
                        
 
@@ -360,11 +415,11 @@ export default class userInfo extends Component {
                     <div className="userinfoName">
                <div className="main-username347">
                    <h1>
-                       Andrew Okeke
+                   {userInfo.length<=0?"Loading...":`${userInfo.first_name} ${userInfo.last_name}`}
                    </h1>
    
                    <h2>
-                       Va Canada
+                   {userInfo.length<=0?"Loading...":`${userInfo.nationality} `}
                    </h2>
                </div>
    
@@ -376,7 +431,7 @@ export default class userInfo extends Component {
                </div>
                </div>
     <br/>
-    <UserPosts userPosts={this.state.userPosts}/>
+    <UserComments blockUserData={this.blockUserData} userPosts={this.state.userComments}/>
                
                           
    
