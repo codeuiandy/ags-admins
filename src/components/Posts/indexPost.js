@@ -5,12 +5,19 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {Images} from './selectMutipleImages'
 import AdvertOverview from '../Tables/allFeedsTable/adverts'
-export default class indexPost extends Component {
+import {httpPatch, httpPostFormData,httpPut} from '../helpers/httpMethods'
+import {hideLoader, showLoader} from '../helpers/loader'
+import {NotificationManager} from 'react-notifications'
+import GetImageUrl from '../../components/helpers/getImageUrl'
+export default class IndexPost extends Component {
     constructor(props){
         super(props)
         this.state={
-            postController:"Advert",
+            postController:"post",
             startDate:new Date(),
+            postToFeedPost:"",
+            postToFeedImage:"",
+            previewImage:"",
         }
     }
 
@@ -42,7 +49,30 @@ export default class indexPost extends Component {
 
     }
     
+
+    handleSubmit=async()=>{
+    let postController = this.state.postController;
+
+    if (postController = "post") {
+        showLoader()
+    
+        try {
+            const formData = new FormData()
+            formData.append("body",this.state.postToFeedPost)
+            formData.append("file",this.state.postToFeedImage)
+            let res = await httpPostFormData(`create_feed/`,formData)
+            console.log(res)
+        } catch (error) {
+            
+        }
+    }
+
+    }
+
+    
     render() {
+        
+        console.log(this.state)
         let Switch = this.state.postController
         return (
            
@@ -88,20 +118,27 @@ export default class indexPost extends Component {
                            <form>
   <div class="form-group postForm">
   
-    <textarea placeholder="Type in your post" class="form-control" id="aboutPlan"/>
+    <textarea onChange={(e)=>this.setState({...this.state,postToFeedPost:e.target.value})} placeholder="Type in your post" class="form-control" id="aboutPlan"/>
   </div>
   </form>
 
   <div className="postActions">
       <div className="postAction">
-          <input type="file"/>
+          <input onChange={(e)=>this.setState({...this.state,postToFeedImage:e.target.files[0],previewImage:GetImageUrl(e.target.files[0])})} type="file"/>
 <span>
     <img src={ImageIcon} alt=""/>
+   
 </span>
+{
+    this.state.previewImage === "" ? "" 
+    :<img style={{width:"60px",height:"60px",marginLeft:"10px"}} src={this.state.previewImage} alt=""/>
+}
+
       </div>
+     
 
       <div className="postButton">
-<button> Create</button>
+<button onClick={this.handleSubmit}> Create</button>
       </div>
   </div>
                            </div>
