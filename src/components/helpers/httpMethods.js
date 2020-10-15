@@ -14,7 +14,7 @@ const AUTHORIZATION = "authorization";
 //   headers: { Authorization: token },
 // });
 
-export let baseUrl = "https://stagging.agstribe.org/api/v1/";
+export let baseUrl = "https://stagging.agstribe.org/api/v1/admin/";
 export let loginUrl = "https://stagging.agstribe.org/api/v1/rest-auth/";
 // export let baseUrl = "https://api-9to5chick.herokuapp.com";
 
