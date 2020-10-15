@@ -14,8 +14,8 @@ const AUTHORIZATION = "authorization";
 //   headers: { Authorization: token },
 // });
 
-export let baseUrl = "https://www.timmzy.com/api/v1/admin/";
-export let loginUrl = "https://www.timmzy.com/api/v1/rest-auth/";
+export let baseUrl = "https://stagging.agstribe.org/api/v1/";
+export let loginUrl = "https://stagging.agstribe.org/api/v1/rest-auth/";
 // export let baseUrl = "https://api-9to5chick.herokuapp.com";
 
 if (process.env.REACT_APP_NODE_ENV === "development") {
