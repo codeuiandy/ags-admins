@@ -5,15 +5,6 @@ import { NotificationManager } from "react-notifications";
 
 const token = getToken();
 const AUTHORIZATION = "authorization";
-// export const baseUrl = 'https:/-9to5chick.herokuapp.com'
-// export const baseUrl = 'http://127.0.0.1:8080'
-
-// const http = axios.create({
-//   baseURL: 'http://127.0.0.1:8080/api',
-//   // baseURL: '/api',
-//   headers: { Authorization: token },
-// });
-
 export let baseUrl = "https://stagging.agstribe.org/api/v1/admin/";
 export let loginUrl = "https://stagging.agstribe.org/api/v1/rest-auth/";
 // export let baseUrl = "https://api-9to5chick.herokuapp.com";
@@ -25,10 +16,11 @@ if (process.env.REACT_APP_NODE_ENV === "development") {
 
 export const LoginhttpPost = async (url, postBody) => {
 	try {
-		const { data } = await axios.post(`${loginUrl}${url}`, postBody, {
+		const res = await axios.post(`${loginUrl}${url}`, postBody, {
 			headers: { Authorization: localStorage.api_token },
 		});
-		return data;
+		console.log(res)
+		return res;
 	} catch (error) {
 		hideLoader();
 		return error;

@@ -46,15 +46,26 @@ console.log(loginDetails.email)
 		showLoader()
     try {
 		const res =	await LoginhttpPost("login/",data)
-		
-			console.log(res)
-				setToken(res.token)
-				SetUserDetailsGlobal(res.user)
+		if (res.status === 200) {
+				console.log(res.data)
+				setToken(res.data.token)
+				console.log(res.data)
+				SetUserDetailsGlobal(res.data.user)
 				setUserToken(res.token)
 			hideLoader()
 			console.log(">>>>Login user details",UserDetails)
 		
 			props.history.push("/dashboard")
+		}
+
+		else{
+			NotificationManager.error(
+				"Invalid Details",
+				"Opps!",
+				3000
+			);
+		}
+		
 			
 		} catch (error) {
 			NotificationManager.error(

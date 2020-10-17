@@ -60,10 +60,10 @@ export default class IndexPost extends Component {
             const formData = new FormData()
             formData.append("body",this.state.postToFeedPost)
             formData.append("file",this.state.postToFeedImage)
-            let res = await httpPostFormData(`create_feed/`,formData)
-            console.log(res)
+            let res = await httpPostFormData(`feeds/create_feed/`,formData)
+            hideLoader()
         } catch (error) {
-            
+            hideLoader()
         }
     }
 
