@@ -7,13 +7,19 @@ import {Images} from './selectMutipleImages'
 import PostToFeed from '../Tables/allFeedsTable/feedToPost'
 import Icebreaker from '../Tables/allFeedsTable/icebreaker'
 import AskQuestion from '../Tables/allFeedsTable/askAQuestion'
+import {httpGet, httpPatch, httpPostFormData,httpPut} from '../helpers/httpMethods'
+import DeleteModal from '../Modals/comfirmModal'
+import {hideLoader, showLoader} from '../helpers/loader'
+import {NotificationManager} from 'react-notifications'
 
 export default class allFeeds extends Component {
     constructor(props){
         super(props)
         this.state={
-            postController:"post",
+            postController:"Icebreaker",
             startDate:new Date(),
+            Icebreaker:[],
+            deletId:"",
         }
     }
 
@@ -44,11 +50,68 @@ export default class allFeeds extends Component {
     }
 
     }
+    componentDidMount(){
+        this.getIcebreakers()
+        // this.getPostToFeeds()
+    }
+
+    getDeletId=(id)=>{
+    this.setState({deletId:id})
+   
+    }
+
+    getIcebreakers=async()=>{
+        showLoader()
+       try {
+        const res = await httpGet(`icebreakers/`)
+        console.log(res.status)
+        if (res.status === 200) {
+            this.setState({Icebreaker:res.data})
+            console.log(res)
+            hideLoader()
+
+        }
+       } catch (error) {
+           
+       }
+    }
+
+    // getPostToFeeds=async()=>{
+    //     showLoader()
+    //    try {
+    //     const res = await httpGet(`/`)
+    //     console.log(res.status)
+    //     if (res.status === 200) {
+    //         this.setState({Icebreaker:res.data})
+    //         console.log(res)
+    //         hideLoader()
+
+    //     }
+    //    } catch (error) {
+           
+    //    }
+    // }
+
+    deletData=async()=>{
+    let deleteId = this.state.deletId
+
+    try {
+        const res = await httpPatch(`icebreakers/${deleteId}`)
+        console.log(res)
+        showLoader()
+        if (res.status === 200) {
+            
+        }
+        hideLoader()
+    } catch (error) {
+        
+    }
+    }
     
     render() {
         let Switch = this.state.postController
         return (
-           
+           <div>
             <Layout RouteUserLayout={
                 this.props.history
             } activepage="keepOpenPosts" page="all_feeds">
@@ -86,7 +149,7 @@ export default class allFeeds extends Component {
                 {
                 Switch === "post" ? (
                     <div className="postTofeedLayout">
-                    <PostToFeed/>
+                    <PostToFeed Icebreaker={this.state.Icebreaker} getDeletId={this.getDeletId}/>
                     </div>
                 ) : ""
                 }
@@ -165,7 +228,7 @@ export default class allFeeds extends Component {
                 Switch === "Icebreaker" ? (
                     <div className="postTofeedLayout">
                       
-                      <Icebreaker/>
+                      <Icebreaker Icebreaker={this.state.Icebreaker} getDeletId={this.getDeletId}/>
                     </div>
                 ) : ""
                 }
@@ -183,6 +246,8 @@ export default class allFeeds extends Component {
 
 
             </Layout>
+            <DeleteModal deletData={this.deletData}/>
+            </div>
         )
     }
 }

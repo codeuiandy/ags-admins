@@ -5,7 +5,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {Images} from './selectMutipleImages'
 import AdvertOverview from '../Tables/allFeedsTable/adverts'
-import {httpPatch, httpPostFormData,httpPut} from '../helpers/httpMethods'
+import {httpGet, httpPatch, httpPostFormData,httpPut} from '../helpers/httpMethods'
 import {hideLoader, showLoader} from '../helpers/loader'
 import {NotificationManager} from 'react-notifications'
 import GetImageUrl from '../../components/helpers/getImageUrl'
@@ -86,6 +86,56 @@ export default class IndexPost extends Component {
            
         })
     }
+
+    componentDidMount(){
+      let postType = this.props.match.params
+      console.log(postType.type)
+      this.setState({postController:postType.type})
+       this.getData()
+    }
+
+    getData=async()=>{
+      let postType = this.props.match.params
+      if (postType.type === "Icebreaker") {
+       
+
+        try {
+          const res = await httpGet(`icebreakers/${postType.id}`)
+          console.log(res.status)
+          if (res.status === 200) {
+            this.setState({
+              IcebreakerpostToFeedPost:res.data.body,
+              IcebreakerpreviewImage:res.data.file,
+            })
+            console.log(res)
+          }
+        } catch (error) {
+          
+        }
+    
+      }
+
+
+      if (postType.type === "post") {
+       
+
+        try {
+          const res = await httpGet(`icebreakers/${postType.id}`)
+          console.log(res.status)
+          if (res.status === 200) {
+            this.setState({
+              IcebreakerpostToFeedPost:res.data.body,
+              IcebreakerpreviewImage:res.data.file,
+            })
+            console.log(res)
+          }
+        } catch (error) {
+          
+        }
+    
+      }
+
+    }
     
 
     handleSubmit=async()=>{
@@ -137,7 +187,7 @@ export default class IndexPost extends Component {
             
             if (res.status == 201) {
                 NotificationManager.success(
-                    "Post Created Succesfully",
+                    "Post Edited Succesfully",
                     "Yepp",
                     3000
                 );
@@ -169,7 +219,7 @@ export default class IndexPost extends Component {
             
             if (res.status == 201) {
                 NotificationManager.success(
-                    "Icebreakers Post Created Succesfully",
+                    "Icebreakers Post Edited Succesfully",
                     "Yepp",
                     3000
                 );
@@ -200,35 +250,6 @@ export default class IndexPost extends Component {
                 this.props.history
             } activepage="keepOpenPosts" page="create_posts">
              
-                <div className="postsRoutes">
-                    <div onClick={(e)=>{this.SwitchPostType("post")}} className={`postTypes1 
-                    ${Switch === "post" ? "activePost" : ""}`} >
-                        Post To Feed
-                    </div>
-
-                  
-
-
-
-
-
-
-
-                    <div onClick={(e)=>{this.SwitchPostType("Advert")}}  className={`postTypes2
-                    ${Switch === "Advert" ? "activePost" : ""}`}>
-                        Advert
-                    </div>
-
-                    <div onClick={(e)=>{this.SwitchPostType("Icebreaker")}}  className={`postTypes1 
-                    ${Switch === "Icebreaker" ? "activePost" : ""}`}>
-                        Icebreaker
-                    </div>
-                    <div onClick={(e)=>{this.SwitchPostType("poll")}}  className={`postTypes1 
-                    ${Switch === "poll" ? "activePost" : ""}`}>
-                       Ask A Question
-                    </div>
-                    
-                </div>
 
                 {
                 Switch === "post" ? (

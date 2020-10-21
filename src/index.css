@@ -1,17 +1,43 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@font-face {
+  font-family: openSansBold;
+  src: url(../src/components/fonts/OpenSans-Bold.ttf);
 }
+
+@font-face {
+  font-family: openSansLight;
+  src: url(../src/components/fonts/OpenSans-Light.ttf);
+}
+
+
+@font-face {
+  font-family: openSansRegular;
+  src: url(../src/components/fonts/OpenSans-Regular.ttf);
+}
+
+h1,h2,h3,h4,h5,h6{
+  font-family: openSansBold;
+}
+
+p{
+  font-family:openSansRegular ;
+}
+
+li,div,td,th,tbody{
+  font-family:openSansRegular ;
+}
+
+span{
+  font-family:openSansLight ;
+}
+
+
 input:focus
 {
          outline: none !important;

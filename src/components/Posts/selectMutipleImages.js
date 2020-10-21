@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import MultiImageInput from 'react-multiple-image-input';
  
-export function Images() {
+export function Images(props) {
   const crop = {
     unit: '%',
     aspect: 4 / 3,
@@ -9,6 +9,12 @@ export function Images() {
   };
  
   const [images, setImages] = useState({});
+
+  useEffect(() => {
+
+    props.advertImages(images)
+  }, [images])
+
  
   return (
     <MultiImageInput
@@ -23,8 +29,7 @@ export function Images() {
       }}
       images={images}
       setImages={setImages}
-      
-      
+    
     />
   );
 }

@@ -32,6 +32,7 @@ import {ViewTopic} from './components/Topics/viewTopicDetails'
 import {TopicFollowers} from './components/Topics/topicFollowers'
 import {EditGroup} from './components/Groups/editGroup'
 import {EditTopic} from './components/Topics/EditTopic'
+import EditPost from './components/Posts/editPost'
 import {NotificationManager,NotificationContainer} from 'react-notifications'
 function App() {
 	return (
@@ -69,6 +70,7 @@ function App() {
 						<Route exact path="/topic_followers/:id" component={TopicFollowers} />
 						<Route exact path="/edit_group/:id" component={EditGroup} />
 						<Route exact path="/edit_topic/:id" component={EditTopic} />
+						<Route exact path="/edit_post/:type/:id" component={EditPost} />
 				</Switch>
 			</Router>
 		</div>
