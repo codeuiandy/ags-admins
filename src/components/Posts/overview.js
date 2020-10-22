@@ -8,7 +8,14 @@ import ReportedPosts from './reportedPosts'
 import ReportedPostsWeekly from './reportedWeekly'
 import UserRoute from '../UserRoute/Route'
 import AllPosts from '../Tables/allPosts'
+import {httpGet, httpPatch, httpPostFormData,httpPut} from '../helpers/httpMethods'
+import DeleteModal from '../Modals/comfirmModal'
+import {hideLoader, showLoader} from '../helpers/loader'
+import {NotificationManager} from 'react-notifications'
 class overview extends Component {
+  
+
+   
     constructor(props){
         super(props)
         this.state={
@@ -104,6 +111,25 @@ if (actviveChart === "yearlyChart") {
         }
         
             }
+
+             componentDidMount(){
+        this.getStats()
+    }
+    getStats=async()=>{
+        showLoader()
+        try {
+         const res = await httpGet(`feeds/get_stats/`)
+         console.log(res)
+         if (res.status === 200) {
+             this.setState({Icebreaker:res.data})
+             console.log(res)
+             hideLoader()
+ 
+         }
+        } catch (error) {
+            
+        }
+    }
     
     render() {
         return (

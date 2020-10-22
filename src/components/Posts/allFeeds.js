@@ -94,17 +94,23 @@ export default class allFeeds extends Component {
 
     deletData=async()=>{
     let deleteId = this.state.deletId
-
+    showLoader()
     try {
-        const res = await httpPatch(`icebreakers/${deleteId}`)
+        const res = await httpPatch(`icebreakers/${deleteId}/`)
         console.log(res)
         showLoader()
         if (res.status === 200) {
-            
+            this.getIcebreakers()
+            NotificationManager.success(
+                "Data successfully removed.",
+               "Yepp",
+               3000
+           );
+            hideLoader()  
         }
-        hideLoader()
+        hideLoader()  
     } catch (error) {
-        
+        hideLoader()  
     }
     }
     

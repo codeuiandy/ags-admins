@@ -30,11 +30,18 @@ export default class GroupTable extends Component {
                       
 
 {
-						data.post === null ?"":<span>Block Post</span>
+						data.post === null ?"":<span onClick={()=>this.props.blockPost("post",data.post.id,data.post.flag)}>{
+							data.post.flag === "blocked" ? "Unblock Post" : "Block Post"
+						}
+						</span>
 					}
 
 					{
-						data.comment === null ?"":<span>Block Comment</span>
+						data.comment === null ?"":<span onClick={()=>this.props.blockPost("comment",data.comment.id,data.comment.flag)}>
+							{
+							data.comment.flag === "blocked" ? "Unblock comment" : "Block comment"
+						}
+							</span>
 					}
 
 

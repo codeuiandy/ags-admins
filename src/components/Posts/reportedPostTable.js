@@ -44,6 +44,28 @@ export default class reportedPostTable extends Component {
        }
     }
 
+    blockPost=async(type,id,flag)=>{
+       try {
+           showLoader()
+           let data = {
+               flag:flag === "blocked" ? "unblock" : "blocked"
+           }
+           let res = await httpPatch(`${type}/${id}/`,data)
+           console.log(res)
+           if (res.status === 200) {
+            NotificationManager.success(
+                "Data successfully removed.",
+               "Yepp",
+               3000
+           );
+            hideLoader()  
+           }
+           hideLoader()  
+       } catch (error) {
+        hideLoader()  
+       }
+    }
+
     render() {
         return (
             <Layout RouteUserLayout={
@@ -51,7 +73,7 @@ export default class reportedPostTable extends Component {
             } activepage="keepOpenPosts" page="reported_posts_table">
                  
                 <div className="reportePostTable">
-                     <ReportedTable Icebreaker={this.state.Icebreaker} getDeletId={this.getDeletId}/>
+                     <ReportedTable blockPost={this.blockPost} Icebreaker={this.state.Icebreaker} getDeletId={this.getDeletId}/>
                 </div>
 
                
