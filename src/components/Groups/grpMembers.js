@@ -38,8 +38,9 @@ export const GrpMembersView =(props)=> {
                 const res = await httpPost(`groups/${props.match.params.id}/assign_admin/`,userCurrentRole)
                 console.log(res)
                 groupMembers()
+                hideLoader()
             } catch (error) {
-                
+                hideLoader()
             }
         }
         }

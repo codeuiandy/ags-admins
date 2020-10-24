@@ -10,7 +10,8 @@ export default class Sidebar extends Component {
 			dropDownGroup:false,
 			dropDownPosts:false,
 			dropDownTopics:false,
-			dropDownUsers:false
+			dropDownUsers:false,
+			dropDownBoard:false,
 		}
 		console.log(this.props)
 		
@@ -67,6 +68,16 @@ if (events==="users") {
 		dropDownEvent:false,
 		dropDownGroup:false,
 		dropDownUsers:!this.state.dropDownUsers
+		
+	})	
+}
+
+if (events==="board") {
+	this.setState({
+		dropDownEvent:false,
+		dropDownGroup:false,
+		dropDownUsers:false,
+		dropDownBoard:!this.state.dropDownBoard,
 		
 	})	
 }
@@ -136,6 +147,17 @@ dropDownEvent:true,
 			
 				dropDownUsers:true,
 			})
+			
+			
+		}
+
+		if (this.props.activepage === "board") {
+			this.setState({
+			
+			
+				dropDownBoard:true,
+			})
+			
 			
 		}
 		
@@ -355,8 +377,47 @@ dropDownEvent:true,
 							<div className="hoverActiveRoute"></div>
 							<li className={`${this.props.page==="settings"?"activeClass":""}`}><i class="fas fa-cogs"></i> Settings</li>
 
-							<div className={`${this.props.page==="chats"?"activeClass":""}`} className="hoverActiveRoute"></div>
-              	<li ><i class="far fa-comments"></i>Opportunity Cost</li>
+
+
+
+							<div onClick={(e)=>this.dropDown('board')} className="hoverActiveRoute"></div>
+							<li ><i class="fas fa-users"></i>Opportunity  Board</li>
+							{this.state.dropDownBoard === true?
+							
+							<ul className="dropdownlist">
+								<div onClick={()=>{
+									this.props.RouteUserLayout.push("/investment_opportunities")
+								}} className="hoverActiveRoute"></div>
+
+								<li className={`${this.props.page==="InvestmentOpportunities" ? "activeClass":""}`}>
+								<Link className={`${this.props.page==="InvestmentOpportunities"?"activeClass":""}`} to="/investment_opportunities">
+								Investment Opportunities</Link></li>
+
+                                
+									<div onClick={()=>{
+									this.props.RouteUserLayout.push("/investment_opportunities")
+								}} className="hoverActiveRoute"></div>
+
+								<li className={`${this.props.page==="allUsers" ? "activeClass":""}`}>
+								<Link className={`${this.props.page==="allUsers"?"activeClass":""}`} to="/all_users">
+								Funding Opportunities</Link></li>
+
+								
+
+								<div onClick={()=>{
+									this.props.RouteUserLayout.push("/all_users")
+								}} className="hoverActiveRoute"></div>
+
+								<li className={`${this.props.page==="allUsers" ? "activeClass":""}`}>
+								<Link className={`${this.props.page==="allUsers"?"activeClass":""}`} to="/all_users">
+								Others Opportunities</Link></li>
+
+								
+									
+									
+							</ul>
+							:""}		
+
 
 							<div className={`${this.props.page==="chats"?"activeClass":""}`} className="hoverActiveRoute"></div>
               	<li ><i class="far fa-comments"></i>Membership Gifting</li>

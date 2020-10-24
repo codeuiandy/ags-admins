@@ -48,7 +48,7 @@ export default class reportedPostTable extends Component {
        try {
            showLoader()
            let data = {
-               flag:flag === "blocked" ? "unblock" : "blocked"
+               flag:flag === "blocked" ? "allowed" : "blocked"
            }
            let res = await httpPatch(`${type}/${id}/`,data)
            console.log(res)

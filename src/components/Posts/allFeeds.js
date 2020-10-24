@@ -7,7 +7,7 @@ import {Images} from './selectMutipleImages'
 import PostToFeed from '../Tables/allFeedsTable/feedToPost'
 import Icebreaker from '../Tables/allFeedsTable/icebreaker'
 import AskQuestion from '../Tables/allFeedsTable/askAQuestion'
-import {httpGet, httpPatch, httpPostFormData,httpPut} from '../helpers/httpMethods'
+import {httpGet, httpPatch, httpPostFormData,httpPost} from '../helpers/httpMethods'
 import DeleteModal from '../Modals/comfirmModal'
 import {hideLoader, showLoader} from '../helpers/loader'
 import {NotificationManager} from 'react-notifications'
@@ -91,6 +91,35 @@ export default class allFeeds extends Component {
            
     //    }
     // }
+
+    blockUserData=async(blockId,postType)=>{
+        const data = {
+            content_id:blockId,
+            content_type:postType
+        }
+        try {
+            showLoader()
+            const res = await httpPost(`users/content/flag_content/`,data)
+            console.log(res)
+            if (res.status === 201 ) {
+                 NotificationManager.success(
+                `${postType} blocked`,
+                "Yeep!",
+                3000
+            );
+            hideLoader()
+            }
+           
+        } catch (error) {
+            NotificationManager.error(
+                error,
+                "Opps!",
+                3000
+            );
+            hideLoader()
+        }
+    }
+
 
     deletData=async()=>{
     let deleteId = this.state.deletId

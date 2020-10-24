@@ -38,6 +38,7 @@ export const TopicFollowers =(props)=> {
                 const res = await httpPost(`topics/${props.match.params.id}/assign_admin/`,userCurrentRole)
                 console.log(res)
                 groupMembers()
+                hideLoader()
             } catch (error) {
                 
             }

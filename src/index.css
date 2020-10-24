@@ -4,6 +4,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
 }
+/* .modal{
+  overflow: hidden !important;
+  overflow-y: scroll !important;
+} */
+.modal{
+  overflow: hidden !important;
+  overflow-y: scroll !important;
+}
+
+
+
 
 @font-face {
   font-family: openSansBold;
@@ -80,4 +91,8 @@ textarea
 i{
   cursor: pointer !important;
   margin-right: 5px;
+}
+
+.btn-secondary{
+  /* background-color: red; */
 }
