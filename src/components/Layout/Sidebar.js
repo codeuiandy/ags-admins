@@ -151,7 +151,7 @@ dropDownEvent:true,
 			
 		}
 
-		if (this.props.activepage === "board") {
+		if (this.props.activepage === "funding_opportunities"  || this.props.activepage === "investment_opportunities" ) {
 			this.setState({
 			
 			
@@ -261,29 +261,24 @@ dropDownEvent:true,
 							
 							<ul className="dropdownlist">
 								
-								<div onClick={()=>{
-									this.props.RouteUserLayout.push("/posts-overview")
-								}} className="hoverActiveRoute"></div>
+								<div
+								//  onClick={()=>{
+								// 	this.props.RouteUserLayout.push("/posts-overview")
+								// }} 
+								className="hoverActiveRoute"></div>
 
 								<li className={`${this.props.page==="postOverview"?"activeClass":""}`}>
 								<Link className={`${this.props.page==="postOverview"?"activeClass":""}`} to="/posts-overview">
 									Overview</Link></li>
 
-									<div onClick={()=>{
-									this.props.RouteUserLayout.push("/create_posts")
-								}} className="hoverActiveRoute"></div>
-
-								<li className={`${this.props.page==="create_posts"?"activeClass":""}`}> <Link 
-								className={`${this.props.page==="create_posts"?"activeClass":""}`} to="/create_posts">
-									Create Post</Link></li>
-
+									
 									<div onClick={()=>{
 									this.props.RouteUserLayout.push("/all_feeds")
 								}} className="hoverActiveRoute"></div>
 
 									<li className={`${this.props.page==="all_feeds"?"activeClass":""}`}> <Link 
 								className={`${this.props.page==="all_feeds"?"activeClass":""}`} to="/all_feeds">
-									All Feeds</Link></li>
+								Posts</Link></li>
 
 									<div onClick={()=>{
 									this.props.RouteUserLayout.push("/reported_posts_table")
@@ -389,17 +384,17 @@ dropDownEvent:true,
 									this.props.RouteUserLayout.push("/investment_opportunities")
 								}} className="hoverActiveRoute"></div>
 
-								<li className={`${this.props.page==="InvestmentOpportunities" ? "activeClass":""}`}>
-								<Link className={`${this.props.page==="InvestmentOpportunities"?"activeClass":""}`} to="/investment_opportunities">
+								<li className={`${this.props.page==="investment_opportunities" ? "activeClass":""}`}>
+								<Link className={`${this.props.page==="investment_opportunities"?"activeClass":""}`} to="/investment_opportunities">
 								Investment Opportunities</Link></li>
 
                                 
 									<div onClick={()=>{
-									this.props.RouteUserLayout.push("/investment_opportunities")
+									this.props.RouteUserLayout.push("/funding_opportunities")
 								}} className="hoverActiveRoute"></div>
 
-								<li className={`${this.props.page==="allUsers" ? "activeClass":""}`}>
-								<Link className={`${this.props.page==="allUsers"?"activeClass":""}`} to="/all_users">
+								<li className={`${this.props.page==="funding_opportunities" ? "activeClass":""}`}>
+								<Link className={`${this.props.page==="funding_opportunities"?"activeClass":""}`}>
 								Funding Opportunities</Link></li>
 
 								

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import _ from 'lodash';
 import avatar from '../Users/avatar.png'
 import moment from 'moment'
-export default class fixedIncome extends Component {
+export default class realEstate extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {};
@@ -14,7 +14,7 @@ export default class fixedIncome extends Component {
 	bodyRow = () => {
 		const body = this.props.realEstateData.map((data, index) => ({
 		
-			title: <Link to={`user_info/${data.id}`}>{data.title}  </Link>,
+			title: <Link to={`view_investment/${data.id}`}>{data.title}  </Link>,
 			Partner:  _.startCase(_.lowerCase(`${data.partner}`)),
 			ROI:data.rio,
 			Maturity:  data.maturity,
@@ -24,7 +24,7 @@ export default class fixedIncome extends Component {
 
 
 						{" "}
-						<Link to={`user_info/${data.id}`}>
+						<Link to={`view_investment/${data.id}`}>
 						<i
 						style={{fontSize:"14px"}}
 							className="edit"
@@ -32,13 +32,15 @@ export default class fixedIncome extends Component {
 						></i>
 						</Link>
 
-            <Link to={`user_info/${data.id}`}>
+            
 						<i
+						data-dismiss="modal"  data-toggle="modal" 
+						data-target="#addInvestmentDetailsModal"
 						style={{fontSize:"14px"}}
 							className="edit"
 							className="fas fa-pen mr-4 add-cursor"
 						></i>
-						</Link>
+					
 						
             
 

@@ -54,7 +54,7 @@ class viewGrpStatictics extends Component {
 
           <div className="grpActionView">
              <Link to={`/edit_topic/${id}`}><button>Edit Topic</button></Link> 
-              <button  type="button"  data-toggle="modal" data-target="#deleteTopicModal" >Delete Topic</button>
+              <button  type="button"  data-toggle="modal" data-target="#deleteTopicModal" >Block Topic</button>
           </div>
 
         </div>

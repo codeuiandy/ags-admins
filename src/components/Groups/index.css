@@ -573,3 +573,7 @@ font-weight: 600;
 .fa-arrow-left{
     margin-bottom: 15px;
 }
+
+.group-Event-wrap{
+    width: 100% !important;
+}

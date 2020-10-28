@@ -11,7 +11,11 @@ import {httpGet, httpPatch, httpPostFormData,httpPost} from '../helpers/httpMeth
 import DeleteModal from '../Modals/comfirmModal'
 import {hideLoader, showLoader} from '../helpers/loader'
 import {NotificationManager} from 'react-notifications'
-
+import CreateFeedModal from '../Modals/createFeed.jsx'
+import CreatIcebreakerModal from '../Modals/createIcebreaker.jsx'
+import GetImageUrl from '../../components/helpers/getImageUrl'
+import moment from 'moment'
+import $ from 'jquery'
 export default class allFeeds extends Component {
     constructor(props){
         super(props)
@@ -20,6 +24,22 @@ export default class allFeeds extends Component {
             startDate:new Date(),
             Icebreaker:[],
             deletId:"",
+
+            endDate:new Date(),
+            postToFeedPost:"",
+            postToFeedImage:"",
+            previewImage:"",
+
+            IcebreakerpostToFeedPost:"",
+            IcebreakerpostToFeedImage:"",
+            IcebreakerpreviewImage:"",
+
+            advert_name:"",
+            advert_link:"",
+            advertStartDate:"",
+            advertEndDate:"",
+            ddd:null,
+            adverImages:[],
         }
     }
 
@@ -120,6 +140,8 @@ export default class allFeeds extends Component {
         }
     }
 
+    
+
 
     deletData=async()=>{
     let deleteId = this.state.deletId
@@ -142,6 +164,130 @@ export default class allFeeds extends Component {
         hideLoader()  
     }
     }
+
+    handleChange = (e) => {
+        this.setState({ [e.target.name]: e.target.value })
+        console.log(this.state.postToFeedPost)
+      }
+
+      handleFileChange = (e) => {
+        this.setState({ [e.target.name]: e.target.files[0] })
+        this.setState({previewImage:GetImageUrl(e.target.files[0])})
+        console.log(this.state)
+      }
+
+
+      closeModal = () => {
+		window.$(".modal").modal("hide");
+		window.$(document.body).removeClass("modal-open");
+		window.$(".modal-backdrop").remove();
+	};
+
+
+      
+    handleSubmit=async()=>{
+    
+        let postController = this.state.postController;
+    
+        if (postController === "Advert") {
+            // showLoader()
+            let check =   this.hendleBlob()
+            console.log(check)
+            // if (check === true) {
+                alert(5)
+                try {
+                    // var startDate = moment(this.state.startDate , 'YYYY-MM-DD');
+                    let date = new Date()
+                    let startDate =  moment(date)
+                    startDate.format("YYYY-MM-DDTHH:mm:ss.SSS")
+                    console.log(startDate)
+                    const  formData = new FormData()
+                    formData.append("start_date",startDate)
+                    formData.append("images", await this.state.ddd)
+                    formData.append("link",this.state.advert_link)
+                    formData.append("name",this.state.advert_name)
+                
+                    formData.append("end_date",this.state.endDate)
+                    await httpPostFormData(`adverts/`,formData)
+                    //  console.log(file)
+                     console.log(this.state.ddd)
+                 } catch (error) {
+                     
+                //  }
+                  
+            }
+            
+               
+            
+           
+        }
+    
+    
+        if (postController === "post") {
+            showLoader()
+        
+            try {
+                const formData = new FormData()
+                formData.append("body",this.state.postToFeedPost)
+                formData.append("file",this.state.postToFeedImage)
+                let res = await httpPostFormData(`feeds/create_feed/`,formData)
+                
+                if (res.status == 201) {
+                    NotificationManager.success(
+                        "Post Created Succesfully",
+                        "Yepp",
+                        3000
+                    );
+                    this.setState({
+                        postToFeedPost:"",
+                        postToFeedImage:"",
+                        previewImage:"",
+                    })
+                    this.closeModal()
+                    hideLoader()
+                }
+    
+                hideLoader()
+            } catch (error) {
+                hideLoader()
+            }
+        }
+    
+    
+    
+    
+        if (postController === "Icebreaker") {
+            showLoader()
+        
+            try {
+                const formData = new FormData()
+                formData.append("body",this.state.IcebreakerpostToFeedPost)
+                formData.append("file",this.state.IcebreakerpostToFeedImage)
+                let res = await httpPostFormData(`icebreakers/`,formData)
+                
+                if (res.status == 201) {
+                    NotificationManager.success(
+                        "Icebreakers Post Created Succesfully",
+                        "Yepp",
+                        3000
+                    );
+                    this.setState({
+                        IcebreakerpostToFeedPost:"",
+                        IcebreakerpostToFeedImage:"",
+                        IcebreakerpreviewImage:"",
+                        previewImage:"",
+                    })
+                    this.closeModal()
+                    this.getIcebreakers()
+                }
+    
+                hideLoader()
+            } catch (error) {
+                hideLoader()
+            }
+        }
+    
+        }
     
     render() {
         let Switch = this.state.postController
@@ -184,6 +330,10 @@ export default class allFeeds extends Component {
                 {
                 Switch === "post" ? (
                     <div className="postTofeedLayout">
+                        <div type="button"  data-toggle="modal" data-target="#feedModal" className="createPostBtn-new">
+                             <button>Create new post</button>
+                        </div>
+                       
                     <PostToFeed Icebreaker={this.state.Icebreaker} getDeletId={this.getDeletId}/>
                     </div>
                 ) : ""
@@ -262,7 +412,9 @@ export default class allFeeds extends Component {
 {
                 Switch === "Icebreaker" ? (
                     <div className="postTofeedLayout">
-                      
+                        <div type="button"  data-toggle="modal" data-target="#icebreakerModal" className="createPostBtn-new">
+                             <button>Create new icebreaker</button>
+                        </div>
                       <Icebreaker Icebreaker={this.state.Icebreaker} getDeletId={this.getDeletId}/>
                     </div>
                 ) : ""
@@ -273,7 +425,9 @@ export default class allFeeds extends Component {
 {
                 Switch === "poll" ? (
                     <div className="postTofeedLayout">
-                      
+                        <div type="button"  data-toggle="modal" data-target="#feedModal" className="createPostBtn-new">
+                             <button>Create new post</button>
+                        </div>
                     <AskQuestion/>
                   </div>
                 ) : ""
@@ -281,6 +435,23 @@ export default class allFeeds extends Component {
 
 
             </Layout>
+            <CreateFeedModal
+             GetImageUrl={GetImageUrl} 
+             sharedState={this.state}
+             handleSubmit={this.handleSubmit}
+             handleChange={this.handleChange}
+             handleChange={this.handleChange}
+             handleFileChange={this.handleFileChange}
+             />
+
+             <CreatIcebreakerModal
+             GetImageUrl={GetImageUrl} 
+             sharedState={this.state}
+             handleSubmit={this.handleSubmit}
+             handleChange={this.handleChange}
+             handleChange={this.handleChange}
+             handleFileChange={this.handleFileChange}
+             />
             <DeleteModal deletData={this.deletData}/>
             </div>
         )

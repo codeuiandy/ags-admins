@@ -31,9 +31,17 @@ body {
   font-family: openSansRegular;
   src: url(../src/components/fonts/OpenSans-Regular.ttf);
 }
+button{
+  outline: none !important;
+  border: none !important;
+}
+
+input{
+  outline: none;
+}
 
 h1,h2,h3,h4,h5,h6{
-  font-family: openSansBold;
+  font-family: openSansRegular;
 }
 
 p{
@@ -45,7 +53,7 @@ li,div,td,th,tbody{
 }
 
 span{
-  font-family:openSansLight ;
+  font-family:openSansRegular ;
 }
 
 

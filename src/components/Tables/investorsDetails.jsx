@@ -14,10 +14,12 @@ export default class realEstate extends Component {
 	bodyRow = () => {
 		const body = this.props.realEstateData.map((data, index) => ({
 		
-			title: <Link to={`view_investment/${data.id}`}>{data.title}  </Link>,
-			Partner:  _.startCase(_.lowerCase(`${data.partner}`)),
-			ROI:data.rio,
-			Maturity:  data.maturity,
+			investor: <Link to={`user_info/${data.id}`}>{data.investor}  </Link>,
+			amount:  _.startCase(_.lowerCase(`${data.amount}`)),
+			reference:data.reference,
+      units:data.units,
+      investmentDate:data.investmentDate,
+      maturity:data.maturity,
 
 			action: (
 				<a>
@@ -32,15 +34,13 @@ export default class realEstate extends Component {
 						></i>
 						</Link>
 
-            
+            <Link to={`user_info/${data.id}`}>
 						<i
-						data-dismiss="modal"  data-toggle="modal" 
-						data-target="#addInvestmentDetailsModal"
 						style={{fontSize:"14px"}}
 							className="edit"
 							className="fas fa-pen mr-4 add-cursor"
 						></i>
-					
+						</Link>
 						
             
 
@@ -65,18 +65,22 @@ export default class realEstate extends Component {
 	header = () => {
 		const header = [
 			{
-				title: "Title",
-				prop: "title",
+				title: "investor",
+				prop: "investor",
 				sortable: true,
 				filterable: true,
-			},
+      },
 	
-			{ title: "Partner", prop: "Partner", sortable: true },
+			{ title: "Amount", prop: "amount", sortable: true },
 
 
-			{ title: "ROI", prop: "ROI", sortable: true },
+      { title: "reference", prop: "reference", sortable: true },
+      
+      { title: "Units", prop: "units", sortable: true },
 
-			{ title: "Maturity", prop: "Maturity", sortable: true },
+      { title: "Investment Date", prop: "investmentDate", sortable: true },
+
+			{ title: "Maturity", prop: "maturity", sortable: true },
 			{ title: "Actions", prop: "action" },
 		];
 		return header;

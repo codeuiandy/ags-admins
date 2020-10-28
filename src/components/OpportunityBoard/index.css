@@ -132,8 +132,10 @@ height: 45px;
 
 .investment-details-input-wrap textarea::placeholder{
   font-size: 13px;
-  padding-left: 3px;
+  padding-left: 8px;
 }
+
+
 
 .investment-details-input-wrap select {
   font-size: 13px;
@@ -147,6 +149,16 @@ height: 45px;
   border: 1px solid rgba(207, 208, 215, 0.5);
   border-radius: 4px;
   height: 105px;
+  }
+
+  .viewInvestMent-header{
+    text-align: center;
+    font-weight: 600;
+font-size: 24px;
+line-height: 33px;
+letter-spacing: 0.01em;
+color: #6A707E;
+margin-top: 15px;
   }
 
 
@@ -199,3 +211,68 @@ height: 50px;
 margin-right: 10px;
 cursor: pointer;
 }
+
+.funding-opt-wrap{
+  width: 80%;
+  background-color: white;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+}
+
+.funding-inputes{
+  width: 50%;
+  background-color: white;
+  padding-left: 40px;
+  padding-top: 30px;
+  border-radius: 5px;
+}
+
+.funding-industry-tags{
+  display: flex;
+  flex-wrap: wrap; 
+  width: 100%;
+}
+
+.funding-industry-tags-span{
+background-color: orange;
+width: fit-content;
+padding: 10px;
+margin-right: 5px;
+margin-bottom: 5px;
+color: #334D6E;
+background: rgba(253, 173, 0, 0.57);
+border-radius: 4px;
+font-weight: 500;
+}
+
+.funding-industry-tags-span .x{
+color: red;
+font-weight: 600;
+  }
+
+  .funding-industry-div{
+    display: flex;
+    margin-bottom: 10px;
+  }
+
+  .funding-industry-div button{
+   background-color: orange;
+   color: white;
+   width: 60px;
+   border-radius: 0px 5px 5px 0;
+  }
+
+  .fundingOp-btn{
+    width: 100%;
+  }
+
+  .fundingOp-btn button{
+    background: #FDAD00;
+  border-radius: 4px;
+  width: 100%;
+  margin-top: 15px;
+  height: 45px;
+  color: white;
+  font-weight: 600;
+  }

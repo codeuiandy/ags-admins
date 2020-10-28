@@ -35,6 +35,7 @@ import {EditTopic} from './components/Topics/EditTopic'
 import EditPost from './components/Posts/editPost'
 import InvestmentOpportunities from './components/OpportunityBoard/InvestmentOpportunities.jsx'
 import ViewInvestment from './components/OpportunityBoard/ViewInvestmentOpportunities'
+import FundingOpportunities from './components/OpportunityBoard/fundingOptionity'
 
 import {NotificationManager,NotificationContainer} from 'react-notifications'
 function App() {
@@ -74,8 +75,9 @@ function App() {
 						<Route exact path="/edit_group/:id" component={EditGroup} />
 						<Route exact path="/edit_topic/:id" component={EditTopic} />
 						<Route exact path="/edit_post/:type/:id" component={EditPost} />
-						<Route exact path="/view_investment/:id" component={ViewInvestment} />
 						<Route exact path="/investment_opportunities" component={InvestmentOpportunities} />
+						<Route exact path="/view_investment/:id" component={ViewInvestment} />
+						<Route exact path="/funding_opportunities" component={FundingOpportunities} />
 				</Switch>
 			</Router>
 		</div>

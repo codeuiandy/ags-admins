@@ -368,3 +368,39 @@ border-radius: 5px;
     margin-left: 18px;
     color: #334D6E;
 }
+
+.createPostBtn-new{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding-right: 31px;
+    width: 70vw;
+}
+
+.createPostBtn-new button{
+    background: #FDAD00;
+    border-radius: 5px;
+    border: none;
+    height: 45px;
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
+    cursor: pointer;
+    font-size: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.create-postModal{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 25px;
+}
+
+
+.createPostInner-modal{
+    width: 100% !important;
+  margin: 0 !important;
+ 
+}

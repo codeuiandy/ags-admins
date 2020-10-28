@@ -10,10 +10,17 @@ import ViewGrpStatictics from './viewGrpStatictics'
  import moment from 'moment'
  import dateFormater from '../helpers/dateFormater'
  import {DeleteGroup} from '../Modals/DeleteGroup'
+ import GroupEventModal from '../Modals/groupEvent.jsx'
 export  const ViewGroup =(props)=> {
    const Uid = props.match.params.id
     const [getGroupDetailsData, SetgetGroupDetailsData] = useState([])
     const [groupJoinRequest, SetgroupJoinRequest] = useState([])
+    const [eventTime, setEventTime]= useState({  
+      startDate:new Date(),
+      endDate:new Date(),
+      startTime:new Date(),
+      endTime:new Date(),})
+   
     const getGroupDetails = async()=>{
         showLoader()
         const res = await httpGet(`groups/${Uid}/`)
@@ -56,6 +63,44 @@ export  const ViewGroup =(props)=> {
               
             }
           }
+
+          const handleDateChange = (date,type) => {
+           if (type === "startDate") {
+            setEventTime({ 
+              ...eventTime,
+              startDate:date
+           })
+         
+          }
+
+
+          if (type === "endDate") {
+            setEventTime({ 
+              ...eventTime,
+              endDate:date
+           })
+         
+          }
+
+
+
+          if (type === "startTime") {
+            setEventTime({ 
+              ...eventTime,
+              startTime:date
+           })
+         
+          }
+
+
+          if (type === "endTime") {
+            setEventTime({ 
+              ...eventTime,
+              endTime:date
+           })
+         
+          }
+        }
 
         return (
             <div>
@@ -124,6 +169,10 @@ export  const ViewGroup =(props)=> {
           
             </Layout>
             <DeleteGroup DeleteGroupd={DeleteGroupd}/>
+            <GroupEventModal 
+            eventTime={eventTime}
+            handleDateChange={handleDateChange}
+            />
             </div>
         )
     }

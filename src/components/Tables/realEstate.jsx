@@ -14,7 +14,7 @@ export default class realEstate extends Component {
 	bodyRow = () => {
 		const body = this.props.realEstateData.map((data, index) => ({
 		
-			title: <Link to={`user_info/${data.id}`}>{data.title}  </Link>,
+			title: <Link to={`view_investment/${data.id}`}>{data.title}  </Link>,
 			Partner:  _.startCase(_.lowerCase(`${data.partner}`)),
 			ROI:data.rio,
 			Maturity:  data.maturity,
@@ -32,13 +32,15 @@ export default class realEstate extends Component {
 						></i>
 						</Link>
 
-            <Link to={`user_info/${data.id}`}>
+            
 						<i
+						data-dismiss="modal"  data-toggle="modal" 
+						data-target="#addInvestmentDetailsModal"
 						style={{fontSize:"14px"}}
 							className="edit"
 							className="fas fa-pen mr-4 add-cursor"
 						></i>
-						</Link>
+					
 						
             
 

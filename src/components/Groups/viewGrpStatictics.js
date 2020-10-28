@@ -54,10 +54,24 @@ class viewGrpStatictics extends Component {
           </div>  
 
           <div className="grpActionView">
-             <Link to={`/edit_group/${id}`}><button>Edit Group</button></Link> 
-              <button  type="button"  data-toggle="modal" data-target="#deleteGroupModal" >Delete Group</button>
+             <Link to={`/edit_group/${id}`}><button>Edit Group</button> 
+             
+              </Link> 
+              <button  type="button"  data-toggle="modal" data-target="#deleteGroupModal" >Block Group</button>
+              <button style={{
+                 background: "orange",
+                 border: "none",
+                 marginRight:"30px",
+                 color: "white",
+                 fontWeight: 600,
+                 borderRadius: "5px",
+                width: "113px",
+                 height: "45px",
+              }} type="button" class="btn btn-primary" data-toggle="modal" data-target="#groupEvent">Add Event</button>
+             
           </div>
 
+          
         </div>
 
         <div className="col col-md-6 col-sm-12">

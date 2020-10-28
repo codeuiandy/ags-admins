@@ -56,10 +56,11 @@ export default function InvestmentOpportunities(props) {
   }
   return (
     <div>
-      <Layout RouteUserLayout={
-					props.history
-        }  
-      page="InvestmentOpportunities">
+      <Layout 
+      
+             RouteUserLayout={
+                props.history
+            } activepage="investment_opportunities" page="investment_opportunities">
 			
                               <OverViewCards/>
                               <div className="addInvestmentBtn">
