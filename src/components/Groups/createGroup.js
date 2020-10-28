@@ -203,11 +203,15 @@ formData.append('thumbnail', currenThumbnailtFile);
     </select>
   </div>
                             </div>
+
+                            
                           
                         </div>
                         <div className="btnCtreate">
-                        <button onClick={CreateTGroup}>{getEditDetails.usedbyGroupsPage===true?"Edit Group":"Create Group"}</button>
+                        <button onClick={CreateTGroup}>
+                            {getEditDetails.usedbyGroupsPage===true?"Edit Group":"Create Group"}</button>
                         </div>
+                        
                         
                 </div>
             </Layout>

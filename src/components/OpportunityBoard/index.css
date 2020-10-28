@@ -276,3 +276,23 @@ font-weight: 600;
   color: white;
   font-weight: 600;
   }
+
+  .wrap-op-2{
+    background-color: white;
+    width: 50vw;
+    border-radius: 5px;
+    padding: 20px 50px 20px 50px;
+    margin-bottom: 20px;
+  }
+
+  .wrap-op2-head {
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(7, 7, 7, 0.192);
+    margin-bottom: 20px;
+  }
+
+  .wrap-op2-head h1{
+    font-size: 21px;
+    font-weight: 600;
+    color: #6A707E;
+  }

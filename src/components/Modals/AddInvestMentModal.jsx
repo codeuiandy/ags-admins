@@ -1,5 +1,5 @@
 import React from 'react'
-
+import {Link} from 'react-router-dom'
 export default function AddInvestMentModal() {
   return (
     <div>
@@ -23,8 +23,9 @@ export default function AddInvestMentModal() {
             <option value="Agric Tech">Fixed Income</option>
             <option value="Agric Tech">Others</option>
           </select> 
-          <button data-dismiss="modal"  data-toggle="modal" 
-                                data-target="#addInvestmentDetailsModal">Create</button>
+          <Link to="/investment_opportunities_step2">
+          <button>Create</button>
+          </Link>
         </div>
       </div>
       <div class="modal-footer">

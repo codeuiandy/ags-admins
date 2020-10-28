@@ -34,6 +34,7 @@ import {EditGroup} from './components/Groups/editGroup'
 import {EditTopic} from './components/Topics/EditTopic'
 import EditPost from './components/Posts/editPost'
 import InvestmentOpportunities from './components/OpportunityBoard/InvestmentOpportunities.jsx'
+import InvestmentOpportunitiesSlide2 from './components/OpportunityBoard/opportunityBoardStep2.jsx'
 import ViewInvestment from './components/OpportunityBoard/ViewInvestmentOpportunities'
 import FundingOpportunities from './components/OpportunityBoard/fundingOptionity'
 
@@ -76,6 +77,7 @@ function App() {
 						<Route exact path="/edit_topic/:id" component={EditTopic} />
 						<Route exact path="/edit_post/:type/:id" component={EditPost} />
 						<Route exact path="/investment_opportunities" component={InvestmentOpportunities} />
+						<Route exact path="/investment_opportunities_step2" component={InvestmentOpportunitiesSlide2} />
 						<Route exact path="/view_investment/:id" component={ViewInvestment} />
 						<Route exact path="/funding_opportunities" component={FundingOpportunities} />
 				</Switch>

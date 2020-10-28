@@ -101,7 +101,9 @@ color: #334D6E;
                           padding-bottom: 40px;
 
 }
-
+.grp5{
+    grid-area: grp5;
+}
 .grp1{
     grid-area: createGrp1;
   
