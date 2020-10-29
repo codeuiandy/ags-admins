@@ -52,7 +52,7 @@ margin-top: 15px;
     }
 
     .grp-overview div{
-        width: 80vw;
+        width: 90vw;
     }
 }
 
@@ -578,4 +578,50 @@ font-weight: 600;
 
 .group-Event-wrap{
     width: 100% !important;
+}
+
+
+@media (max-width: 1024px) {
+    .grp-overview-table{
+        width: 100%;
+       margin-top: 20px;
+    }
+
+
+    
+}
+
+@media (max-width: 663px) {
+    
+    .eventGridinfo {
+        display: grid;
+        width: 100%;
+        grid-template-areas:
+            'gridHeader1 gridHeader2'
+             'griddata1 griddata2'
+              '. .' 
+              'gridHeader4 .'
+              'griddata4 .'
+            ;
+       
+    }
+
+}
+
+@media (max-width: 511px) {
+    
+    .eventGridinfo {
+
+        display: grid;
+        grid-template-areas:
+            'gridHeader1 '
+            'griddata1'
+            'gridHeader2'
+            "griddata2"
+            "gridHeader4"
+            "griddata4"
+            ;
+       
+    }
+
 }

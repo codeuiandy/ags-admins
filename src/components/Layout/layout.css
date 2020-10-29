@@ -193,6 +193,9 @@ left: 250px; */
 }
 
 @media (max-width: 1024px) {
+
+
+
 	.SidebarDefault {
 		display: none;
 	}
@@ -240,19 +243,18 @@ left: 250px; */
 			transform: translateX(-260px);
 		}
 	}
+
 	.centra-margin {
-		height: fit-content;
+	
+		position: relative;
 		width: 100vw;
-		position: absolute;
-		top: 70px;
-		padding-left: 20px;
-		z-index: 4;
-		padding-right: 0;
-		overflow: hidden;
-		position: absolute;
+		top: 100px;
+		left: 0;
 		right: 0;
-		margin: 0;
+		padding: 0 20px 0 20px;
+		overflow-x: hidden !important;
 	}
+
 }
 
 @media(max-width:1024px) {

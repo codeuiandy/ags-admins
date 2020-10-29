@@ -37,7 +37,7 @@ import InvestmentOpportunities from './components/OpportunityBoard/InvestmentOpp
 import InvestmentOpportunitiesSlide2 from './components/OpportunityBoard/opportunityBoardStep2.jsx'
 import ViewInvestment from './components/OpportunityBoard/ViewInvestmentOpportunities'
 import FundingOpportunities from './components/OpportunityBoard/fundingOptionity'
-
+import AddFunding from './components/OpportunityBoard/AddFunding.jsx'
 import {NotificationManager,NotificationContainer} from 'react-notifications'
 function App() {
 	return (
@@ -80,6 +80,7 @@ function App() {
 						<Route exact path="/investment_opportunities_step2" component={InvestmentOpportunitiesSlide2} />
 						<Route exact path="/view_investment/:id" component={ViewInvestment} />
 						<Route exact path="/funding_opportunities" component={FundingOpportunities} />
+						<Route exact path="/add_funding" component={AddFunding} />
 				</Switch>
 			</Router>
 		</div>
