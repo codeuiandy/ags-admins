@@ -79,7 +79,7 @@ const handleIndustryData=(type,deleteData)=>{
                 
         <div className="funding-opt-wrap">
         <div className="add_funding_header">
-                    <h1>Add New Funding</h1>
+                    <h1>Add New Others</h1>
                 </div>
           <div className="funding-inputes">
           <div className="add-investment-details-wrap">
@@ -91,10 +91,20 @@ const handleIndustryData=(type,deleteData)=>{
 
 
 <div className="investment-details-input-wrap">
-  <label>Description</label>
+  <label>Summary</label>
   <textarea type="text" placeholder="Eg. your text here"/>
 </div>
 
+
+
+<div className="investment-details-input-wrap">
+  <label>Location (for Job)</label>
+  <select name="" id="">
+  <option value="select">Eg. Select your type here</option>
+  <option value="Agric Tech">Active</option>
+ 
+</select> 
+</div>
 
 
 <div className="investment-details-input-wrap">
@@ -108,19 +118,26 @@ const handleIndustryData=(type,deleteData)=>{
 
 <div className="investment-details-input-wrap">
   <label>Industry</label>
-
-  <div className="funding-industry-div">
-     <input style={{borderRadius:"5px 0px 0 5px"}} onChange={(e)=>setindustryDataInput(e.target.value)} type="text" placeholder="Low Cost housing estates"/><button
-   onClick={(data)=>handleIndustryData("add","")}>Add</button>
-  </div>
+  <select name="" id="">
+  <option value="select">Eg. Select your type here</option>
+  <option value="Agric Tech">Active</option>
  
-   <div className="funding-industry-tags">
-  {
-    industryData.map((data,index)=>{
-    return<span className="funding-industry-tags-span" onClick={(data)=>handleIndustryData("remove",index)}>{`${data}`} <span className="x" >X</span></span>
-    })
-  }
-  </div>
+</select> 
+</div>
+
+
+<div className="investment-details-input-wrap">
+  <label>Job Type (for Job)</label>
+  <select name="" id="">
+  <option value="select">Eg. Select your type here</option>
+  <option value="Agric Tech">Active</option>
+ 
+</select> 
+</div>
+
+<div className="investment-details-input-wrap">
+  <label>Description / Responsibilities</label>
+  <textarea type="text" placeholder="Eg. your text here"/>
 </div>
 
 
@@ -136,6 +153,29 @@ const handleIndustryData=(type,deleteData)=>{
   {
     Criteria.map((data,index)=>{
     return<span className="funding-industry-tags-span" onClick={(data)=>setEligibilityCriteriaInputHandle("remove",index)}>{`${data}`} <span className="x" >X</span></span>
+    })
+  }
+  </div>
+</div>
+
+<div className="investment-details-input-wrap">
+  <label>Benefits </label>
+  <textarea type="text" placeholder="Eg. your text here"/>
+</div>
+
+<div className="investment-details-input-wrap">
+  <label>Participating Countries (optional) (for Job)</label>
+
+  <div className="funding-industry-div">
+     <input style={{borderRadius:"5px 0px 0 5px"}} onChange={(e)=>setindustryDataInput(e.target.value)} type="text"
+      placeholder="Select your Participating Countries here"/><button
+   onClick={(data)=>handleIndustryData("add","")}>Add</button>
+  </div>
+ 
+   <div className="funding-industry-tags">
+  {
+    industryData.map((data,index)=>{
+    return<span className="funding-industry-tags-span" onClick={(data)=>handleIndustryData("remove",index)}>{`${data}`} <span className="x" >X</span></span>
     })
   }
   </div>

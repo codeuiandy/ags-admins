@@ -37,7 +37,7 @@ console.log("app Groups",res)
                 props.history
             } page="all_groups" activepage="keepOpenGroup">
                 
-                <div className="allGroups allTopics">
+                <div className="table-wrap">
                     {/* <GroupsTable getGroup={getGroup}/> */}
                     <GroupTable getGroup={getGroup}/>    
                 </div>   

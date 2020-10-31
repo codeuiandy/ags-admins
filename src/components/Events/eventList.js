@@ -40,7 +40,7 @@ export default class eventList extends Component {
 
 {
     this.state.eventDate === "recentEvents" ?(
-        <div  id="event-list-wraper">
+        <div  className="table-wrap">
                     
         <h1 style={{marginTop:"-24px"}} className="eventListHeader">Upcoming Events</h1>
 
@@ -48,7 +48,7 @@ export default class eventList extends Component {
       <br/>
         </div>  
     ):(
-        <div  id="event-list-wraper">
+        <div  className="table-wrap">
                     
         <h1 style={{marginTop:"-24px"}} className="eventListHeader">Previous Events</h1>
 

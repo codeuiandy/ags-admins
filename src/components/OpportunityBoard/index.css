@@ -1,12 +1,35 @@
+.addInvestmentBtn{
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
 .addInvestmentBtn button{
 background: #FDAD00;
 box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.23);
 border-radius: 4px;
-padding: 10px;
+padding: 10px 25px 10px 25px;
 color: white;
 margin-bottom: 30px;
 margin-top: 10px;
+outline: none;
 }
+
+.addInvestmentBtn select{
+  background: #FDAD00;
+  box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.23);
+  border-radius: 4px;
+  padding: 10px 25px 10px 25px;
+  color: white;
+  margin-bottom: 30px;
+  margin-top: 10px;
+  outline: none;
+  }
+  
+  .addInvestmentBtn select option{
+    background-color: white;
+    color: #002333;
+  }
 
 .board-switcher{
   display: flex;
@@ -111,11 +134,15 @@ font-weight: 600;
  padding: 10px 10px 10px 20px;
 }
 
+.uploadInvesmet-input-submit span{
+  font-size: 13px;
+}
+
 .investment-details-input-wrap{
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .investment-details-input-wrap input{
@@ -127,21 +154,26 @@ height: 45px;
 }
 
 .investment-details-input-wrap input::placeholder{
-  font-size: 13px;
-  padding-left: 3px;
+  outline: none;
+  font-size: 12px;
+  padding-left: 2px;
+  color: #6a707ec0;
 }
 
 .investment-details-input-wrap textarea::placeholder{
-  font-size: 13px;
+  outline: none;
+  font-size: 12px;
   padding-left: 8px;
+  color: #6a707ec0;
 }
 
 
 
 .investment-details-input-wrap select {
-  font-size: 13px;
-  padding-left: 3px;
   outline: none;
+  font-size: 12px;
+  padding-left: 8px;
+  color: #6a707ec0;
 }
 
 .investment-details-input-wrap textarea{
@@ -172,8 +204,10 @@ margin-top: 15px;
     }
 
     .investment-details-input-wrap label{
-    font-size: 15px;
-    color: #6A707E;
+    font-size: 12px;
+    color: #334D6E;
+    font-weight: 600;
+    margin-bottom: 3px;
       }
 
 .add-investment-details-wrap .submit-investment-btn{
@@ -200,6 +234,27 @@ margin-top: 15px;
   position: absolute;
   left: 0;
   opacity: 0;
+  cursor: pointer;
+}
+
+.add_funding_header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 30px;
+  padding-top: 30px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.315);
+  font-weight: 600;
+  font-weight: 600;
+font-size: 24px;
+line-height: 33px;
+letter-spacing: 0.01em;
+color: #6A707E;
+ 
+}
+
+.add_funding_header h1{
+   font-size: 25px;
 }
 
 .uploadInvesmet-input-submit button{
@@ -214,7 +269,7 @@ cursor: pointer;
 }
 
 .funding-opt-wrap{
-  width: 80%;
+  width: 60%;
   background-color: white;
   border-radius: 5px;
   margin-bottom: 20px;
@@ -222,7 +277,7 @@ cursor: pointer;
 }
 
 .funding-inputes{
-  width: 50%;
+  width: 90%;
   background-color: white;
   padding-left: 40px;
   padding-top: 30px;
@@ -245,6 +300,7 @@ color: #334D6E;
 background: rgba(253, 173, 0, 0.57);
 border-radius: 4px;
 font-weight: 500;
+cursor: pointer;
 }
 
 .funding-industry-tags-span .x{

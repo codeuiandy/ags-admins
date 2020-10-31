@@ -1,8 +1,10 @@
 body {
   margin: 0;
+  padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
+  overflow-x: hidden ;
+  width: 100vw;
 }
 /* .modal{
   overflow: hidden !important;
@@ -103,4 +105,14 @@ i{
 
 .btn-secondary{
   /* background-color: red; */
+}
+
+.table-wrap {
+  padding: 50px;
+  background-color: white;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-bottom: 40px;
+  border-radius: 5px;
+  margin-top: 15px;
 }

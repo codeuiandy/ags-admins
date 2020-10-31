@@ -61,7 +61,7 @@
 //                 this.props.history
 //             } activepage="reportedUsers" page="reportedUsers">
                
-//                 <div className="allusersWrap">
+//                 <div className="table-wrap">
 //                 <AllReportedUser allReportedUser={this.state.allReportedUser}
                 
 //                 />
@@ -151,7 +151,7 @@ export default class allUsers extends Component {
                 this.props.history
             } activepage="allUsers" page="allUsers">
                   
-                <div className="allusersWrap">
+                <div className="table-wrap">
                 <AllReportedUser allUsers={this.state.usersData} getUserId={this.getUserId}/>
                 </div>
                

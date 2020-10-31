@@ -38,6 +38,11 @@ import InvestmentOpportunitiesSlide2 from './components/OpportunityBoard/opportu
 import ViewInvestment from './components/OpportunityBoard/ViewInvestmentOpportunities'
 import FundingOpportunities from './components/OpportunityBoard/fundingOptionity'
 import AddFunding from './components/OpportunityBoard/AddFunding.jsx'
+import OtherOpportunities from './components/OpportunityBoard/otherOpturnity.jsx'
+import AddOthers from './components/OpportunityBoard/AddOthers.jsx'
+import AffinityNetwork from './components/AffinityNetwork/AffinityNetwork.jsx'
+import Resources from './components/Resources/indexResource.jsx'
+
 import {NotificationManager,NotificationContainer} from 'react-notifications'
 function App() {
 	return (
@@ -81,6 +86,10 @@ function App() {
 						<Route exact path="/view_investment/:id" component={ViewInvestment} />
 						<Route exact path="/funding_opportunities" component={FundingOpportunities} />
 						<Route exact path="/add_funding" component={AddFunding} />
+						<Route exact path="/other_opportunities" component={OtherOpportunities} />
+						<Route exact path="/add_others" component={AddOthers} />
+						<Route exact path="/affinity_network" component={AffinityNetwork} />
+						<Route exact path="/resources" component={Resources} />
 				</Switch>
 			</Router>
 		</div>

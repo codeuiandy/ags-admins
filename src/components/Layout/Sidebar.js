@@ -151,7 +151,9 @@ dropDownEvent:true,
 			
 		}
 
-		if (this.props.activepage === "funding_opportunities"  || this.props.activepage === "investment_opportunities" ) {
+		if (this.props.activepage === "funding_opportunities"  
+		|| this.props.activepage === "investment_opportunities"
+		 || this.props.activepage === "other_opportunities" ) {
 			this.setState({
 			
 			
@@ -186,7 +188,7 @@ dropDownEvent:true,
 								}} className="hoverActiveRoute"></div>
 							<li  className={`${this.props.page==="dashboard"?"activeClass":""}`}><i class="fas fa-th">
 								
-								</i><Link className={` dashboardSt ${this.props.page==="dashboard"?"activeClass":""}`} to="/dashboard">Dashboard</Link> </li>
+								</i>Dashboard</li>
 
 								<div onClick={(e)=>this.dropDown('events')} className="hoverActiveRoute"></div>
 							<li ><i class="far fa-calendar-alt"></i> Events</li>
@@ -355,6 +357,14 @@ dropDownEvent:true,
 									
 							</ul>
 							:""}		
+
+                           <div onClick={()=>{
+									this.props.RouteUserLayout.push("/plans")
+								}} className="hoverActiveRoute"></div>
+							<li  className={`${this.props.page==="plans"?"activeClass":""}`}><i class="fas fa-th">
+								
+								</i>Plans</li>
+
 <div className={`${this.props.page==="chats"?"activeClass":""}`} className="hoverActiveRoute"></div>
               	<li ><i class="far fa-comments"></i>Chats</li>
 
@@ -363,8 +373,10 @@ dropDownEvent:true,
 
 				 
 
-				  <div className={`${this.props.page==="chats"?"activeClass":""}`} className="hoverActiveRoute"></div>
-              	<li ><i class="far fa-comments"></i>Resources</li>
+				  <div onClick={()=>{
+									this.props.RouteUserLayout.push("/resources")
+								}} className="hoverActiveRoute"></div>
+              	<li className={`${this.props.page==="resources"?"activeClass":""}`}><i class="far fa-comments"></i>Resources</li>
 
 				  <div className="hoverActiveRoute"></div>
 							<li className={`${this.props.page==="email"?"activeClass":""}`}> <i class="fas fa-envelope-open-text"></i>Email</li>
@@ -372,6 +384,12 @@ dropDownEvent:true,
 							<div className="hoverActiveRoute"></div>
 							<li className={`${this.props.page==="settings"?"activeClass":""}`}><i class="fas fa-cogs"></i> Settings</li>
 
+							<div onClick={()=>{
+									this.props.RouteUserLayout.push("/affinity_network")
+								}} className="hoverActiveRoute"></div>
+							<li  className={`${this.props.page==="affinity_network"?"activeClass":""}`}><i class="fas fa-th">
+								
+								</i>Affinity Network</li>
 
 
 
@@ -400,11 +418,11 @@ dropDownEvent:true,
 								
 
 								<div onClick={()=>{
-									this.props.RouteUserLayout.push("/all_users")
+									this.props.RouteUserLayout.push("/other_opportunities")
 								}} className="hoverActiveRoute"></div>
 
-								<li className={`${this.props.page==="allUsers" ? "activeClass":""}`}>
-								<Link className={`${this.props.page==="allUsers"?"activeClass":""}`} to="/all_users">
+								<li className={`${this.props.page==="other_opportunities" ? "activeClass":""}`}>
+								<Link className={`${this.props.page==="other_opportunities"?"activeClass":""}`} to="/other_opportunities">
 								Others Opportunities</Link></li>
 
 								

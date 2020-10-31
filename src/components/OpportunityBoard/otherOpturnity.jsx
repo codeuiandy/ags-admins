@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import OverViewCards from './fundingOverview'
+import OverViewCards from './othersOverview'
 import Layout from '../Layout/index'
 import './index.css'
 import Loans from '../Tables/Loan.jsx'
@@ -60,13 +60,13 @@ export default function InvestmentOpportunities(props) {
       <Layout 
        RouteUserLayout={
                         props.history
-                     } activepage="funding_opportunities" page="funding_opportunities">
+                     } activepage="other_opportunities" page="other_opportunities">
 			
                               <OverViewCards/>
                               <div className="addInvestmentBtn">
-                                <Link to="/add_funding">
+                                <Link to="/add_others">
                                 <button type="button" 
-                                >Add Funding</button>
+                                >Add Others</button>
                                 </Link>
                                 
                               </div>
@@ -75,7 +75,7 @@ export default function InvestmentOpportunities(props) {
                                 <span className="board-switcher-header">Category:</span>
 
                                 <span className="category-options">
-                                    <div onClick={()=>setTableSwitchHandle("loans")} className="cat-one">Loans</div>
+                                    <div onClick={()=>setTableSwitchHandle("loans")} className="cat-one">Jobs</div>
                                     {
                                       tableSwitch==="loans"?<div className="active-cat"></div>:""
                                     }
@@ -83,7 +83,14 @@ export default function InvestmentOpportunities(props) {
                                 </span>
 
                                 <span className="category-options">
-                                    <div onClick={()=>setTableSwitchHandle("agriculture")} className="cat-one">Grants</div>
+                                    <div onClick={()=>setTableSwitchHandle("agriculture")} className="cat-one">Scholarship</div>
+                                    {
+                                      tableSwitch==="agriculture"?<div className="active-cat"></div>:""
+                                    }
+                                </span>
+
+                                <span className="category-options">
+                                    <div onClick={()=>setTableSwitchHandle("agriculture")} className="cat-one">Fellowership</div>
                                     {
                                       tableSwitch==="agriculture"?<div className="active-cat"></div>:""
                                     }

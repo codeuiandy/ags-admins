@@ -72,7 +72,7 @@ export default class reportedPostTable extends Component {
                 this.props.history
             } activepage="keepOpenPosts" page="reported_posts_table">
                  
-                <div className="reportePostTable">
+                <div className="table-wrap">
                      <ReportedTable blockPost={this.blockPost} Icebreaker={this.state.Icebreaker} getDeletId={this.getDeletId}/>
                 </div>
 

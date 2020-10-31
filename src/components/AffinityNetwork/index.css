@@ -1,0 +1,42 @@
+
+.addOffer-inputes{
+    padding-top: 0;
+    width: 100%;
+    padding-left: 0;
+}
+
+.addOferValidity{
+    border: 1px solid #C4C4C4;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+
+.addoffer-expiration-head{
+    font-size: 12px;
+    color: #334D6E;
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.add-offerbtn{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.add-offerbtn button{
+    background: #FDAD00;
+    border-radius: 4px;
+    width: 100%;
+    margin-top: 15px;
+    height: 45px;
+    color: white;
+    font-weight: 600;
+  }
+  

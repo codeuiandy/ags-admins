@@ -35,7 +35,7 @@ console.log("app topics",res)
                 props.history
             } activepage="keepOpenTopics" page="all_topics">
                 
-                <div className="allTopics">
+                <div className="table-wrap">
                     <TopicsTable getTopic={getTopic}/>
                
                 </div>   

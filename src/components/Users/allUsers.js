@@ -73,7 +73,7 @@ export default class allUsers extends Component {
                 this.props.history
             } activepage="allUsers" page="allUsers">
                   
-                <div className="allusersWrap">
+                <div className="table-wrap">
                 <Alluser allUsers={this.state.usersData} getUserId={this.getUserId}/>
                 </div>
                
