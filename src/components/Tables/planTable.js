@@ -16,7 +16,7 @@ export default class planTable extends Component {
 				Name: "Adedayo Manfo",
 				decription: "lorem la vale is the the  best manusavat of a united",
 				interval:<a style={{color:"#FDAD00",fontWeight:"400"}}>Monthly</a>,
-				Amount: "Cornwall Hippos",
+				Amount: "20,000",
 				planType:"Titan"
 			},
 
@@ -24,7 +24,7 @@ export default class planTable extends Component {
 				Name: "Adedayo Manfo",
 				decription: "lorem la vale is the the  best manusavat of a united",
 				interval:<a style={{color:"#FDAD00",fontWeight:"400"}}>Monthly</a>,
-				Amount: "Cornwall Hippos",
+				Amount: "20,000",
 				planType:"Titan"
 			},
 
@@ -32,60 +32,60 @@ export default class planTable extends Component {
 				Name: "Adedayo Manfo",
 				decription: "lorem la vale is the the  best manusavat of a united",
 				interval:<a style={{color:"#FDAD00",fontWeight:"400"}}>Monthly</a>,
-				Amount: "Cornwall Hippos",
+				Amount: "20,000",
 				planType:"Titan"
 			},	{
 				Name: "Adedayo Manfo",
 				decription: "lorem la vale is the the  best manusavat of a united",
 				interval:<a style={{color:"#FDAD00",fontWeight:"400"}}>Monthly</a>,
-				Amount: "Cornwall Hippos",
+				Amount: "20,000",
 				planType:"Titan"
 			},	{
 				Name: "Adedayo Manfo",
 				decription: "lorem la vale is the the  best manusavat of a united",
 				interval:<a style={{color:"#FDAD00",fontWeight:"400"}}>Monthly</a>,
-				Amount: "Cornwall Hippos",
+				Amount: "20,000",
 				planType:"Titan"
 			},	{
 				Name: "Adedayo Manfo",
 				decription: "lorem la vale is the the  best manusavat of a united",
 				interval:<a style={{color:"#FDAD00",fontWeight:"400"}}>Monthly</a>,
-				Amount: "Cornwall Hippos",
+				Amount: "20,000",
 				planType:"Titan"
 			},
 			{
 				Name: "Adedayo Manfo",
 				decription: "lorem la vale is the the  best manusavat of a united",
 				interval:<a style={{color:"#FDAD00",fontWeight:"400"}}>Monthly</a>,
-				Amount: "Cornwall Hippos",
+				Amount: "20,000",
 				planType:"Titan"
 			},
 			{
 				Name: "Adedayo Manfo",
 				decription: "lorem la vale is the the  best manusavat of a united",
 				interval:<a style={{color:"#FDAD00",fontWeight:"400"}}>Monthly</a>,
-				Amount: "Cornwall Hippos",
+				Amount: "20,000",
 				planType:"Titan"
 			},
 			{
 				Name: "Adedayo Manfo",
 				decription: "lorem la vale is the the  best manusavat of a united",
 				interval:<a style={{color:"#FDAD00",fontWeight:"400"}}>Monthly</a>,
-				Amount: "Cornwall Hippos",
+				Amount: "20,000",
 				planType:"Titan"
 			},
 			{
 				Name: "Adedayo Manfo",
 				decription: "lorem la vale is the the  best manusavat of a united",
 				interval:<a style={{color:"#FDAD00",fontWeight:"400"}}>Monthly</a>,
-				Amount: "Cornwall Hippos",
+				Amount: "20,000",
 				planType:"Titan"
 			},
 			{
 				Name: "Adedayo Manfo",
 				decription: "lorem la vale is the the  best manusavat of a united",
 				interval:<a style={{color:"#FDAD00",fontWeight:"400"}}>Monthly</a>,
-				Amount: "Cornwall Hippos",
+				Amount: "20,000",
 				planType:"Titan"
 			},
 

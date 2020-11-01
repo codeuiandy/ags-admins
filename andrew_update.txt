@@ -1,0 +1,135 @@
+Event - Overview
+/events/get_stats/ GET request
+
+Event - List
+/events/ Get request
+
+Event - Create Event
+/events/ Post request
+
+    "title": "The title of the event"
+    "banner": "image"
+    "description": "Description"
+    "start_datetime": "startdate and time format - YYYY-MM-DDThh:mm"
+    "location": "location"
+    "city": "the city"
+    "address": "The address, it can be null"
+    "medium": "Maybe it is vritual or face to face something like that",
+    "end_datetime", "When the event ends, use same datetime format"
+    "event_type": "The event type"
+    "price": "If it is not a free event, if is, just put 0"
+    "status": "open or close", 
+    "free": false or true,
+    "seats": "number of seats (integer)"
+
+
+Group - Overview
+/groups/get_stats/ Get request
+
+Group - Assign admin
+/groups/group_id/assign_admin post request
+	"user_id": the user id
+
+Group - Block and unblock
+/groups/group_id/ - patch
+	"status": "'block' to block and 'active' to unblock"
+
+/groups/group_id/get_group_stats/
+	
+Group - Delete or patch
+/groups/group_id/ delete request or patch request
+
+Group - Create
+/events/ Post request
+	name: "The name of the group"
+	description: "The description of the group"
+	thumbnail: "image"
+	hidden: true or false
+	closed: true or false
+	status: open or close
+	rules: and array of char
+
+Groups - Groups
+/groups/ Get request
+
+Groups - Get individual group stats
+/groups/group_id/get_group_stats/ Get request
+
+Feeds Overview
+/feeds/get_stats/ Get request
+
+Feeds - Create Post to Feeds
+/feeds/create_feed/ Post request
+	"body": "Text", "file": "image"
+note: You can use only body or only file or both
+
+Feeds - Create Adverts
+/adverts/ Post request
+	name: "name of the advert"
+	link: "the link to the advert"
+	start_date: "date time use the same format as above"
+	end_date: "date time"
+	images: [image, image]
+
+Feeds - Create Icebreaker
+/icebreakers/ Post request
+	"body": "text"
+	"file": "image"
+note: You can use only body or only file or both
+
+Feeds - Ask a question
+Leave this for now.
+
+Feeds - Post to Feeds
+/feeds/ Get request
+
+Feeds - Icebreakers
+/icebreakers/ Get request
+
+Feeds - Adverts
+/adverts/ Get request
+
+Feeds - Reported Feeds
+/reports/ Get request
+
+Feeds - Ask a question
+/ask_a_questions/ Post request
+	"file": "an image file"
+	"body": "text"
+So it's either file or body or both
+
+Ask a question - Get responses
+/ask_a_question/get_posts/ - Get request
+
+Topics - Overview
+/topics/get_stats/ Get request
+
+Topics - Create
+/topics/ Post request
+	description: "the description"
+	title: "the title"
+
+Topics - Topics
+/topics/ Get request
+
+Topic - Assign admin
+/topics/topic_id/assign_admin post request
+	"user_id": the user id
+
+
+Topic- Block and unblock
+/topics/topic_id/ - patch
+	"status": "'block' to block and 'active' to unblock"
+
+Topic - Get stats for individual topic
+/topics/topic_id/get_topic_stats/ - Get request
+
+
+Post and comment
+/posts/post_id/ for both patch and delete
+/comments/comment_id/ for both patch and delete
+
+
+Users - Activation
+/users/user_id/user_activation/ - Post request
+	"status": "activate or deactivate"
