@@ -1,3 +1,12 @@
+html{
+  overflow-x: hidden;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -95,7 +104,7 @@ textarea
   background: white;
     padding: 31px;
     border-radius: 5px;
-    width: 70vw;
+    width: 100%;
 }
 
 i{
@@ -111,8 +120,12 @@ i{
   padding: 50px;
   background-color: white;
   width: -moz-fit-content;
-  width: fit-content;
+  width: 95%;
   margin-bottom: 40px;
   border-radius: 5px;
   margin-top: 15px;
+}
+
+table{
+  width: fit-content;
 }

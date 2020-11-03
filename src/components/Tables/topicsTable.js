@@ -21,16 +21,17 @@ const	bodyRow = () => {
 			action: (
 				<span>
 
-<Link to={`/edit_topic/${data.id}`} >
+
 						{" "}
 						<span
-						
-						onClick={()=>setDeletDetails({edit_id:data.id,edit_data:data,edit_content:true})}
+						onClick={()=>props.GetEditDataModals("edit", data)}
+						type="button" 
+						 data-toggle="modal"
+						  data-target="#groupModal"
 						style={{fontSize:"14px"}}
-							className="edit"
 							className="fas fa-pen mr-4 add-cursor"
 						></span>
-					</Link>
+	
 
 				
                           

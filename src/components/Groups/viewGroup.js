@@ -102,6 +102,7 @@ export  const ViewGroup =(props)=> {
           }
         }
 
+      
         return (
             <div>
             <Layout RouteUserLayout={
@@ -164,6 +165,9 @@ export  const ViewGroup =(props)=> {
             
             :""
           }
+
+
+          
          
       
           

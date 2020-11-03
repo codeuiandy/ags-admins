@@ -15,9 +15,9 @@
     font-style: normal;
 font-weight: bold;
 font-size: 25px;
-color: #495057c2;
-margin-top: 20px;
-margin-bottom: 15px;
+color: #334D6E;
+margin-top: 35px;
+margin-bottom: 25px;
     
 }
 
@@ -59,12 +59,14 @@ margin-bottom: 15px;
     display: grid;
 }
 
-.react-datepicker__input-container input{
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    padding-left: 10px;
-    height: 40px;
-    color: #495057;
+
+.datePickerEvent .form-group .react-datepicker__input-container input{
+    width: 100%;
+    background: #FCFCFD;
+    border: 1px solid rgba(207, 208, 215, 0.5);
+    border-radius: 4px;
+    height: 45px;
+    font-size: 12px;
 }
 
 .getEventImage{
@@ -139,7 +141,7 @@ margin: 0;
 }
 
 .Esubmitbtn button{
-    background: #2ED43F;
+    background: orange;
 border-radius: 5px;
 width: 100%;
 border: none;
@@ -159,9 +161,10 @@ font-weight: 500;
 }
 
 #event-wraper label{
-  font-weight: 600;
-  color: #8D8D8D;
-  margin-bottom: 0 !important;
+    font-size: 12px;
+    color: #334D6E;
+    font-weight: 600;
+    margin-bottom: 3px;
 }
 
 
@@ -435,22 +438,43 @@ font-weight: 700;
 }
 
 .eventForm input::placeholder{
-font-size: 15px;
+font-size: 12px;
 color: rgba(128, 128, 128, 0.315);
-opacity: 0.9;
+
 }
 
 .eventForm textarea::placeholder{
-    font-size: 15px;
+    font-size: 12px;
     color: rgba(128, 128, 128, 0.315);
-    opacity: 0.9;
+    
     }
 
+    .eventForm input{
+        width: 100%;
+        background: #FCFCFD;
+        border: 1px solid rgba(207, 208, 215, 0.5);
+        border-radius: 4px;
+        height: 45px;
+        font-size: 12px;
+        }
+        
+    
+        .eventForm textarea{
+            width: 100%;
+            background: #FCFCFD;
+            border: 1px solid rgba(207, 208, 215, 0.5);
+            border-radius: 4px;
+            height:90px;
+            font-size: 12px;
+            }
     
 .eventForm select{
-    font-size: 15px;
- color: rgba(128, 128, 128, 0.253);
-    cursor: pointer;
+    width: 100%;
+    background: #FCFCFD;
+    border: 1px solid rgba(207, 208, 215, 0.5);
+    border-radius: 4px;
+    height: 45px;
+    font-size: 12px;
     }
 
     .react-datepicker__input-container input{
@@ -474,3 +498,5 @@ opacity: 0.9;
         padding-bottom: 70px;
         margin-top: 15px;
     }
+
+  

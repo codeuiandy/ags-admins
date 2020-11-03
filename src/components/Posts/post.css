@@ -371,9 +371,9 @@ border-radius: 5px;
 
 .createPostBtn-new{
     display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-    padding-right: 31px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-left: 31px;
     width: 70vw;
 }
 

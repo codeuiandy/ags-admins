@@ -52,10 +52,11 @@ export default class topicFollowers extends Component {
 				
                           
 					<span
-					style={{fontSize:"14px"}}
-						className="del"
-					
-						className="fa fa-trash mr-4 add-cursor"
+									onClick={()=>this.props.getUserId(data.user.id,data.is_block)}
+									style={{fontSize:"14px"}}
+										className="del"
+										data-toggle="modal" data-target="#blockUser"
+										className="fa fa-trash mr-4 add-cursor"
 					></span>
 
 
@@ -88,8 +89,7 @@ export default class topicFollowers extends Component {
 			{ title: "Role", prop: "admin" ,
 			},
 
-			{ title: "Posts", prop: "posts" ,
-			},
+		
 
 			
 			{ title: "Action", prop: "action" ,

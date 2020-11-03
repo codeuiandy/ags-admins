@@ -5,7 +5,7 @@ export default class BlockModal extends Component {
     super(props)
   }
     render() {
-     
+      
         return (
             <div>
      
@@ -17,8 +17,9 @@ export default class BlockModal extends Component {
      
       <div class="modal-body">
         <div className="confirmWrapper">
-            <p>Are you sure you want to {this.props.userStatus=== true ? "Deactivate" : "Activate"} this user?</p>
-        <button onClick={this.props.blockUser} type="button" class="btn btn-danger" data-dismiss="modal">{this.props.userStatus=== true ? "Deactivate" : "Activate"}</button>
+            <p>Are you sure you want to {this.props.userStatus=== false ? "Block " : "Unblock "} this user?</p>
+        <button onClick={this.props.blockUser} type="button" class="btn btn-danger" data-dismiss="modal">{this.props.userStatus=== false
+         ? "Block User" : "Unblock User"}</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </div>

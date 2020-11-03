@@ -10,21 +10,6 @@ export default class grpMembers extends Component {
 		this.state = {};
 	}
 
-// 	date_joined: "2020-10-07T11:54:08.778090Z"
-// is_admin: false
-// number_of_post: 0
-// user:
-// bio: null
-// email: "jenniesemporium@gmail.com"
-// first_name: "Remi"
-// id: "de013008-04a7-4bff-a919-302578543341"
-// industry: "Finance"
-// interest: ["reading"]
-// last_name: "Tobi"
-// location: "Chjsjjj"
-// nationality: "Anguilla"
-// photo: null
-// profession: "Cvbh"
 
 	bodyRow = () => {
 		
@@ -70,9 +55,10 @@ export default class grpMembers extends Component {
 				
                           
 					<span
+					onClick={()=>this.props.getUserId(data.user.id,data.is_block)}
 					style={{fontSize:"14px"}}
 						className="del"
-					
+						data-toggle="modal" data-target="#blockUser"
 						className="fa fa-trash mr-4 add-cursor"
 					></span>
 
@@ -105,10 +91,6 @@ export default class grpMembers extends Component {
 
 			{ title: "Role", prop: "admin" ,
 			},
-
-			{ title: "Posts", prop: "posts" ,
-			},
-
 			
 			{ title: "Action", prop: "action" ,
 		},

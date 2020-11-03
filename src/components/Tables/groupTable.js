@@ -14,7 +14,7 @@ let [getDeletDetails, setDeletDetails] = useRecoilState(delet_edit_Handle)
 
 const	bodyRow = () => {
 		
-		const body = props.getGroup === null ? [] : props.getGroup.map((data, index) => (console.log("data...",data),{
+		const body = props.getGroup === null ? [] : props.getGroup.map((data, index) => ({
 		title:<Link to={`view_group/${data.id}`}>{data.name}</Link>,
 			Members:data.members_count,
 			closed:data.closed === true ?"Closed Group": "Open Group",
@@ -22,16 +22,16 @@ const	bodyRow = () => {
 			action: (
 				<a>
 
-<Link  to={`/edit_group/${data.id}`} >
-						{" "}
-						<span
-						
-					
-						style={{fontSize:"14px"}}
-							className="edit"
-							className="fas fa-pen mr-4 add-cursor"
-						></span>
-					</Link>
+
+					<span
+						onClick={()=>props.GetEditDataModals("edit", data)}
+					type="button" 
+					 data-toggle="modal"
+					  data-target="#groupModal"
+					style={{fontSize:"14px"}}
+						className="fas fa-pen mr-4 add-cursor"
+					></span>
+
 
 				
                           

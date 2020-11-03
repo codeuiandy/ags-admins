@@ -1,60 +1,82 @@
 import React, { Component } from 'react'
 import Layout from '../Layout/index'
-import '../Groups/index.css'
+import TopicStatcs from './topicUpdates'
 import {Link} from 'react-router-dom'
-import TopicUpdates from './topicUpdates'
-import UserRoute from '../UserRoute/Route'
-export default class topicsOverview extends Component {
+
+import {httpGet} from '../helpers/httpMethods'
+export default class group extends Component {
+    constructor(props){
+        super(props)
+        this.state={
+            topicstatcs:[]
+        }
+    }
+    componentDidMount(){
+        this.gettopicstats()
+        
+    }
+
+    gettopicstats=async()=>{
+        const res = await httpGet('topics/get_stats/')
+        if (res.status === 200) { 
+            console.log(res)
+            this.setState({topicstatcs:res.data})
+        }
+       
+    }
+
     render() {
+        let topicstatcs = this.state.topicstatcs
+
         return (
             <Layout RouteUserLayout={
                 this.props.history
-            } activepage="keepOpenTopics" page="groups-overview" >
-               
-           
-              <div className="createGrpbtn8">
-                  <button> <Link to="/create_topic_edit_topic">Create Topic</Link></button>
-              </div>
+            } activepage="keepOpenGroup" page="topics-overview" >
+     
+             
+              {/* <div className="createGrpbtn8">
+                  <button> <Link to="/create_group_edit_group">Create Group</Link></button>
+              </div> */}
                 <div className="grp-overview">
     <div className="grp-overview1">
     <h1> <i class="fa fa-envelope" aria-hidden="true"></i> Notifications</h1>
-    <p>1223</p>
+        <p>{topicstatcs.notification}</p>
     </div>
 
     <div className="grp-overview1">
     <h1> <i class="fa fa-users" aria-hidden="true"></i> 
 
- Total Topics</h1>
+ Total topics</h1>
    
-<p>12</p>
+        <p>{topicstatcs.total_topics}</p>
 
 
         </div>
 
         <div className="grp-overview1">
        
-        <h1> <i class="fa fa-users" aria-hidden="true"></i> Active Topics</h1>
-<p>12</p>
+        <h1> <i class="fa fa-users" aria-hidden="true"></i> Active topics</h1>
+<p>{topicstatcs.active_topics}</p>
         </div>
 
 
         <div className="grp-overview1">
        
 
-        <h1>  <i class="fa fa-flag" aria-hidden="true"></i> Flagged Topics</h1>
-<p>12</p>
+        <h1>  <i class="fa fa-flag" aria-hidden="true"></i> Flagged Posts</h1>
+<p>{topicstatcs.flagged_posts}</p>
         </div>
 
         <div className="grp-overview1">
        
 
-       <h1>  <i class="fa fa-flag" aria-hidden="true"></i> Flagged Topics</h1>
-<p>12</p>
+       <h1>  <i class="fa fa-flag" aria-hidden="true"></i> Flagged topics</h1>
+<p>{topicstatcs.flagged_topics}</p>
        </div>
 </div>
                
 <div className="grp-overview-table">
-<TopicUpdates/>
+<TopicStatcs groupStatsDatax={topicstatcs}/>
 </div>
             </Layout>
         )

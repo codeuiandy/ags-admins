@@ -34,6 +34,14 @@ Group - Block and unblock
 /groups/group_id/ - patch
 	"status": "'block' to block and 'active' to unblock"
 
+Group - Block User
+/groups/group_id/unblock_user/
+	"user_id": "the id of the user"
+
+Group - Unblock User
+/groups/group_id/block_user/
+	"user_id": "the id of the user"
+
 /groups/group_id/get_group_stats/
 	
 Group - Delete or patch
@@ -123,6 +131,15 @@ Topic- Block and unblock
 
 Topic - Get stats for individual topic
 /topics/topic_id/get_topic_stats/ - Get request
+
+
+Topic- Block User
+/topics/topic_id/unblock_user/
+	"user_id": "the id of the user"
+
+Topic- Unblock User
+/topics/topic_id/block_user/
+	"user_id": "the id of the user"
 
 
 Post and comment

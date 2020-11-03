@@ -2,11 +2,15 @@
 import React, { Component } from "react";
 import Chart from "react-apexcharts";
 import {Link} from 'react-router-dom'
+import {httpGet,httpDelete} from '../helpers/httpMethods'
+import { showLoader,hideLoader } from '../helpers/loader'
+import { NotificationManager } from "react-notifications";
+
 class viewGrpStatictics extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props)
-    let{today_post_count, today_likes_count, today_comment_count} = this.props.getGroupDetailsData
+    console.log(">>>>grapgh",this.props)
+    
     this.state = {
       options: {
         chart: {
@@ -31,8 +35,25 @@ class viewGrpStatictics extends Component {
     };
   }
 
+  componentDidMount(){
+   this.getGroupDetails()
+  }
+  // today_comment_count: 0
+  // today_likes_count: 0
+  // today_post_count: 0
+    
+  getGroupDetails = async()=>{
+    let {today_post_count, today_likes_count, today_comment_count,id} = await this.props.getGroupDetailsData
+    this.setState({
+      series:[{
+        name: "seriesvvv",
+        data: [10, 90, 30]
+      }]
+    })
+         }
+
   render() {
-    console.log(this.props.getGroupDetailsData)
+    console.log(">>>>",this.props.getGroupDetailsData)
     let{today_post_count, today_likes_count, today_comment_count,id} = this.props.getGroupDetailsData
     return (
       <div>

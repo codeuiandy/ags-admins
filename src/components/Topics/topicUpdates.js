@@ -1,80 +1,85 @@
+
 import React, { useEffect,useState } from 'react'
 import {httpGet} from '../helpers/httpMethods'
 import {Link} from 'react-router-dom'
 import { showLoader,hideLoader } from '../helpers/loader'
 
- const TopicUpdates = ()=> {
-const [topTenTopics, setTopTenTopics] = useState([])
-
+ const GrpUpdates = (props)=> {
+const [getTopTenGrpsData, SetgetTopTenGrpsData] = useState([])
+const [getGroupStatsData, getGroupStatsDataSet] = useState([])
 const getTopTenGrps = async()=>{
     showLoader()
     const res = await httpGet('topics/')
-    setTopTenTopics(res.data)
+    SetgetTopTenGrpsData(res.data)
     hideLoader()
     }
 
-    useEffect(() => {
-        getTopTenGrps()
-      }, []); 
-      
-
     
 
+    useEffect(() => {
+        getTopTenGrps()
+        getGroupStatsDataSet(props.groupStatsDatax)
+
+      }, [props.groupStatsDatax]); 
+      
+ 
+    let latestGrps = getGroupStatsData.latest === undefined ? "Loading..." : getGroupStatsData.latest
+      console.log(">>>viewLatest dat",props.groupStatsDatax)
         return (
             <div>
-                {console.log(topTenTopics)}
+
                 <div className="grpInfo1">
-                    <div className="grpInfoChildHeader1">Top Topics</div>
+                <div className="grpInfoChildHeader1">Top Topics</div>
                     <div className="grpInfoChildHeader2">10 Least Performing Topics</div>
                     <div className="grpInfoChildHeader3">Latest Topics</div>
                     <div className="grpInfoChildHeader4">All Topics</div>
                     <div className="grpInfoChild1">
                         <ul>
-                            <li>Led Zeppelin </li>
-                            <li>Deep Purple </li>
-                            <li>Black Sabbath </li>
-                            <li>The Who The Eagles </li>
-                            <li>The Doors Pink Floyd </li>
-                            <li>The Rolling </li>
-                            <li>Stones Blonde</li>
-                            <li> Pigeons</li>
-                            <li> Blonde Koalas</li>
-                            <li> Blonde Koalas</li>
+                        {
+                          getGroupStatsData.top === undefined ? "Loading..." : getGroupStatsData.top.length === 0 ? "No Data Found" : getGroupStatsData.top.slice(0,10).map((data, i) => {
+                            return(
+                                
+                            <li><Link to={`/view_topic/${data.id}`}>{data.title}</Link></li>
+                               
+                            )
+                            })
+                        }
                         </ul>
                     </div>
                     <div className="grpInfoChild2">
                     <ul>
-                            <li>Led Zeppelin </li>
-                            <li>Deep Purple </li>
-                            <li>Black Sabbath </li>
-                            <li>The Who The Eagles </li>
-                            <li>The Doors Pink Floyd </li>
-                            <li>The Rolling </li>
-                            <li>Stones Blonde</li>
-                            <li> Pigeons</li>
-                            <li> Blonde Koalas</li>
-                            <li> Blonde Koalas</li>
+                        {
+                            console.log("res>>>>",getGroupStatsData)
+                        }
+                    {
+                          getGroupStatsData.low === undefined ? "Loading..." : getGroupStatsData.low.length === 0 ? "No Data Found" : getGroupStatsData.low.slice(0,10).map((data, i) => {
+                            return(
+                                
+                            <li><Link to={`/view_topic/${data.id}`}>{data.title}</Link></li>
+                               
+                            )
+                            })
+                        }
                         </ul>
                     </div>
                     <div className="grpInfoChild3">
                     <ul>
-                            <li>Led Zeppefrrlin </li>
-                            <li>Deep Purple </li>
-                            <li>Black Sabbath </li>
-                            <li>The Who The Eagles </li>
-                            <li>The Doors Pink Floyd </li>
-                            <li>The Rolling </li>
-                            <li>Stones Blonde</li>
-                            <li> Pigeons</li>
-                            <li> Blonde Koalas</li>
-                            <li> Blonde Koalas</li>
+                    {
+                          getGroupStatsData.latest === undefined ? "Loading..." : getGroupStatsData.latest.length === 0 ? "No Data Found" : getGroupStatsData.latest.slice(0,10).map((data, i) => {
+                            return(
+                                
+                            <li><Link to={`/view_topic/${data.id}`}>{data.title}</Link></li>
+                               
+                            )
+                            })
+                        }
                         </ul>
                     </div>
                     <div className="grpInfoChild4">
                     <ul>
 
                         {
-                            topTenTopics.slice(0,10).map((data, i) => {
+                            getTopTenGrpsData.slice(0,10).map((data, i) => {
                             return(
                                 
                             <li><Link to={`/view_topic/${data.id}`}>{data.title}</Link></li>
@@ -84,7 +89,7 @@ const getTopTenGrps = async()=>{
                         }
                            
                            
-                            <li><Link to="/all_Topics">View More</Link></li>
+                            <li><Link to="/all_groups">View More</Link></li>
                         </ul>
                     </div>
                 </div>
@@ -93,4 +98,4 @@ const getTopTenGrps = async()=>{
         )
     }
 
-export default TopicUpdates
+export default GrpUpdates
