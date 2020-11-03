@@ -23,14 +23,17 @@ export default class GroupTable extends Component {
 			action: (
 				<a>
 
-<Link to={`/edit_post/Icebreaker/${data.id}`} >
+
 						{" "}
 						<span
-						style={{fontSize:"14px"}}
-							className="edit"
-							className="fas fa-edit mr-4 add-cursor"
+												onClick={()=>this.props.GetEditDataModals("edit", data)}
+												type="button" 
+												 data-toggle="modal"
+												  data-target="#icebreakerModal"
+												style={{fontSize:"14px"}}
+													className="fas fa-pen mr-4 add-cursor"
 						></span>
-					</Link>
+				
 
 				
                           

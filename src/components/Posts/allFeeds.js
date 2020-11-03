@@ -7,7 +7,7 @@ import {Images} from './selectMutipleImages'
 import PostToFeed from '../Tables/allFeedsTable/feedToPost'
 import Icebreaker from '../Tables/allFeedsTable/icebreaker'
 import AskQuestion from '../Tables/allFeedsTable/askAQuestion'
-import {httpGet, httpPatch, httpPostFormData,httpPost} from '../helpers/httpMethods'
+import {httpGet, httpPatch, httpPostFormData,httpPost, httpDelete} from '../helpers/httpMethods'
 import DeleteModal from '../Modals/comfirmModal'
 import {hideLoader, showLoader} from '../helpers/loader'
 import {NotificationManager} from 'react-notifications'
@@ -16,6 +16,7 @@ import CreatIcebreakerModal from '../Modals/createIcebreaker.jsx'
 import GetImageUrl from '../../components/helpers/getImageUrl'
 import moment from 'moment'
 import $ from 'jquery'
+import AskAQuestion from '../Modals/createQuestion'
 export default class allFeeds extends Component {
     constructor(props){
         super(props)
@@ -23,16 +24,23 @@ export default class allFeeds extends Component {
             postController:"Icebreaker",
             startDate:new Date(),
             Icebreaker:[],
+            feeds:[],
+            AskQuestion:[],
             deletId:"",
 
             endDate:new Date(),
             postToFeedPost:"",
             postToFeedImage:"",
             previewImage:"",
+            
 
             IcebreakerpostToFeedPost:"",
             IcebreakerpostToFeedImage:"",
             IcebreakerpreviewImage:"",
+
+            questionpostToFeedPost:"",
+            questionpostToFeedImage:"",
+            questionpreviewImage:"",
 
             advert_name:"",
             advert_link:"",
@@ -40,39 +48,18 @@ export default class allFeeds extends Component {
             advertEndDate:"",
             ddd:null,
             adverImages:[],
+
+            editData:"",
+            setmodalType:"",
+            setFeedId:""
         }
     }
 
-    SwitchPostType=(postType)=>{
-     if (postType === "post") {
-         this.setState({
-             postController:"post"
-         })
-     }
 
-     if (postType === "Advert") {
-        this.setState({
-            postController:"Advert"
-        })
-    }
-
-
-    if (postType === "Icebreaker") {
-        this.setState({
-            postController:"Icebreaker"
-        })
-    }
-
-    if (postType === "poll") {
-        this.setState({
-            postController:"poll"
-        })
-    }
-
-    }
     componentDidMount(){
         this.getIcebreakers()
-        // this.getPostToFeeds()
+        this.getFeeds()
+        this.getQuestion()
     }
 
     getDeletId=(id)=>{
@@ -96,21 +83,37 @@ export default class allFeeds extends Component {
        }
     }
 
-    // getPostToFeeds=async()=>{
-    //     showLoader()
-    //    try {
-    //     const res = await httpGet(`/`)
-    //     console.log(res.status)
-    //     if (res.status === 200) {
-    //         this.setState({Icebreaker:res.data})
-    //         console.log(res)
-    //         hideLoader()
+    getQuestion=async()=>{
+        showLoader()
+       try {
+        const res = await httpGet(`ask_a_questions/`)
+        console.log(res.status)
+        if (res.status === 200) {
+            this.setState({AskQuestion:res.data})
+            console.log(res)
+            hideLoader()
 
-    //     }
-    //    } catch (error) {
+        }
+       } catch (error) {
            
-    //    }
-    // }
+       }
+    }
+
+    getFeeds=async()=>{
+        showLoader()
+       try {
+        const res = await httpGet(`feeds/`)
+        console.log(res.status)
+        if (res.status === 200) {
+            this.setState({feeds:res.data})
+            console.log(res)
+            hideLoader()
+
+        }
+       } catch (error) {
+           
+       }
+    }
 
     blockUserData=async(blockId,postType)=>{
         const data = {
@@ -119,7 +122,7 @@ export default class allFeeds extends Component {
         }
         try {
             showLoader()
-            const res = await httpPost(`users/content/flag_content/`,data)
+            const res = await httpDelete(`users/content/flag_content/`,data)
             console.log(res)
             if (res.status === 201 ) {
                  NotificationManager.success(
@@ -144,25 +147,75 @@ export default class allFeeds extends Component {
 
 
     deletData=async()=>{
-    let deleteId = this.state.deletId
+  let deleteId = this.state.deletId
+
+  if (this.state.postController === "poll") {
     showLoader()
     try {
-        const res = await httpPatch(`icebreakers/${deleteId}/`)
+        const res = await httpDelete(`ask_a_questions/${deleteId}/`)
         console.log(res)
         showLoader()
-        if (res.status === 200) {
-            this.getIcebreakers()
+        if (res.status === 204) {
+            this.getQuestion()
             NotificationManager.success(
                 "Data successfully removed.",
                "Yepp",
                3000
            );
+           
             hideLoader()  
         }
         hideLoader()  
     } catch (error) {
         hideLoader()  
     }
+}
+
+        if (this.state.postController === "Icebreaker") {
+            showLoader()
+            try {
+                const res = await httpDelete(`icebreakers/${deleteId}/`)
+                console.log(res)
+                showLoader()
+                if (res.status === 204) {
+                    this.getIcebreakers()
+                    NotificationManager.success(
+                        "Data successfully removed.",
+                       "Yepp",
+                       3000
+                   );
+                   
+                    hideLoader()  
+                }
+                hideLoader()  
+            } catch (error) {
+                hideLoader()  
+            }
+        }
+
+        if (this.state.postController === "post") {
+            showLoader()
+            try {
+                const res = await httpDelete(`feeds/${deleteId}/`)
+                console.log(res)
+                showLoader()
+                if (res.status === 204) {
+                    this.getFeeds()
+                    NotificationManager.success(
+                        "Data successfully removed.",
+                       "Yepp",
+                       3000
+                   );
+                  
+                    hideLoader()  
+                }
+                hideLoader()  
+            } catch (error) {
+                hideLoader()  
+            }
+        }
+  
+   
     }
 
     handleChange = (e) => {
@@ -183,18 +236,32 @@ export default class allFeeds extends Component {
 		window.$(".modal-backdrop").remove();
 	};
 
-
+    resetModal=()=>{
+        this.setState({
+            postToFeedPost:"",
+            postToFeedImage:"",
+            previewImage:"",
+            IcebreakerpostToFeedPost:"",
+            IcebreakerpostToFeedImage:"",
+            IcebreakerpreviewImage:"",
+            questionpostToFeedPost:"",
+            questionpostToFeedImage:"",
+            questionpreviewImage:"",
+        })
+    }
       
     handleSubmit=async()=>{
     
         let postController = this.state.postController;
+
+
     
         if (postController === "Advert") {
             // showLoader()
             let check =   this.hendleBlob()
             console.log(check)
             // if (check === true) {
-                alert(5)
+               
                 try {
                     // var startDate = moment(this.state.startDate , 'YYYY-MM-DD');
                     let date = new Date()
@@ -222,72 +289,273 @@ export default class allFeeds extends Component {
            
         }
     
-    
-        if (postController === "post") {
-            showLoader()
-        
-            try {
-                const formData = new FormData()
-                formData.append("body",this.state.postToFeedPost)
-                formData.append("file",this.state.postToFeedImage)
-                let res = await httpPostFormData(`feeds/create_feed/`,formData)
+        if (postController === "poll") {
+            if (this.state.setmodalType === "edit") {
+                showLoader()
                 
-                if (res.status == 201) {
-                    NotificationManager.success(
-                        "Post Created Succesfully",
-                        "Yepp",
-                        3000
-                    );
-                    this.setState({
-                        postToFeedPost:"",
-                        postToFeedImage:"",
-                        previewImage:"",
-                    })
-                    this.closeModal()
+                try {
+                    const formData = new FormData()
+                    formData.append("body",this.state.questionpostToFeedPost)
+                    const img = this.state.questionpostToFeedImage === ""?"" :formData.append('thumbnail', this.state.questionpostToFeedImage)
+                    let res = await httpPatch(`ask_a_questions/${this.state.setFeedId}/`,formData)
+                    if (res.status == 200) {
+                        NotificationManager.success(
+                            "Post Created Succesfully",
+                            "Yepp",
+                            3000
+                        );
+                        this.setState({
+                            questionpostToFeedPost:"",
+                            questionpostToFeedImage:"",
+                            previewImage:"",
+                        })
+                        this.closeModal()
+                        this.resetModal()
+                        this.getQuestion()
+                        hideLoader()
+                    }
+        
+                    hideLoader()
+                } catch (error) {
                     hideLoader()
                 }
-    
-                hideLoader()
-            } catch (error) {
-                hideLoader()
             }
+
+            else{
+                showLoader()
+        
+                try {
+                    const formData = new FormData()
+                    formData.append("body",this.state.questionpostToFeedPost)
+                    formData.append("file",this.state.questionpostToFeedImage)
+                    let res = await httpPostFormData(`ask_a_questions/`,formData)
+                    
+                    if (res.status == 201) {
+                        NotificationManager.success(
+                            "Post Created Succesfully",
+                            "Yepp",
+                            3000
+                        );
+                        this.setState({
+                            questionpostToFeedPost:"",
+                            questionpostToFeedImage:"",
+                            previewImage:"",
+                        })
+                        this.closeModal()
+                        this.resetModal()
+                        this.getQuestion()
+                        hideLoader()
+                    }
+        
+                    hideLoader()
+                } catch (error) {
+                    hideLoader()
+                }
+            }
+           
+        }
+
+        
+    
+        if (postController === "post") {
+            if (this.state.setmodalType === "edit") {
+                showLoader()
+                try {
+                    const formData = new FormData()
+                    formData.append("body",this.state.postToFeedPost)
+                    const img = this.state.postToFeedImage === ""?"" :formData.append('thumbnail', this.state.postToFeedImage)
+                    let res = await httpPatch(`feeds/create_feed/${this.state.setFeedId}/`,formData)
+                    if (res.status == 201) {
+                        NotificationManager.success(
+                            "Post Created Succesfully",
+                            "Yepp",
+                            3000
+                        );
+                        this.setState({
+                            postToFeedPost:"",
+                            postToFeedImage:"",
+                            previewImage:"",
+                        })
+                        this.closeModal()
+                        this.resetModal()
+                        this.getFeeds()
+                        hideLoader()
+                    }
+        
+                    hideLoader()
+                } catch (error) {
+                    hideLoader()
+                }
+            }
+
+            else{
+                showLoader()
+        
+                try {
+                    const formData = new FormData()
+                    formData.append("body",this.state.postToFeedPost)
+                    formData.append("file",this.state.postToFeedImage)
+                    let res = await httpPostFormData(`feeds/create_feed/`,formData)
+                    
+                    if (res.status == 201) {
+                        NotificationManager.success(
+                            "Post Created Succesfully",
+                            "Yepp",
+                            3000
+                        );
+                        this.setState({
+                            postToFeedPost:"",
+                            postToFeedImage:"",
+                            previewImage:"",
+                        })
+                        this.closeModal()
+                        this.resetModal()
+                        this.getFeeds()
+                        hideLoader()
+                    }
+        
+                    hideLoader()
+                } catch (error) {
+                    hideLoader()
+                }
+            }
+           
         }
     
     
     
     
         if (postController === "Icebreaker") {
-            showLoader()
+
+            if (this.state.setmodalType === "edit") {
+                showLoader()
         
-            try {
-                const formData = new FormData()
-                formData.append("body",this.state.IcebreakerpostToFeedPost)
-                formData.append("file",this.state.IcebreakerpostToFeedImage)
-                let res = await httpPostFormData(`icebreakers/`,formData)
-                
-                if (res.status == 201) {
-                    NotificationManager.success(
-                        "Icebreakers Post Created Succesfully",
-                        "Yepp",
-                        3000
-                    );
-                    this.setState({
-                        IcebreakerpostToFeedPost:"",
-                        IcebreakerpostToFeedImage:"",
-                        IcebreakerpreviewImage:"",
-                        previewImage:"",
-                    })
-                    this.closeModal()
-                    this.getIcebreakers()
+                try {
+                    const formData = new FormData()
+                    formData.append("body",this.state.IcebreakerpostToFeedPost)
+                    const img = this.state.IcebreakerpostToFeedImage === ""?"" :formData.append('thumbnail', this.state.IcebreakerpostToFeedImage)
+                    let res = await httpPatch(`icebreakers/${this.state.setFeedId}/`,formData)
+                    
+                    if (res.status == 200) {
+                        NotificationManager.success(
+                            "Icebreakers Post Created Succesfully",
+                            "Yepp",
+                            3000
+                        );
+                        this.setState({
+                            IcebreakerpostToFeedPost:"",
+                            IcebreakerpostToFeedImage:"",
+                            IcebreakerpreviewImage:"",
+                            previewImage:"",
+                        })
+                        this.closeModal()
+                        this.resetModal()
+                        this.getIcebreakers()
+                    }
+        
+                    hideLoader()
+                } catch (error) {
+                    hideLoader()
                 }
-    
-                hideLoader()
-            } catch (error) {
-                hideLoader()
             }
+            else{
+                showLoader()
+        
+                try {
+                    const formData = new FormData()
+                    formData.append("body",this.state.IcebreakerpostToFeedPost)
+                    formData.append("file",this.state.IcebreakerpostToFeedImage)
+                    let res = await httpPostFormData(`icebreakers/`,formData)
+                    
+                    if (res.status == 201) {
+                        NotificationManager.success(
+                            "Icebreakers Post Created Succesfully",
+                            "Yepp",
+                            3000
+                        );
+                        this.setState({
+                            IcebreakerpostToFeedPost:"",
+                            IcebreakerpostToFeedImage:"",
+                            IcebreakerpreviewImage:"",
+                            previewImage:"",
+                        })
+                        this.closeModal()
+                        this.resetModal()
+                        this.getIcebreakers()
+                    }
+        
+                    hideLoader()
+                } catch (error) {
+                    hideLoader()
+                }
+            }
+           
         }
     
         }
+
+      GetEditDataModals=(type,data)=>{
+           
+            console.log("get edit data>>>",data)
+            if (this.state.postController === "Icebreaker") {
+                this.setState({
+                    IcebreakerpostToFeedPost:data.body,
+                    previewImage:data.file,
+                    setmodalType:type,
+                    setFeedId:data.id
+                })
+            }
+            if (this.state.postController === "post") {
+            this.setState({
+                postToFeedPost:data.post.body,
+                previewImage:data.post.file,
+                postToFeedImage:"",
+                setmodalType:type,
+                setFeedId:data.post.id
+            })
+        }
+
+        if (this.state.postController === "poll") {
+            this.setState({
+                questionpostToFeedPost:data.body,
+                previewImage:data.file,
+                questionpostToFeedImage:"",
+                postToFeedImage:"",
+                setmodalType:type,
+                setFeedId:data.id
+            })
+        }
+          }
+
+
+
+          SwitchPostType=(postType)=>{
+            if (postType === "post") {
+                this.setState({
+                    postController:"post"
+                })
+            }
+       
+            if (postType === "Advert") {
+               this.setState({
+                   postController:"Advert"
+               })
+           }
+       
+       
+           if (postType === "Icebreaker") {
+               this.setState({
+                   postController:"Icebreaker"
+               })
+           }
+       
+           if (postType === "poll") {
+               this.setState({
+                   postController:"poll"
+               })
+           }
+       
+           }
     
     render() {
         let Switch = this.state.postController
@@ -334,7 +602,10 @@ export default class allFeeds extends Component {
                              <button>Create new post</button>
                         </div>
                        
-                    <PostToFeed Icebreaker={this.state.Icebreaker} getDeletId={this.getDeletId}/>
+                    <PostToFeed 
+                    Icebreaker={this.state.feeds} 
+                    getDeletId={this.getDeletId}
+                    GetEditDataModals={this.GetEditDataModals}/>
                     </div>
                 ) : ""
                 }
@@ -415,7 +686,7 @@ export default class allFeeds extends Component {
                         <div type="button"  data-toggle="modal" data-target="#icebreakerModal" className="createPostBtn-new">
                              <button>Create new icebreaker</button>
                         </div>
-                      <Icebreaker Icebreaker={this.state.Icebreaker} getDeletId={this.getDeletId}/>
+                      <Icebreaker Icebreaker={this.state.Icebreaker} getDeletId={this.getDeletId}  GetEditDataModals={this.GetEditDataModals}/>
                     </div>
                 ) : ""
                 }
@@ -425,10 +696,13 @@ export default class allFeeds extends Component {
 {
                 Switch === "poll" ? (
                     <div className="postTofeedLayout">
-                        <div type="button"  data-toggle="modal" data-target="#feedModal" className="createPostBtn-new">
-                             <button>Create new post</button>
+                        <div type="button"  data-toggle="modal" data-target="#createQuestion" className="createPostBtn-new">
+                             <button>Create new question</button>
                         </div>
-                    <AskQuestion/>
+                    <AskQuestion
+                    Icebreaker={this.state.AskQuestion} 
+                    getDeletId={this.getDeletId}
+                    GetEditDataModals={this.GetEditDataModals}/>
                   </div>
                 ) : ""
                 }
@@ -442,6 +716,19 @@ export default class allFeeds extends Component {
              handleChange={this.handleChange}
              handleChange={this.handleChange}
              handleFileChange={this.handleFileChange}
+             resetModal={this.resetModal}
+             setmodalType={this.state.setmodalType}
+             />
+
+             <AskAQuestion
+                         GetImageUrl={GetImageUrl} 
+                         sharedState={this.state}
+                         handleSubmit={this.handleSubmit}
+                         handleChange={this.handleChange}
+                         handleChange={this.handleChange}
+                         handleFileChange={this.handleFileChange}
+                         resetModal={this.resetModal}
+                         setmodalType={this.state.setmodalType}
              />
 
              <CreatIcebreakerModal
@@ -451,6 +738,8 @@ export default class allFeeds extends Component {
              handleChange={this.handleChange}
              handleChange={this.handleChange}
              handleFileChange={this.handleFileChange}
+             resetModal={this.resetModal}
+             setmodalType={this.state.setmodalType}
              />
             <DeleteModal deletData={this.deletData}/>
             </div>

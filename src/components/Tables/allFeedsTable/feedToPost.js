@@ -16,21 +16,24 @@ export default class GroupTable extends Component {
 	bodyRow = () => {
 
 		const body = this.props.Icebreaker.map((data, index) => ({
-			Createdby:<Link to={`user_info/${data.user.id}`}>{data.user.first_name}  {data.user.last_name}</Link>,
-			postdata: data.body,
+			Createdby:<Link to={`user_info/${data.post.user.id}`}>{data.post.user.first_name}  {data.post.user.last_name}</Link>,
+			postdata: data.post.body,
 			postsDate: _.startCase(_.lowerCase(`${moment(data.created_at).format("DD-MM-YYYY")}`)),
-			file: <img className="userProfilePic" src={data.file === null ? avatar:data.file} />,
+			file: <img className="userProfilePic" src={data.post.file === null ? avatar:data.post.file} />,
 			action: (
 				<a>
 
-<Link to={`/edit_post/Icebreaker/${data.id}`} >
+
 						{" "}
 						<span
-						style={{fontSize:"14px"}}
-							className="edit"
-							className="fas fa-edit mr-4 add-cursor"
+						onClick={()=>this.props.GetEditDataModals("edit", data)}
+					type="button" 
+					 data-toggle="modal"
+					  data-target="#feedModal"
+					style={{fontSize:"14px"}}
+						className="fas fa-pen mr-4 add-cursor"
 						></span>
-					</Link>
+
 
 				
                           

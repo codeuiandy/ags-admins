@@ -3,12 +3,12 @@ import ImageIcon from './Vector.png'
 export default function CreateFeed(props) {
   return (
     <React.Fragment>
-      <div class="modal fade" id="feedModal" tabindex="-1" role="dialog" aria-labelledby="feedModalLabel" aria-hidden="true">
+      <div class="modal fade" id="feedModal" tabindex="-1" role="dialog" aria-labelledby="feedModalLabel" data-keyboard="false" data-backdrop="static" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="feedModalLabel">Create new post </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title" id="feedModalLabel">{props.setmodalType === "edit" ? "Edit " : "Create "} post </h5>
+        <button onClick={()=>props.resetModal()} type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -44,7 +44,7 @@ export default function CreateFeed(props) {
      
 
       <div className="postButton">
-<button onClick={props.handleSubmit}> Create</button>
+<button onClick={props.handleSubmit}> {props.setmodalType === "edit" ? "Edit " : "Create "}</button>
       </div>
   </div>
                            </div>

@@ -3,13 +3,11 @@ import ImageIcon from './Vector.png'
 export default function CreateFeed(props) {
   return (
     <React.Fragment>
-      <div class="modal fade" id="icebreakerModal" tabindex="-1" role="dialog" aria-labelledby="icebreakerModalLabel" aria-hidden="true"
-      data-keyboard="false" data-backdrop="static" 
-      >
+      <div class="modal fade" id="createQuestion" tabindex="-1" role="dialog" aria-labelledby="createQuestionLabel" data-keyboard="false" data-backdrop="static" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-  <h5 class="modal-title" id="icebreakerModalLabel">{props.setmodalType === "edit" ? "Edit " : "Create "}  icebreaker </h5>
+        <h5 class="modal-title" id="createQuestionLabel">{props.setmodalType === "edit" ? "Edit " : "Create "} Question </h5>
         <button onClick={()=>props.resetModal()} type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -21,8 +19,8 @@ export default function CreateFeed(props) {
   <div class="form-group postForm">
   
     <textarea
-    value={props.sharedState.IcebreakerpostToFeedPost}
-     name="IcebreakerpostToFeedPost"
+    value={props.sharedState.questionpostToFeedPost}
+     name="questionpostToFeedPost"
      onChange={props.handleChange}
      placeholder="Type in your post" class="form-control" id="aboutPlan"/>
   </div>
@@ -31,7 +29,7 @@ export default function CreateFeed(props) {
   <div className="postActions">
       <div className="postAction">
           <input
-          name="IcebreakerpostToFeedImage"
+          name="questionpostToFeedImage"
           onChange={(e)=>props.handleFileChange(e)} type="file"/>
 <span>
     <img src={ImageIcon} alt=""/>

@@ -13,7 +13,7 @@ export default class comfirmModal extends Component {
      
       <div class="modal-body">
         <div className="confirmWrapper">
-            <p>Are you sure you want to delete thiis event?</p>
+            <p>Are you sure you want to delete this?</p>
         <button onClick={()=>this.props.deletData()} type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>

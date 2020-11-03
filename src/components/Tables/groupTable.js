@@ -23,7 +23,7 @@ const	bodyRow = () => {
 				<a>
 
 
-					<span
+<span
 						onClick={()=>props.GetEditDataModals("edit", data)}
 					type="button" 
 					 data-toggle="modal"
