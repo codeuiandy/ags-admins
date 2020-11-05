@@ -9,6 +9,7 @@
 
 .center-event-form form{
     width: 100%;
+    position: relative;
 }
 
 .center-event-form h1{
@@ -19,6 +20,16 @@ color: #334D6E;
 margin-top: 35px;
 margin-bottom: 25px;
     
+}
+
+.eventErrorMessage{
+    color: red;
+    position: absolute;
+    right: 0;
+    font-size: 10px;
+    font-style: italic;
+    margin-top: 3px;
+
 }
 
 .eventType{
@@ -84,10 +95,21 @@ margin-top: 30px;
 position: relative;
 
 }
-
-.getEventImage input{
+.centerAddEventImg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     width: 100%;
-    height: 100%;
+}
+
+.getEventImage img{
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+.getEventImage input{
+    width: 100% !important;
+    height: 100% !important;
     opacity: 0;
     cursor: pointer;
    position: relative;
@@ -97,7 +119,7 @@ position: relative;
 .eventImageInfo{
    position: absolute;
    top: 35px;
-   left: 50px;
+   left: 23%;
    display: flex;
    justify-content: center;
    align-items: center;
@@ -110,10 +132,12 @@ position: relative;
     border: none;
     background: #FDAD00;
 border-radius: 5px;
-width: 90px;
+width: fit-content;
 height: 40px;
 color: white;
 font-weight: 600;
+padding: 0 15px 0 15px;
+margin-top: 6px;
 }
 
 .eventImageInfo p:nth-child(1){

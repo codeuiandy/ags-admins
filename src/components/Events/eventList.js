@@ -4,6 +4,13 @@ import PreviousEventTable from '../Tables/previousEvents'
 import Layout from '../Layout/index'
 import ComfirmModal from '../Modals/comfirmModal'
 import UserRoute from '../UserRoute/Route'
+import {httpPostFormData,httpPut,httpPatch,httpGet} from '../helpers/httpMethods'
+import {hideLoader, showLoader} from '../helpers/loader'
+import "react-datepicker/dist/react-datepicker.css";
+import moment from 'moment'
+import 'moment-timezone';
+import 'react-notifications/lib/notifications.css';
+import {NotificationContainer, NotificationManager} from 'react-notifications'
 
 export default class eventList extends Component {
     constructor(props){
@@ -17,6 +24,19 @@ export default class eventList extends Component {
     handleChange  =  (e) => {
       e.preventDefault();
       this.setState({ [e.target.name]: e.target.value });
+    }
+
+    componentDidMount(){
+        this.getEvents()
+    }
+
+    getEvents=async()=>{
+        try {
+            const res = await httpGet(`events/`)
+            console.log(res)
+        } catch (error) {
+            
+        }
     }
     render() {
         

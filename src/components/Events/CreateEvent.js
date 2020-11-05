@@ -10,6 +10,7 @@ import moment from 'moment'
 import 'moment-timezone';
 import 'react-notifications/lib/notifications.css';
 import {NotificationContainer, NotificationManager} from 'react-notifications'
+import ValidateURL from '../helpers/ValidateURL'
 export default class CreateEvent extends Component {
     constructor(props){
         super(props)
@@ -26,27 +27,49 @@ export default class CreateEvent extends Component {
             enentDescrpion:"",
             eventMedium:"",
             eventType:"null",
-            eventAddress:"",
+            eventAddress :"",
             eventLink:"",
             eventType:"",
             paidOrFree:"",
             CTABtn:"",
             registrationLink:"",
             eventFee:"",
+            eventCity:"",
             eventImage:"",
+            TitleError:"",
+            eventImageError:"",
+             eventFeeError:"",
+              eventMediumError:"",
+               eventTypeError:"",
+                DescrpionError:"",
+                adressCityError:"",
+                iventLinkError:"",
         }
         
     }
 
     handleFileChange=(e)=>{
       this.setState({ [e.target.name]: e.target.files[0] });
+      this.setState({
+        eventImageError:"",
+      })
     }
     
 
     handleChange  =  (e) => {
       e.preventDefault();
+      this.setState({
+        TitleError:"",
+        eventImageError:"",
+         eventFeeError:"",
+          eventMediumError:"",
+           eventTypeError:"",
+            DescrpionError:"",
+            adressCityError:"",
+            iventLinkError:""
+      })
       this.setState({ [e.target.name]: e.target.value });
-      if(e.target.value === "free event"){
+      if(e.target.value === "free_event"){
         this.setState({
           CTA:"Register"
         })
@@ -73,12 +96,7 @@ export default class CreateEvent extends Component {
       let momentStartTime =   moment(this.state.startTime).format("hh:mm:ss a")
       let momentEndTime =   moment(this.state.endTime).format("hh:mm:ss a")
          console.log(momentStartTime, momentEndTime)
-     
-    //for paid internal event it should generate a link for payment and A default CTA of Pay 
 
-    // if(e.target.value === "time"){
-    //  alert(5)
-    // }
     console.log(e.target.value)
       }
 handleEndTime=(e,EndTime)=>{
@@ -86,6 +104,170 @@ handleEndTime=(e,EndTime)=>{
   if(this.state.startTime === momentEndTime){
     alert(6)
   }
+}
+
+
+handleInputErrors=()=>{
+  if (this.state.eventName === "" || this.state.eventName === undefined || this.state.eventName === null ) {
+    this.setState({TitleError:"Event name cant be blank"})
+    return false
+  }
+
+  if (this.state.enentDescrpion === "" || this.state.enentDescrpion === undefined || this.state.enentDescrpion === null ) {
+    this.setState({DescrpionError:"Description  cant be blank"})
+    return false 
+  }
+
+  if (this.state.eventType === "" || this.state.eventType === undefined || this.state.eventType === null ) {
+    this.setState({eventTypeError:"Select event type"})
+    return false 
+  }
+
+  if (this.state.eventMedium === "" || this.state.eventMedium === undefined || this.state.eventMedium === null ) {
+    this.setState({eventMediumError:"Select event medium"})
+    return false 
+  }
+
+  if (this.state.eventMedium === "hybrid" || this.state.eventMedium === "in_person" ) {
+  
+    if ( this.state.eventAddress === "" || this.state.eventAddress === undefined 
+    || this.state.eventAddress === null  || this.state.eventCity === "" ||
+     this.state.eventCity === undefined || this.state.eventCity === null) {
+      this.setState({adressCityError:"Address and city is required"})
+
+      return false
+    }
+    
+  }
+
+  if (this.state.eventMedium === "hybrid" || this.state.eventMedium === "virtual" ) {
+   let checkURL = ValidateURL(this.state.eventLink)
+    
+    if (checkURL === false) {
+       this.setState({iventLinkError:"Invalid URL"})
+       return false
+    }
+  }
+
+  if (this.state.paidOrFree === "paid_event" ) {
+  
+    if (this.state.eventFee === "" || this.state.eventFee === undefined || this.state.eventFee === null ) {
+      this.setState({eventFeeError:"Add event fee "})
+      return false 
+    }
+    
+  }
+
+
+
+  if (this.state.eventImage === "" || this.state.eventImage === undefined || this.state.eventImage === null ) {
+    this.setState({eventImageError:"Add event image"})
+    return false
+  }
+
+
+  
+
+  return true
+}
+
+handleSubmit=async(e)=>{
+  e.preventDefault();
+console.log(this.state)
+  let StartDate = this.state.startDate
+  let StartTime = this.state.startTime
+
+  let EndDate = this.state.endDate
+  let EndTime = this.state.endTime
+
+  let EstartDate = moment(StartDate).format("YYYY-MM-DD")
+  let EstartTime = moment(StartTime).format("HH:mm:ss")
+
+  let EEndDate = moment(EndDate).format("YYYY-MM-DD")
+  let EEndTime = moment(EndTime).format("HH:mm:ss")
+
+  let StartTimeAndDate = moment(EstartDate + ' ' + EstartTime);
+
+  let EndStartTimeAndDate = moment(EEndDate + ' ' + EEndTime);
+
+  let FormatStartDate =   moment(StartTimeAndDate).format("YYYY-MM-DDThh:mm");
+  let FormatEndDate =   moment(EndStartTimeAndDate).format("YYYY-MM-DDThh:mm");
+
+  // if(FormatStartDate === FormatEndDate){
+  
+  //   NotificationManager.error('Opps, event end time must be greater than event start time', 5000);
+  //   return
+  // }
+
+
+  let CheckError = this.handleInputErrors()
+  if (CheckError === true) {
+
+    try {
+      showLoader()
+      const formData = new FormData();
+      formData.append('title', this.state.eventName);
+      formData.append('seats', this.state.eventMaxCapacity);
+      formData.append('description', this.state.enentDescrpion);
+      formData.append('medium', this.state.eventMedium);
+      formData.append('address', this.state.eventAddress);
+      formData.append('link', this.state.eventLink);
+      formData.append('event_type', this.state.eventType);
+      formData.append('free', this.state.paidOrFree === "free_event" ? true : false);
+      formData.append('cta_button', this.state.paidOrFree === "free_event" && this.state.eventType
+       === "interanl" ? "Attend" : this.state.CTABtn);
+      formData.append('registration_link', this.state.registrationLink);
+      formData.append('price', this.state.eventFee);
+      formData.append('banner', this.state.eventImage);
+      formData.append('start_datetime', FormatStartDate);
+      formData.append('end_datetime', FormatEndDate);
+      formData.append('city', this.state.eventCity);
+      
+        let res = await httpPostFormData(`events/`,formData)
+    
+       console.log("res status",res) 
+       if (res.status === 201) {
+               hideLoader()
+        console.log(res)
+        this.setState({
+          eventName:"",
+          eventMaxCapacity:"",
+          enentDescrpion:"",
+          eventMedium:"",
+          eventType:"null",
+          eventAddress :"",
+          eventLink:"",
+          eventType:"",
+          paidOrFree:"",
+          CTABtn:"",
+        })
+
+        NotificationManager.success(
+           "Event created successfully.",
+          "Yepp",
+          3000
+      );
+       }
+      
+    
+        hideLoader()
+  } catch (error) {
+      console.log(error.response)
+      NotificationManager.success(
+          error,
+         "Opps",
+         3000
+     );
+      hideLoader()
+  // }
+  }
+  }
+
+
+
+   
+
+   
 }
 
 handleEventTime= (e,startTime) =>{
@@ -108,97 +290,10 @@ handleEventTime= (e,startTime) =>{
   }
 
   if(this.state.endTime === this.state.startTime){
-    alert(76)
+  
   }
  
 }
-
-handleSubmit=async(e)=>{
-  e.preventDefault();
-console.log(this.state)
-  // let startTime = this.state.startTime
-  // let endTime = this.state.endTime
-  // let momentSTime =   moment(startTime).format("hh:mm:ss a");
-  // let momentEndTime =   moment(endTime).format("hh:mm:ss a");
-
-  // console.log(momentSTime, "....." , momentEndTime)
-  // if(momentSTime === momentEndTime){
-  
-  //   NotificationManager.error('Opps, event end time must be greater than event start time', 5000);
-  // }
-
-            //   eventName:"",
-            // eventMaxCapacity:"",
-            // enentDescrpion:"",
-            // eventMedium:"",
-            // eventType:"null",
-            // eventAddress:"",
-            // eventLink:"",
-            // eventType:"",
-            // paidOrFree:"",
-            // CTABtn:"",
-            // registrationLink:"",
-            // eventFee:"",
-            // eventImage:"",
-
-    //         "title": "The title of the event"
-    // "banner": "image"
-    // "description": "Description"
-    // "start_datetime": "startdate and time format - YYYY-MM-DDThh:mm"
-    // "location": "location"
-    // "city": "the city"
-    // "address": "The address, it can be null"
-    // "medium": "Maybe it is vritual or face to face something like that",
-    // "end_datetime", "When the event ends, use same datetime format"
-    // "event_type": "The event type"
-    // "price": "If it is not a free event, if is, just put 0"
-    // "status": "open or close", 
-    // "free": false or true,
-    // "seats": "number of seats (integer)"
-  // else{
-    try {
-      const formData = new FormData();
-      formData.append('title', this.state.eventName);
-      formData.append('seats', this.state.eventMaxCapacity);
-      formData.append('description', this.state.enentDescrpion);
-      formData.append('medium', this.state.eventMedium);
-      formData.append('location', this.state.eventAddress);
-      // formData.append('name', this.state.eventLink);
-      formData.append('event_type', this.state.eventType);
-      formData.append('free', this.state.paidOrFree === "free event" ? true : false);
-      // formData.append('name', this.state.CTABtn);
-      // formData.append('name', this.state.registrationLink);
-      formData.append('price', this.state.eventFee);
-      formData.append('banner', this.state.eventImage);
-
-        let res = await httpPostFormData(`events/`,formData)
-       console.log("res status",res) 
-       if (res.status === 200) {
-               hideLoader()
-        console.log(res)
-
-
-        NotificationManager.success(
-           "Group edited successfully.",
-          "Yepp",
-          3000
-      );
-       }
-      
-    
-        hideLoader()
-  } catch (error) {
-      console.log(error.response)
-      NotificationManager.success(
-          error,
-         "Opps",
-         3000
-     );
-      hideLoader()
-  // }
-  }
-}
-
 
 
     render() {
@@ -219,18 +314,22 @@ console.log(this.state)
      
     <label >Title</label>
     <input onChange={(e)=>this.handleChange(e)} name="eventName" type="text" class="form-control" id="title" placeholder="Enter Title"/>
-
+              <span className="eventErrorMessage">{this.state.TitleError}</span>
   </div>
   <div class="form-group">
     <label >Event Maximum Capacity</label>
-    <input onChange={(e)=>this.handleChange(e)} name="eventMaxCapacity" type="number" class="form-control" id="Presenter" placeholder="How many people are you expecting?"/>
+    <input onChange={(e)=>this.handleChange(e)} name="eventMaxCapacity" type="number" class="form-control"
+     id="Presenter" placeholder="How many people are you expecting?"/>
+     
   </div>
 
   <div class="form-group">
     <label >Description</label>
-    <textarea onChange={(e)=>this.handleChange(e)} name="enentDescrpion" type="text" class="form-control" id="Presenter" placeholder="About Event"/>
+    <textarea onChange={(e)=>this.handleChange(e)} name="enentDescrpion" 
+    type="text" class="form-control" id="Presenter" placeholder="About Event"/>
+     <span className="eventErrorMessage">{this.state.DescrpionError}</span>
   </div>
-
+ 
 
 
   <div class="form-group">
@@ -242,18 +341,21 @@ console.log(this.state)
       class="form-control"
        id="exampleFormControlSelect1">
          <option value="null">Select Event Medium</option>
-      <option value="inperson">In-Person</option>
+      <option value="in_person">In-Person</option>
       <option value="virtual">Virtual</option>
       <option value="hybrid">Hybrid</option>
       
     </select>
+    <span className="eventErrorMessage">{this.state.eventMediumError}</span>
   </div>
 
 {
   this.state.eventMedium === "virtual" || this.state.eventMedium === "hybrid" ? (
     <div class="form-group">
     <label >Enter Link</label>
-    <input onChange={(e)=>this.handleChange(e)} name="eventLink"  type="text" class="form-control" id="address" placeholder="eg https://zoom.com"/>
+    <input onChange={(e)=>this.handleChange(e)} name="eventLink"  type="text" 
+    class="form-control" id="address" placeholder="eg https://zoom.com"/>
+    <span className="eventErrorMessage">{this.state.iventLinkError}</span>
   </div>
   ) : ""}
 
@@ -261,11 +363,27 @@ console.log(this.state)
 
 
 {
-  this.state.eventMedium === "hybrid" || this.state.eventMedium === "inperson"  ? 
+  this.state.eventMedium === "hybrid" || this.state.eventMedium === "in_person"  ? 
   (
     <div class="form-group">
       <label >Address</label>
-      <input onChange={(e)=>this.handleChange(e)} name="eventAddress" type="text" class="form-control" id="address" placeholder="Enter Event Venue"/>
+      <input onChange={(e)=>this.handleChange(e)} name="eventAddress" type="text" class="form-control" 
+      id="address" placeholder="Enter Event Venue"/>
+      <span className="eventErrorMessage">{this.state.adressCityError}</span>
+    </div>  
+    
+    
+    )
+  : ""}
+
+{
+  this.state.eventMedium === "hybrid" || this.state.eventMedium === "in_person"  ? 
+  (
+    <div class="form-group">
+      <label >City</label>
+      <input onChange={(e)=>this.handleChange(e)} name="eventCity" type="text" class="form-control"
+       id="city" placeholder="Enter Event City"/>
+       <span className="eventErrorMessage">{this.state.adressCityError}</span>
     </div>  
     
     
@@ -285,9 +403,10 @@ console.log(this.state)
 
       
     </select>
+    <span className="eventErrorMessage">{this.state.eventTypeError}</span>
   </div>
 
-  
+
 
   {
     this.state.eventType === "internal" || this.state.eventType ===  "external" ?(
@@ -298,8 +417,8 @@ console.log(this.state)
   name="paidOrFree"
   onChange={(e)=>this.handleChange(e)} 
       class="form-control" id="exampleFormControlSelect1">
-          <option value="free event">Free event</option>
-         <option value="paid event">Paid event</option>
+          <option value="free_event">Free event</option>
+         <option value="paid_event">paid event</option>
         
       </select>
     </div>
@@ -308,7 +427,7 @@ console.log(this.state)
 
 
 {
-    this.state.eventType === "internal" & this.state.paidOrFree === "free event" ?(
+    this.state.eventType === "internal" & this.state.paidOrFree === "free_event" ?(
       <div>
   <div class="form-group">
 <label >CTA Button</label>
@@ -329,21 +448,21 @@ console.log(this.state)
   }
 
 {
-    this.state.eventType === "internal" & this.state.paidOrFree === "paid event" ?(
+    this.state.eventType === "internal" & this.state.paidOrFree === "paid_event" ?(
       <div>
 
 
 <div class="form-group">
     <label >Event Fee</label>
-    <input onChange={(e)=>this.handleChange(e)} name="eventFee" type="text" class="form-control" id="register" placeholder="$ 50,000"/>
-
+    <input onChange={(e)=>this.handleChange(e)} name="eventFee" type="number" class="form-control" id="register" placeholder="$ 50,000"/>
+    <span className="eventErrorMessage">{this.state.eventFeeError}</span>
   </div>
       </div>
     ) : ""
   }
 
-  {
-    this.state.eventType === "external" & this.state.paidOrFree === "free event" ?(
+  {  
+    this.state.eventType === "external" & this.state.paidOrFree === "free_event" ?(
       <div>
 
 <div class="form-group">
@@ -364,7 +483,7 @@ console.log(this.state)
 
 
 {
-    this.state.eventType === "external" & this.state.paidOrFree === "paid event" ?(
+    this.state.eventType === "external" & this.state.paidOrFree === "paid_event" ?(
       <div>
 
 <div class="form-group">
@@ -381,8 +500,8 @@ console.log(this.state)
 
   <div class="form-group">
     <label>Event Fee</label>
-    <input onChange={(e)=>this.handleChange(e)} name="eventFee" type="text" class="form-control" id="register" placeholder="$ 50,000"/>
-
+    <input onChange={(e)=>this.handleChange(e)} name="eventFee" type="number" class="form-control" id="register" placeholder="$ 50,000"/>
+    <span className="eventErrorMessage">{this.state.eventFeeError}</span>
   </div>
       </div>
     ) : ""
@@ -459,13 +578,21 @@ console.log(this.state)
 <div class="form-group">
     <div className="getEventImage">
       <input  onChange={(e)=>this.handleFileChange(e)} name="eventImage" type="file" class="hideEventInput" id="address" placeholder="Enter Event Venue"/>
-      <div className="eventImageInfo">
-          <p>Drop Image</p>
-          <p>Or</p>
-          <button>Browse</button>
+      <div className="eventImageInfo" style={this.state.eventImage === ""?{left:"22%"}:{left:"20%"}}>
+        {
+          this.state.eventImage === "" ? "":<img style={{width:"90px",height:"70px",borderRadius:"3px"}} src={URL.createObjectURL(this.state.eventImage)} />
+        }
+          {
+          this.state.eventImage === ""? <div className="centerAddEventImg">
+            <p>Drop Image</p>
+          <p>Or</p></div> :""
+        }
+
+          <button> {
+          this.state.eventImage === ""?"Browse":"Change image"}</button>
           </div>  
     </div>
-    
+    <span className="eventErrorMessage">{this.state.eventImageError}</span>
   </div>
   <div className="Esubmitbtn">
       <button onClick={this.handleSubmit}>Submit</button>

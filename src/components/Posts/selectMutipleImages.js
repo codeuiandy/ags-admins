@@ -10,10 +10,7 @@ export function Images(props) {
  
   const [images, setImages] = useState({});
 
-  useEffect(() => {
 
-    props.advertImages(images)
-  }, [images])
 
  
   return (

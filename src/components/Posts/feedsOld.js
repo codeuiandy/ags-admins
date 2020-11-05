@@ -17,17 +17,15 @@ import GetImageUrl from '../../components/helpers/getImageUrl'
 import moment from 'moment'
 import $ from 'jquery'
 import AskAQuestion from '../Modals/createQuestion'
-import AdvertModal from '../Modals/createAdverts.jsx'
 export default class allFeeds extends Component {
     constructor(props){
         super(props)
         this.state={
-            postController:"Advert",
+            postController:"Icebreaker",
             startDate:new Date(),
             Icebreaker:[],
             feeds:[],
             AskQuestion:[],
-            adverts:[],
             deletId:"",
 
             endDate:new Date(),
@@ -53,10 +51,7 @@ export default class allFeeds extends Component {
 
             editData:"",
             setmodalType:"",
-            setFeedId:"",
-
-            advertImages:[],
-            adverImageInput:"",
+            setFeedId:""
         }
     }
 
@@ -65,28 +60,11 @@ export default class allFeeds extends Component {
         this.getIcebreakers()
         this.getFeeds()
         this.getQuestion()
-        this.getAdvers()
     }
 
     getDeletId=(id)=>{
     this.setState({deletId:id})
    
-    }
-
-    getAdvers=async()=>{
-        showLoader()
-       try {
-        const res = await httpGet(`adverts/`)
-        console.log(res.status)
-        if (res.status === 200) {
-            this.setState({adverts:res.data})
-            console.log(res)
-            hideLoader()
-
-        }
-       } catch (error) {
-           
-       }
     }
 
     getIcebreakers=async()=>{
@@ -280,27 +258,26 @@ export default class allFeeds extends Component {
     
         if (postController === "Advert") {
             // showLoader()
-            // let check =   this.hendleBlob()
-            // console.log(check)
+            let check =   this.hendleBlob()
+            console.log(check)
             // if (check === true) {
                
                 try {
                     // var startDate = moment(this.state.startDate , 'YYYY-MM-DD');
-                    // let date = new Date()
-                    // let startDate =  moment(date)
-                    // startDate.format("YYYY-MM-DDTHH:mm:ss.SSS")
-                    // console.log(startDate)
+                    let date = new Date()
+                    let startDate =  moment(date)
+                    startDate.format("YYYY-MM-DDTHH:mm:ss.SSS")
+                    console.log(startDate)
                     const  formData = new FormData()
-                    // formData.append("start_date",startDate)
-                    console.log(this.state.advertImages)
-                    formData.append("images",  this.state.advertImages)
-                    // formData.append("link",this.state.advert_link)
-                    // formData.append("name",this.state.advert_name)
+                    formData.append("start_date",startDate)
+                    formData.append("images", await this.state.ddd)
+                    formData.append("link",this.state.advert_link)
+                    formData.append("name",this.state.advert_name)
                 
-                    // formData.append("end_date",this.state.endDate)
-                   const res = await  httpPostFormData(`adverts/`,formData)
+                    formData.append("end_date",this.state.endDate)
+                    await httpPostFormData(`adverts/`,formData)
                     //  console.log(file)
-                     console.log(res)
+                     console.log(this.state.ddd)
                  } catch (error) {
                      
                 //  }
@@ -579,37 +556,6 @@ export default class allFeeds extends Component {
            }
        
            }
-
-        //    const [Criteria, setCriteria] = useState([])
-        //    const [EligibilityCriteriaDataInput, setEligibilityCriteriaInput] = useState("")
-
-        handleImageChange=(data)=>{
-            this.setState({adverImageInput:data})
-        }
-       
-            handleMutipleImages= async (type,deleteData)=>{
-               if (type === "add") {
-                 if (this.state.adverImageInput === "" || this.state.adverImageInput === null || this.state.adverImageInput === undefined) {
-                   return
-                 }
-                  if (this.state.advertImages.find(data=>data === this.state.adverImageInput)) {
-                 alert(`${this.state.adverImageInput} already added`)
-                 return
-               }
-               await this.setState({advertImages:[...this.state.advertImages, this.state.adverImageInput]})
-               }
-               
-               else{
-
-                 let deletData = this.state.advertImages[deleteData]
-                 let filterData = this.state.advertImages.filter(data=>{
-                  return data !== deletData
-                 })
-                 console.log(filterData)
-                 this.setState({advertImages:filterData})
-               }
-              
-             }
     
     render() {
         let Switch = this.state.postController
@@ -667,16 +613,67 @@ export default class allFeeds extends Component {
                   
 {
                 Switch === "Advert" ? (
-                    <div className="postTofeedLayout">
-                        <div type="button"  data-toggle="modal" data-target="#advertModal" className="createPostBtn-new">
-                             <button>Create new Advert</button>
-                        </div>
+                    <div>
+
+                    <div className="createPosts createAds">
+                          <div className="createPostInner adverPostInner">
+                          <form>
+
+                          <div class="form-group postForm postFormAdvert">
+ 
+ <input placeholder="Advert name" class="form-control" type="text"/>
+</div>
+
+
+<div class="form-group postForm postFormAdvert">
+ 
+ <input placeholder="Insert Link" class="form-control" type="text"/>
+</div>
+ 
+<div className="datePickerEvent datePickerAdverrt">
+<div class="form-group">
+    <label for="Presenter">Advert Start Date</label>
+    <DatePicker
+      closeOnScroll={true}
+      selected={this.state.startDate} 
+      onChange={date => this.setState({startDate:date})  }
+      withPortal
+ 
+      minDate={new Date()}
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="Presenter">Advert End Date</label>
+    <DatePicker
+      closeOnScroll={true}
+      selected={this.state.startDate} 
+      onChange={date => this.setState({startDate:date})  }
+      withPortal
+ 
+      minDate={new Date()}
+    />
+  </div>
+  </div>
+
+<div class="form-group postForm postFormAdvert">
+ 
+<Images/>
+</div>
+
+ </form>
+
+ <div className="postActions">
+
+
+     <div className="postButton postAdvert">
+<button> Create</button>
+     </div>
+ </div>
+                          </div>
+                       </div>
                        
-                    <PostToFeed 
-                    Icebreaker={this.state.feeds} 
-                    getDeletId={this.getDeletId}
-                    GetEditDataModals={this.GetEditDataModals}/>
-                    </div>
+                   </div>
                 ) : ""
                 }
 
@@ -743,22 +740,6 @@ export default class allFeeds extends Component {
              handleFileChange={this.handleFileChange}
              resetModal={this.resetModal}
              setmodalType={this.state.setmodalType}
-             />
-
-
-          <AdvertModal
-             GetImageUrl={GetImageUrl} 
-             sharedState={this.state}
-             handleSubmit={this.handleSubmit}
-             handleChange={this.handleChange}
-             handleChange={this.handleChange}
-             handleFileChange={this.handleFileChange}
-             resetModal={this.resetModal}
-             setmodalType={this.state.setmodalType}
-
-             handleMutipleImages={this.handleMutipleImages}
-             handleImageChange={this.handleImageChange}
-             selectedImages={this.state.advertImages}
              />
             <DeleteModal deletData={this.deletData}/>
             </div>
