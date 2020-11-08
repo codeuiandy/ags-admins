@@ -16,7 +16,9 @@ export default class eventList extends Component {
     constructor(props){
         super(props)
         this.state={
-            eventDate:"recentEvents"
+            eventDate:"recentEvents",
+            activeEvents:[],
+            pastEvents:[],
         }
     }
     
@@ -33,7 +35,13 @@ export default class eventList extends Component {
     getEvents=async()=>{
         try {
             const res = await httpGet(`events/`)
-            console.log(res)
+            if (res.status === 200) {
+                this.setState({
+                    activeEvents:res.data.active,
+                    pastEvents:res.data.past
+                })
+            }
+            console.log(this.state)
         } catch (error) {
             
         }
@@ -64,7 +72,7 @@ export default class eventList extends Component {
                     
         <h1 style={{marginTop:"-24px"}} className="eventListHeader">Upcoming Events</h1>
 
-        <UpcomingEventTable/>
+        <UpcomingEventTable activeEvents={this.state.activeEvents}/>
       <br/>
         </div>  
     ):(

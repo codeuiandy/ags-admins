@@ -57,7 +57,7 @@ function App() {
 						<Route exact path="/dashboard" component={Index} />
 						<Route exact path="/create_event" component={CreateEvent} />
 						<Route exact path="/event_list" component={EventList} />
-						<Route exact path="/view_event" component={ViewEvent} />
+						<Route exact path="/view_event/:id" component={ViewEvent} />
 						<Route exact path="/groups" component={Group} />
 						<Route exact path="/create_group_edit_group" component={CreateGroup} />
 						<Route exact path="/all_groups" component={AllGroups} />

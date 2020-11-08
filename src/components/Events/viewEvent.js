@@ -1,41 +1,99 @@
 import React, { Component } from 'react'
 import Layout from '../Layout/index'
 import EventImage from './eventImage.png'
+import {httpPostFormData,httpPut,httpPatch,httpGet} from '../helpers/httpMethods'
+import {hideLoader, showLoader} from '../helpers/loader'
+import "react-datepicker/dist/react-datepicker.css";
+import moment from 'moment'
+import 'moment-timezone';
+import 'react-notifications/lib/notifications.css';
+import {NotificationContainer, NotificationManager} from 'react-notifications'
 
 export default class viewEvent extends Component {
+    constructor(props){
+        super(props)
+        this.state={
+            eventDate:"recentEvents",
+            event:[],
+
+        }
+    } 
+
+
+     getEvents=async()=>{
+         console.log(this.props)
+        try {
+            const res = await httpGet(`events/${this.props.match.params.id}/`)
+            if (res.status === 200) {
+                this.setState({
+                    event:res.data,
+
+                })
+            }
+            console.log(this.state)
+        } catch (error) {
+            
+        }
+    }
+    
+    componentDidMount(){
+        this.getEvents()
+    }
+
+  
+
+
     render() {
+        let event = this.state.event
         return (
             <Layout RouteUserLayout={
                 this.props.history
             } activepage="keepOpenEvents">
                 <div style={{borderRadius:"5px",paddingTop:"30px",marginBottom:"40px"}} id="event-list-wraper2">
                     <div className="view-event">
-                        <h1>Ted Talk @ MUSON</h1>
-                        <img src={EventImage} alt="" srcset=""/>
-
+                        <h1>{event.title}</h1>
+                        <img src={event.banner} alt="" srcset=""/>
+         
+{/* city: "Lagos"
+created_at: "2020-11-05T11:03:05.761173Z"
+cta_button: ""
+description: "Ladies Monday talk with Code Ui Andy"
+end_datetime: "2020-11-10T11:15:00.000000Z"
+event_type: "internal"
+free: false
+id: 10
+is_flagship: false
+liked: []
+link: "https://codeuiandy.netlify.app/"
+location: null
+medium: "hybrid"
+modified_at: "2020-11-05T11:03:05.761188Z"
+price: "2000.00"
+registration_link: ""
+seats: 700
+start_datetime: "2020-11-07T10:30:00.000000Z"
+status: null
+title: "Ladies Monday Talk" */}
                         <div className="aboutEvent">
                             <h1>Event Description </h1>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe quas ut 
-                                perspiciatis facilis sequi dignissimos, 
-                                provident omnis est adipisci accusamus dolorem tempora dolore, esse
-                                 modi soluta corrupti, sit cum ducimus.</p>
+                            <p>{event.description}</p>
                         </div>
                         <div className="evenTiming">
                             <div className="eventTiming1">
                                 <h1>Schedule</h1>
-                                <p>Friday, 10 June 2020 at 10AM - 2PM</p>
+                                 <p>{moment(event.start_datetime).format("DD-MM-YYYY hh:mm")} To {moment(event.end_datetime).format("DD-MM-YYYY hh:mm")}</p>
                             </div>
                             <div className="eventTiming2">
                             <h1>Location</h1>
-                                <p> Marina Exit, Lagos Island, Lagos, Nigeria</p>
+                                <p>{event.address}</p>
                             </div>
                             <div className="eventTiming3">
                             <h1>Presenter</h1>
-                                <p>John Davius</p>
+                                <p>{event.user ? event.user.first_name : null} {event.user ? event.user.last_name : null}</p>
                             </div>
                             <div className="eventTiming4">
                             <h1>Event Type</h1>
-                                <p>Paid</p>
+                                <p>{event.event_type}</p>
                             </div>
                         </div>
 

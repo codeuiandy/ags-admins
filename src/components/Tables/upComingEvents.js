@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-
+import DateFormater from '../helpers/dateFormater'
 import Table from "./customTable";
 import { Link } from "react-router-dom";
-
+import moment from 'moment'
 export default class upComingEvents extends Component {
 	constructor(props) {
 		super(props);
@@ -10,67 +10,43 @@ export default class upComingEvents extends Component {
 	}
 
 	bodyRow = () => {
-		const datas = [
-			{
-				type:"internal",
-				name: "Ted Talk",
-				Date:"20/10/2020",
-				Location: "Lagos/Nigeria",
-				Description:"A live webinar with our guest Omolara Yeku on strategies to transition .",
-				EventStartTime:"6pm",
-				EventEndTime:"8pm",
-				PaidEvent:"True"
-			},
-			{	type:"internal",
-				name: "Ted Talk",
-				Date:"20/10/2020",
-				Location: "Lagos/Nigeria",
-				Description:"A live webinar with our guest Omolara Yeku on strategies to transition .",
-				EventStartTime:"6pm",
-				EventEndTime:"8pm",
-				PaidEvent:"True"
-			},
-			{
-				type:"internal",
-				name: "Ted Talk",
-				Date:"20/10/2020",
-				Location: "Lagos/Nigeria",
-				Description:"A live webinar with our guest Omolara Yeku on strategies to transition .",
-				EventStartTime:"6pm",
-				EventEndTime:"8pm",
-				PaidEvent:"True"
-			},
-			{	type:"internal",
-				name: "Ted Talk",
-				Date:"20/10/2020",
-				Location: "Lagos/Nigeria",
-				Description:"A live webinar with our guest Omolara Yeku on strategies to transition .",
-				EventStartTime:"6pm",
-				EventEndTime:"8pm",
-				PaidEvent:"True"
-			},
-			{	type:"internal",
-				name: "Ted Talk",
-				Date:"20/10/2020",
-				Location: "Lagos/Nigeria",
-				Description:"A live webinar with our guest Omolara Yeku on strategies to transition .",
-				EventStartTime:"6pm",
-				EventEndTime:"8pm",
-				PaidEvent:"True"
-			},
-		];
-		const body = datas.map((data, index) => ({
-			type:data.type,
-			name: data.name,
-			Date: data.Date,
-			Location: data.Location,
-			Description:data.Description,
-			EventStartTime:data.EventStartTime,
-			EventEndTime:data.EventEndTime,
-			PaidEvent:data.PaidEvent,
+	
+		const body = this.props.activeEvents.map((data, index) => ({
+			type:data.event_type,
+			name: data.title,
+			Date: data.city,
+			Location: data.address,
+			Description:data.description,
+			EventStartTime:moment(data.start_datetime).format("DD-MM-YYYY hh:mm"),
+			EventEndTime:moment(data.end_datetime).format("DD-MM-YYYY hh:mm"),
+			PaidEvent:data.free === false ? "True" : "false",
+
+
+			// address: "19 omilani"
+			// banner: "/media/apple-5523590_640.jpg"
+			// city: "Lagos"
+			// created_at: "2020-11-05T12:34:40.706926Z"
+			// cta_button: ""
+			// description: "lorem"
+			// end_datetime: "2020-11-28T02:00:00.000000Z"
+			// event_type: "internal"
+			// free: false
+			// id: 11
+			// is_flagship: false
+			// liked: []
+			// link: "https://searchcode.com/codesearch/raw/14390155/"
+			// location: null
+			// medium: "hybrid"
+			// modified_at: "2020-11-05T12:34:40.706941Z"
+			// price: "2000.00"
+			// registration_link: ""
+			// seats: 44
+			// start_datetime: "2020-11-20T01:15:00.000000Z"
+			// status: null
+			// title: "Party Event"
 			action: (
 				<a>
-					<Link to="/view_event">
+					<Link to={`/view_event/${data.id}`}>
 						{" "}
 						<span
 							className="edit"
@@ -126,9 +102,10 @@ export default class upComingEvents extends Component {
 
 			{ title: "Description", prop: "Description" },
 
-			{ title: "Event Date", prop: "Date" },
 
 			{ title: "Locaton", prop: "Location" },
+
+			{ title: "City", prop: "Date" },
 
 			{ title: "Paid Event", prop: "PaidEvent" },
 
