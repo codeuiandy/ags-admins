@@ -3,6 +3,7 @@ import DateFormater from '../helpers/dateFormater'
 import Table from "./customTable";
 import { Link } from "react-router-dom";
 import moment from 'moment'
+import truncateWithEllipses from '../helpers/truncate'
 export default class upComingEvents extends Component {
 	constructor(props) {
 		super(props);
@@ -16,34 +17,11 @@ export default class upComingEvents extends Component {
 			name: data.title,
 			Date: data.city,
 			Location: data.address,
-			Description:data.description,
+			Description:truncateWithEllipses(data.description, 50),
 			EventStartTime:moment(data.start_datetime).format("DD-MM-YYYY hh:mm"),
 			EventEndTime:moment(data.end_datetime).format("DD-MM-YYYY hh:mm"),
 			PaidEvent:data.free === false ? "True" : "false",
 
-
-			// address: "19 omilani"
-			// banner: "/media/apple-5523590_640.jpg"
-			// city: "Lagos"
-			// created_at: "2020-11-05T12:34:40.706926Z"
-			// cta_button: ""
-			// description: "lorem"
-			// end_datetime: "2020-11-28T02:00:00.000000Z"
-			// event_type: "internal"
-			// free: false
-			// id: 11
-			// is_flagship: false
-			// liked: []
-			// link: "https://searchcode.com/codesearch/raw/14390155/"
-			// location: null
-			// medium: "hybrid"
-			// modified_at: "2020-11-05T12:34:40.706941Z"
-			// price: "2000.00"
-			// registration_link: ""
-			// seats: 44
-			// start_datetime: "2020-11-20T01:15:00.000000Z"
-			// status: null
-			// title: "Party Event"
 			action: (
 				<a>
 					<Link to={`/view_event/${data.id}`}>
@@ -57,7 +35,7 @@ export default class upComingEvents extends Component {
 						></span>
 					</Link>
 
-					<Link to="">
+					<Link to={`/create_event/edit_event/${data.id}`}>
 						{" "}
 						<span
 							className="edit"
@@ -72,8 +50,10 @@ export default class upComingEvents extends Component {
 
 					<span
 						style={{ color: " #F00A0A", fontSize: "14px",cursor:"pointer" }}
-					
-						// onClick={() => this.props.handleDelete(data.id)}
+						type="button"
+						data-toggle="modal" 
+						data-target="#deleteEventModal"
+						onClick={() => this.props.getDeletId(data.id)}
 						className="fa fa-trash mr-4 add-cursor"
 						data-toggle="modal" data-target="#ComfirmModal"
 					></span>

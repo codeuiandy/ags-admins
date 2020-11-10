@@ -4,7 +4,7 @@ import PreviousEventTable from '../Tables/previousEvents'
 import Layout from '../Layout/index'
 import ComfirmModal from '../Modals/comfirmModal'
 import UserRoute from '../UserRoute/Route'
-import {httpPostFormData,httpPut,httpPatch,httpGet} from '../helpers/httpMethods'
+import {httpPostFormData,httpPut,httpPatch,httpGet, httpPost, httpDelete} from '../helpers/httpMethods'
 import {hideLoader, showLoader} from '../helpers/loader'
 import "react-datepicker/dist/react-datepicker.css";
 import moment from 'moment'
@@ -19,6 +19,7 @@ export default class eventList extends Component {
             eventDate:"recentEvents",
             activeEvents:[],
             pastEvents:[],
+            deleteModalId:""
         }
     }
     
@@ -46,6 +47,38 @@ export default class eventList extends Component {
             
         }
     }
+
+    handleDelete=async()=>{
+        showLoader()
+        try {
+            let res = await httpDelete(`events/${this.state.deleteModalId}/`)
+            if (res.status===204) {
+                NotificationManager.success(
+                "Event deleted successfully",
+               "Yepp",
+               3000
+           );
+           this.getEvents()
+           hideLoader()
+            }
+            
+        } catch (error) {
+            hideLoader()
+            NotificationManager.danger(
+                error,
+               "Opps",
+               3000
+           );
+        }
+
+    }
+
+    getDeletId=(id)=>{
+        this.setState({
+            deleteModalId:id
+        })
+        // alert(id)
+    }
     render() {
         
         return (
@@ -72,7 +105,11 @@ export default class eventList extends Component {
                     
         <h1 style={{marginTop:"-24px"}} className="eventListHeader">Upcoming Events</h1>
 
-        <UpcomingEventTable activeEvents={this.state.activeEvents}/>
+        <UpcomingEventTable
+         activeEvents={this.state.activeEvents}
+         getDeletId={this.getDeletId}
+         
+         />
       <br/>
         </div>  
     ):(
@@ -80,7 +117,11 @@ export default class eventList extends Component {
                     
         <h1 style={{marginTop:"-24px"}} className="eventListHeader">Previous Events</h1>
 
-        <UpcomingEventTable/>
+        <PreviousEventTable
+         activeEvents={this.state.pastEvents}
+         getDeletId={this.getDeletId}
+         
+        />
       <br/>
         </div>  
     )
@@ -90,7 +131,7 @@ export default class eventList extends Component {
               
                 
                 </Layout>
-                <ComfirmModal/>
+                <ComfirmModal deletData={this.handleDelete}/>
             </div>
         )
     }

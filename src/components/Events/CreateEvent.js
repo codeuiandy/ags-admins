@@ -3,7 +3,7 @@ import Layout from '../Layout/index'
 import './index.css'
 import DatePicker from "react-datepicker";
 import UserRoute from '../UserRoute/Route'
-import {httpPostFormData,httpPut,httpPatch} from '../helpers/httpMethods'
+import {httpPostFormData,httpPut,httpPatch, httpGet} from '../helpers/httpMethods'
 import {hideLoader, showLoader} from '../helpers/loader'
 import "react-datepicker/dist/react-datepicker.css";
 import moment from 'moment'
@@ -21,6 +21,7 @@ export default class CreateEvent extends Component {
             endTime:new Date(),
             eventFee:"null",
             CTA:"Pay",
+            editImage:"",
 
             eventName:"",
             eventMaxCapacity:"",
@@ -44,6 +45,7 @@ export default class CreateEvent extends Component {
                 DescrpionError:"",
                 adressCityError:"",
                 iventLinkError:"",
+                edit:false
         }
         
     }
@@ -52,6 +54,7 @@ export default class CreateEvent extends Component {
       this.setState({ [e.target.name]: e.target.files[0] });
       this.setState({
         eventImageError:"",
+        editImage:e.target.files[0]
       })
     }
     
@@ -158,12 +161,14 @@ handleInputErrors=()=>{
     
   }
 
-
-
-  if (this.state.eventImage === "" || this.state.eventImage === undefined || this.state.eventImage === null ) {
+    if (this.state.edit === false) {
+       if (this.state.eventImage === "" || this.state.eventImage === undefined || this.state.eventImage === null ) {
     this.setState({eventImageError:"Add event image"})
     return false
   }
+    }
+
+ 
 
 
   
@@ -203,71 +208,193 @@ console.log(this.state)
   let CheckError = this.handleInputErrors()
   if (CheckError === true) {
 
-    try {
-      showLoader()
-      const formData = new FormData();
-      formData.append('title', this.state.eventName);
-      formData.append('seats', this.state.eventMaxCapacity);
-      formData.append('description', this.state.enentDescrpion);
-      formData.append('medium', this.state.eventMedium);
-      formData.append('address', this.state.eventAddress);
-      formData.append('link', this.state.eventLink);
-      formData.append('event_type', this.state.eventType);
-      formData.append('free', this.state.paidOrFree === "free_event" ? true : false);
-      formData.append('cta_button', this.state.paidOrFree === "free_event" && this.state.eventType
-       === "interanl" ? "Attend" : this.state.CTABtn);
-      formData.append('registration_link', this.state.registrationLink);
-      formData.append('price', this.state.eventFee);
-      formData.append('banner', this.state.eventImage);
-      formData.append('start_datetime', FormatStartDate);
-      formData.append('end_datetime', FormatEndDate);
-      formData.append('city', this.state.eventCity);
-      
-        let res = await httpPostFormData(`events/`,formData)
-    
-       console.log("res status",res) 
-       if (res.status === 201) {
-               hideLoader()
-        console.log(res)
-        this.setState({
-          eventName:"",
-          eventMaxCapacity:"",
-          enentDescrpion:"",
-          eventMedium:"",
-          eventType:"null",
-          eventAddress :"",
-          eventLink:"",
-          eventType:"",
-          paidOrFree:"",
-          CTABtn:"",
-        })
+    let propsRoute = this.props.match.params.edit
+    if (propsRoute==="edit_event") {
 
-        NotificationManager.success(
-           "Event created successfully.",
-          "Yepp",
-          3000
-      );
-       }
+
+      try {
+        showLoader()
+        const formData = new FormData();
+        formData.append('title', this.state.eventName);
+        formData.append('seats', this.state.eventMaxCapacity);
+        formData.append('description', this.state.enentDescrpion);
+        formData.append('medium', this.state.eventMedium);
+        formData.append('address', this.state.eventAddress);
+        formData.append('link', this.state.eventLink);
+        formData.append('event_type', this.state.eventType);
+        formData.append('free', this.state.paidOrFree === "free_event" ? true : false);
+        formData.append('cta_button', this.state.paidOrFree === "free_event" && this.state.eventType
+         === "interanl" ? "Attend" : this.state.CTABtn);
+        formData.append('registration_link', this.state.registrationLink);
+        formData.append('price', this.state.eventFee);
+        let img = this.state.eventImage === "" ? "":formData.append('banner', this.state.eventImage);
+        formData.append('start_datetime', FormatStartDate);
+        formData.append('end_datetime', FormatEndDate);
+        formData.append('city', this.state.eventCity);
+        
+          let res = await httpPatch(`events/${this.props.match.params.id}/`,formData)
       
-    
+         console.log("res status",res) 
+         if (res.status === 200) {
+                 hideLoader()
+          console.log(res)
+          this.getEditEvent()
+          // this.setState({
+          //   eventName:"",
+          //   eventMaxCapacity:"",
+          //   enentDescrpion:"",
+          //   eventMedium:"",
+          //   eventType:"null",
+          //   eventAddress :"",
+          //   eventLink:"",
+          //   eventType:"",
+          //   paidOrFree:"",
+          //   CTABtn:"",
+          //   eventImage:"",
+          //   editImage:""
+            
+          // })
+  
+          NotificationManager.success(
+             "Event edited successfully.",
+            "Yepp",
+            3000
+        );
+         }
+        
+      
+          hideLoader()
+    } catch (error) {
+        console.log(error.response)
+        NotificationManager.success(
+            error,
+           "Opps",
+           3000
+       );
         hideLoader()
-  } catch (error) {
-      console.log(error.response)
+    // }
+    }
+
+
+}
+
+else{
+  
+  try {
+    showLoader()
+    const formData = new FormData();
+    formData.append('title', this.state.eventName);
+    formData.append('seats', this.state.eventMaxCapacity);
+    formData.append('description', this.state.enentDescrpion);
+    formData.append('medium', this.state.eventMedium);
+    formData.append('address', this.state.eventAddress);
+    formData.append('link', this.state.eventLink);
+    formData.append('event_type', this.state.eventType);
+    formData.append('free', this.state.paidOrFree === "free_event" ? true : false);
+    formData.append('cta_button', this.state.paidOrFree === "free_event" && this.state.eventType
+     === "interanl" ? "Attend" : this.state.CTABtn);
+    formData.append('registration_link', this.state.registrationLink);
+    formData.append('price', this.state.eventFee);
+    formData.append('banner', this.state.eventImage);
+    formData.append('start_datetime', FormatStartDate);
+    formData.append('end_datetime', FormatEndDate);
+    formData.append('city', this.state.eventCity);
+    
+    
+      let res = await httpPostFormData(`events/`,formData)
+  
+     console.log("res status",res) 
+     if (res.status === 201) {
+             hideLoader()
+      console.log(res)
+      this.setState({
+        eventName:"",
+        eventMaxCapacity:"",
+        enentDescrpion:"",
+        eventMedium:"",
+        eventType:"null",
+        eventAddress :"",
+        eventLink:"",
+        eventType:"",
+        paidOrFree:"",
+        CTABtn:"",
+        eventImage:"",
+        editImage:"",
+      })
+
       NotificationManager.success(
+         "Event created successfully.",
+        "Yepp",
+        3000
+    );
+     }
+    
+  
+      hideLoader()
+} catch (error) {
+    console.log(error.response)
+    NotificationManager.success(
+        error,
+       "Opps",
+       3000
+   );
+    hideLoader()
+// }
+}
+}
+  }
+   
+}
+
+componentDidMount(){
+  let propsRoute = this.props.match.params.edit
+  if (propsRoute==="edit_event") {
+     this.getEditEvent()
+  }
+ 
+}
+
+getEditEvent=async()=>{
+  showLoader()
+  try {
+      let res = await httpGet(`events/${this.props.match.params.id}/`)
+      if (res.status===200) {
+        this.setState({
+          eventName:res.data.title,
+          eventMaxCapacity:res.data.seats,
+          enentDescrpion:res.data.description,
+          eventMedium:res.data.medium,
+          eventAddress :res.data.address,
+          eventLink:res.data.link,
+          eventType:res.data.event_type,
+          paidOrFree:res.data.free  === true ? "free_event" : "paid_event",
+          CTABtn:res.data.cta_button,
+          startDate:new Date(res.data.start_datetime),
+            endDate:new Date(res.data.end_datetime),
+            startTime:new Date(res.data.start_datetime),
+            endTime:new Date(res.data.end_datetime),
+            eventFee:res.data.price,
+            registrationLink:res.data.registration_link,
+            edit:true,
+            editImage:res.data.banner,
+            eventCity:res.data.city
+            
+
+
+            
+        })
+     hideLoader()
+      }
+      
+  } catch (error) {
+      hideLoader()
+      NotificationManager.danger(
           error,
          "Opps",
          3000
      );
-      hideLoader()
-  // }
-  }
   }
 
-
-
-   
-
-   
 }
 
 handleEventTime= (e,startTime) =>{
@@ -313,20 +440,24 @@ handleEventTime= (e,startTime) =>{
   <div class="form-group">
      
     <label >Title</label>
-    <input onChange={(e)=>this.handleChange(e)} name="eventName" type="text" class="form-control" id="title" placeholder="Enter Title"/>
+    <input onChange={(e)=>this.handleChange(e)}
+     name="eventName" type="text" 
+    class="form-control" id="title"
+    value={this.state.eventName}
+     placeholder="Enter Title"/>
               <span className="eventErrorMessage">{this.state.TitleError}</span>
   </div>
   <div class="form-group">
     <label >Event Maximum Capacity</label>
-    <input onChange={(e)=>this.handleChange(e)} name="eventMaxCapacity" type="number" class="form-control"
+    <input onChange={(e)=>this.handleChange(e)} name="eventMaxCapacity" type="number" value={this.state.eventMaxCapacity} class="form-control"
      id="Presenter" placeholder="How many people are you expecting?"/>
      
   </div>
 
   <div class="form-group">
     <label >Description</label>
-    <textarea onChange={(e)=>this.handleChange(e)} name="enentDescrpion" 
-    type="text" class="form-control" id="Presenter" placeholder="About Event"/>
+    <textarea value={this.state.enentDescrpion} onChange={(e)=>this.handleChange(e)} name="enentDescrpion" 
+    class="form-control" id="Presenter" placeholder="About Event"/>
      <span className="eventErrorMessage">{this.state.DescrpionError}</span>
   </div>
  
@@ -354,7 +485,7 @@ handleEventTime= (e,startTime) =>{
     <div class="form-group">
     <label >Enter Link</label>
     <input onChange={(e)=>this.handleChange(e)} name="eventLink"  type="text" 
-    class="form-control" id="address" placeholder="eg https://zoom.com"/>
+    class="form-control" id="address" placeholder="eg https://zoom.com" value={this.state.eventLink}/>
     <span className="eventErrorMessage">{this.state.iventLinkError}</span>
   </div>
   ) : ""}
@@ -368,7 +499,7 @@ handleEventTime= (e,startTime) =>{
     <div class="form-group">
       <label >Address</label>
       <input onChange={(e)=>this.handleChange(e)} name="eventAddress" type="text" class="form-control" 
-      id="address" placeholder="Enter Event Venue"/>
+      id="address" placeholder="Enter Event Venue" value={this.state.eventAddress}/>
       <span className="eventErrorMessage">{this.state.adressCityError}</span>
     </div>  
     
@@ -382,7 +513,7 @@ handleEventTime= (e,startTime) =>{
     <div class="form-group">
       <label >City</label>
       <input onChange={(e)=>this.handleChange(e)} name="eventCity" type="text" class="form-control"
-       id="city" placeholder="Enter Event City"/>
+       id="city" placeholder="Enter Event City" value={this.state.eventCity}/>
        <span className="eventErrorMessage">{this.state.adressCityError}</span>
     </div>  
     
@@ -431,14 +562,18 @@ handleEventTime= (e,startTime) =>{
       <div>
   <div class="form-group">
 <label >CTA Button</label>
-    <input onChange={(e)=>this.handleChange(e)} name="CTABtn" type="text" class="form-control" id="register" placeholder="e.g Register, Attend"/>
+    <input onChange={(e)=>this.handleChange(e)} name="CTABtn" type="text" class="form-control" id="register"
+     placeholder="e.g Register, Attend" value={this.state.CTABtn}/>
 
 
   </div>
 
         <div class="form-group">
     <label >Registration Link</label>
-    <input onChange={(e)=>this.handleChange(e)} name="registrationLink" type="text" class="form-control" id="register" placeholder="Event registration link"/>
+    <input onChange={(e)=>this.handleChange(e)} name="registrationLink" 
+    type="text" class="form-control" id="register" placeholder="Event registration link"
+    value={this.state.registrationLink}
+    />
 
   </div>
 
@@ -454,7 +589,10 @@ handleEventTime= (e,startTime) =>{
 
 <div class="form-group">
     <label >Event Fee</label>
-    <input onChange={(e)=>this.handleChange(e)} name="eventFee" type="number" class="form-control" id="register" placeholder="$ 50,000"/>
+    <input onChange={(e)=>this.handleChange(e)} name="eventFee" type="number"
+     class="form-control" id="register" placeholder="$ 50,000"
+     value={this.state.eventFee}
+     />
     <span className="eventErrorMessage">{this.state.eventFeeError}</span>
   </div>
       </div>
@@ -467,14 +605,19 @@ handleEventTime= (e,startTime) =>{
 
 <div class="form-group">
 <label>CTA Button</label>
-    <input onChange={(e)=>this.handleChange(e)} name="CTABtn" type="text" class="form-control" id="register" placeholder="e.g Register, Attend"/>
+    <input onChange={(e)=>this.handleChange(e)} name="CTABtn" 
+    type="text" class="form-control" id="register" placeholder="e.g Register, Attend"
+    value={this.state.CTABtn}/>
 
 
   </div>
 
         <div class="form-group">
     <label>Registration Link</label>
-    <input onChange={(e)=>this.handleChange(e)} name="registrationLink" type="text" class="form-control" id="register" placeholder="Event registration link"/>
+    <input onChange={(e)=>this.handleChange(e)} name="registrationLink" 
+    type="text" class="form-control" id="register" placeholder="Event registration link"
+    value={this.state.registrationLink}
+    />
 
   </div>
       </div>
@@ -488,19 +631,25 @@ handleEventTime= (e,startTime) =>{
 
 <div class="form-group">
     <label>CTA Button</label>
-    <input onChange={(e)=>this.handleChange(e)} name="CTABtn" type="text" class="form-control" id="register" placeholder="e.g Register, Attend"/>
+    <input onChange={(e)=>this.handleChange(e)} name="CTABtn" type="text" class="form-control" id="register"
+     placeholder="e.g Register, Attend"
+     
+     value={this.state.CTABtn}
+     />
 
   </div>
 
         <div class="form-group">
     <label onChange={(e)=>this.handleChange(e)} name="registrationLink">Registration Link</label>
-    <input  onChange={(e)=>this.handleChange(e)} name="registrationLink" type="text" class="form-control" id="register" placeholder="Event registration link"/>
+    <input  onChange={(e)=>this.handleChange(e)} name="registrationLink" type="text" class="form-control" id="register" 
+    placeholder="Event registration link" value={this.state.registrationLink} />
 
   </div>
 
   <div class="form-group">
     <label>Event Fee</label>
-    <input onChange={(e)=>this.handleChange(e)} name="eventFee" type="number" class="form-control" id="register" placeholder="$ 50,000"/>
+    <input onChange={(e)=>this.handleChange(e)} name="eventFee" type="number" class="form-control" id="register" 
+    placeholder="$ 50,000" value={this.state.eventFee}/>
     <span className="eventErrorMessage">{this.state.eventFeeError}</span>
   </div>
       </div>
@@ -576,22 +725,47 @@ handleEventTime= (e,startTime) =>{
  
  
 <div class="form-group">
-    <div className="getEventImage">
-      <input  onChange={(e)=>this.handleFileChange(e)} name="eventImage" type="file" class="hideEventInput" id="address" placeholder="Enter Event Venue"/>
-      <div className="eventImageInfo" style={this.state.eventImage === ""?{left:"22%"}:{left:"20%"}}>
-        {
-          this.state.eventImage === "" ? "":<img style={{width:"90px",height:"70px",borderRadius:"3px"}} src={URL.createObjectURL(this.state.eventImage)} />
-        }
-          {
-          this.state.eventImage === ""? <div className="centerAddEventImg">
-            <p>Drop Image</p>
-          <p>Or</p></div> :""
-        }
+   {this.state.edit=== true? 
+   
 
-          <button> {
-          this.state.eventImage === ""?"Browse":"Change image"}</button>
-          </div>  
-    </div>
+   <div className="getEventImage">
+   <input  onChange={(e)=>this.handleFileChange(e)} name="eventImage" type="file" class="hideEventInput" id="address" placeholder="Enter Event Venue"/>
+   <div className="eventImageInfo" style={this.state.editImage !== ""?{left:"22%"}:{left:"20%"}}>
+     {
+      <img style={{width:"90px",height:"70px",borderRadius:"3px"}} src={this.state.eventImage===""?this.state.editImage:
+      URL.createObjectURL(this.state.eventImage)} />
+     }
+       {
+       this.state.eventImage === ""? <div className="centerAddEventImg">
+         <p>Drop Image</p>
+       <p>Or</p></div> :""
+     }
+
+       <button> {
+       this.state.eventImage === ""?"Browse":"Change image"}</button>
+       </div>  
+ </div>
+   
+   :  
+
+   <div className="getEventImage">
+          <input  onChange={(e)=>this.handleFileChange(e)} name="eventImage" type="file" class="hideEventInput" id="address" placeholder="Enter Event Venue"/>
+          <div className="eventImageInfo" style={this.state.eventImage === ""?{left:"22%"}:{left:"20%"}}>
+            {
+              this.state.eventImage === "" ? "":<img style={{width:"90px",height:"70px",borderRadius:"3px"}} src={URL.createObjectURL(this.state.eventImage)} />
+            }
+              {
+              this.state.eventImage === ""? <div className="centerAddEventImg">
+                <p>Drop Image</p>
+              <p>Or</p></div> :""
+            }
+
+              <button> {
+              this.state.eventImage === ""?"Browse":"Change image"}</button>
+              </div>  
+        </div>
+        
+        }
     <span className="eventErrorMessage">{this.state.eventImageError}</span>
   </div>
   <div className="Esubmitbtn">

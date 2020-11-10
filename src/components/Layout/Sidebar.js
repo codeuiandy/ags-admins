@@ -213,7 +213,7 @@ dropDownEvent:true,
 								<li className={`${this.props.page==="create_event"?"activeClass":""}`}>
 
 								<div onClick={()=>{
-									this.props.RouteUserLayout.push("/create_event")
+									this.props.RouteUserLayout.push("/create_event/create/none")
 								}} className="hoverActiveRoute"></div>
 
 								<Link className={`${this.props.page==="create-event"?"activeClass":""}`} to="/create_event">

@@ -55,7 +55,7 @@ function App() {
 					<Route exact path="/" component={Login} />
 					{/* <Route exact path="/login" component={Login} /> */}
 						<Route exact path="/dashboard" component={Index} />
-						<Route exact path="/create_event" component={CreateEvent} />
+						<Route exact path="/create_event/:edit/:id" component={CreateEvent} />
 						<Route exact path="/event_list" component={EventList} />
 						<Route exact path="/view_event/:id" component={ViewEvent} />
 						<Route exact path="/groups" component={Group} />

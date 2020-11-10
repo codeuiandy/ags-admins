@@ -1,52 +1,30 @@
 import React, { Component } from "react";
-
+import DateFormater from '../helpers/dateFormater'
 import Table from "./customTable";
 import { Link } from "react-router-dom";
-
-export default class previousEvents extends Component {
+import moment from 'moment'
+import truncateWithEllipses from '../helpers/truncate'
+export default class upComingEvents extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {};
 	}
 
 	bodyRow = () => {
-		const datas = [
-			{
-				name: "Ted Talk",
-				Date:"20/10/2020",
-				Location: "Lagos/Nigeria",
-				
-			},
-			{
-				name: "Ted Talk",
-				Date:"20/10/2020",
-				Location: "Lagos/Nigeria",
-			},
-			{
-				name: "Ted Talk",
-				Date:"20/10/2020",
-				Location: "Lagos/Nigeria",
-			},
-			{
-				name: "Ted Talk",
-				Date:"20/10/2020",
-				Location: "Lagos/Nigeria",
-			},
-			{
-				name: "Ted Talk",
-				Date:"20/10/2020",
-				Location: "Lagos/Nigeria",
-			},
-		];
-		const body = datas.map((data, index) => ({
-			name: data.name,
-			Date: data.Date,
-			Location: data.Location,
-		
+	
+		const body = this.props.activeEvents.map((data, index) => ({
+			type:data.event_type,
+			name: data.title,
+			Date: data.city,
+			Location: data.address,
+			Description:truncateWithEllipses(data.description, 50),
+			EventStartTime:moment(data.start_datetime).format("DD-MM-YYYY hh:mm"),
+			EventEndTime:moment(data.end_datetime).format("DD-MM-YYYY hh:mm"),
+			PaidEvent:data.free === false ? "True" : "false",
 
 			action: (
 				<a>
-					<Link to="/view_event">
+					<Link to={`/view_event/${data.id}`}>
 						{" "}
 						<span
 							className="edit"
@@ -57,7 +35,7 @@ export default class previousEvents extends Component {
 						></span>
 					</Link>
 
-					<Link to="">
+					<Link to={`/create_event/edit_event/${data.id}`}>
 						{" "}
 						<span
 							className="edit"
@@ -72,8 +50,10 @@ export default class previousEvents extends Component {
 
 					<span
 						style={{ color: " #F00A0A", fontSize: "14px",cursor:"pointer" }}
-					
-						// onClick={() => this.props.handleDelete(data.id)}
+						type="button"
+						data-toggle="modal" 
+						data-target="#deleteEventModal"
+						onClick={() => this.props.getDeletId(data.id)}
 						className="fa fa-trash mr-4 add-cursor"
 						data-toggle="modal" data-target="#ComfirmModal"
 					></span>
@@ -85,17 +65,36 @@ export default class previousEvents extends Component {
 
 	header = () => {
 		const header = [
+
+			{
+				title: "Event Type",
+				prop: "type",
+				sortable: true,
+				filterable: true,
+			},
+
 			{
 				title: "Event Name",
 				prop: "name",
 				sortable: true,
 				filterable: true,
 			},
-			{ title: "Event Date", prop: "Date" },
+
+			{ title: "Description", prop: "Description" },
+
 
 			{ title: "Locaton", prop: "Location" },
 
+			{ title: "City", prop: "Date" },
+
+			{ title: "Paid Event", prop: "PaidEvent" },
+
+			{ title: "Event Start Time", prop: "EventStartTime" },
+
+			{ title: "Event End Time", prop: "EventEndTime" },
 			{ title: "Actions", prop: "action" },
+
+
 		];
 		return header;
 	};
@@ -106,7 +105,7 @@ export default class previousEvents extends Component {
 				<Table
 					body={this.bodyRow}
 					head={this.header}
-					rowsPerPage={3}
+					rowsPerPage={10}
 					rowsPerPageOption={[10, 15, 20, 25]}
 				/>
 			</div>
