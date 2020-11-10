@@ -4,13 +4,13 @@ import PreviousEventTable from '../Tables/previousEvents'
 import Layout from '../Layout/index'
 import ComfirmModal from '../Modals/comfirmModal'
 import UserRoute from '../UserRoute/Route'
-import {httpPostFormData,httpPut,httpPatch,httpGet, httpPost, httpDelete} from '../helpers/httpMethods'
-import {hideLoader, showLoader} from '../helpers/loader'
 import "react-datepicker/dist/react-datepicker.css";
 import moment from 'moment'
 import 'moment-timezone';
 import 'react-notifications/lib/notifications.css';
 import {NotificationContainer, NotificationManager} from 'react-notifications'
+import {httpPostFormData,httpPut,httpPatch,httpGet, httpPost, httpDelete} from '../helpers/httpMethods'
+import {hideLoader, showLoader} from '../helpers/loader'
 
 export default class eventList extends Component {
     constructor(props){

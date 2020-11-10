@@ -439,12 +439,12 @@ handleEventTime= (e,startTime) =>{
     <form className="eventForm">
   <div class="form-group">
      
-    <label >Title</label>
+    <label >Title <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
     <input onChange={(e)=>this.handleChange(e)}
      name="eventName" type="text" 
     class="form-control" id="title"
     value={this.state.eventName}
-     placeholder="Enter Title"/>
+     placeholder="Enter Title" required="required"/>
               <span className="eventErrorMessage">{this.state.TitleError}</span>
   </div>
   <div class="form-group">

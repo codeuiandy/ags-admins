@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import DatePicker from 'react-datepicker'
-export default function AddOfferModal() {
+export default function AddOfferModal(props) {
     const [startDate, setStartDate] = useState(new Date())
 
     return (
@@ -24,23 +24,33 @@ export default function AddOfferModal() {
      <div className="upload-investment-details">
                     <div className="uploadInvesmet-input-submit">
                     <button>Choose file</button>
-                    <input type="file"/>
+                    <input  
+                    onChange={(e)=>props.handleFileChange(e)} 
+                    name="PDFCover" type="file"/>
                     </div>
 
                     <div className="uploadInvesmet-input-submit">
-                    <span>No file chosen</span>
+                    <span> {props.PdfData.PDFCover === "" ? "No file chosen" : props.PdfData.PDFCover.name} </span>
              </div>
         </div>
     </div>
 
     <div className="investment-details-input-wrap">
   <label>PDF Title</label>
-  <input type="text" placeholder="e,g your text here"/>
+  <input type="text" placeholder="e,g your text here"
+  value={props.PdfData.PDFTitle} 
+  onChange={(e)=>props.handleChange(e)} 
+  name="PDFTitle"
+  />
 </div>
 
 <div className="investment-details-input-wrap">
   <label>PDF  Description</label>
-  <input type="text" placeholder="e,g your text here"/>
+  <input type="text" placeholder="e,g your text here"
+   value={props.PdfData.PDFDescription} 
+   onChange={(e)=>props.handleChange(e)} 
+   name="PDFDescription"
+  />
 </div>
 
 
@@ -50,11 +60,14 @@ export default function AddOfferModal() {
      <div className="upload-investment-details">
                     <div className="uploadInvesmet-input-submit">
                     <button>Choose file</button>
-                    <input type="file"/>
+                    <input type="file" 
+                    
+                    onChange={(e)=>props.handleFileChange(e)} 
+                    name="PDFFile" />
                     </div>
 
                     <div className="uploadInvesmet-input-submit">
-                    <span>No file chosen</span>
+                    <span> {props.PdfData.PDFFile === "" ? "No file chosen" : props.PdfData.PDFFile.name} </span>
              </div>
         </div>
     </div>
