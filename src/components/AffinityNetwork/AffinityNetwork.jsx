@@ -50,14 +50,17 @@ export default function AffinityNetwork(props) {
     }, [])
 
   const  getData =async()=>{
+
       try {
+        showLoader()
           const res = await httpGet(`partners/`)
           if (res.status === 200) {
             setgetNetwork(res.data)
           }
           console.log(res)
+          hideLoader()
       } catch (error) {
-          
+        hideLoader()
       }
   }
 
