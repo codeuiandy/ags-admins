@@ -129,3 +129,14 @@ i{
 table{
   width: fit-content;
 }
+
+.required-input{
+  display: block;
+}
+
+.required-input::after{
+  content: "*";
+  color: rgba(255, 0, 0, 0.616);
+margin-left: 5px;
+font-size: 13px;
+}

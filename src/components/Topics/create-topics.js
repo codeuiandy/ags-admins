@@ -77,7 +77,7 @@ const getEditTopic=()=>{
           
               hideLoader()
         } catch (error) {
-            NotificationManager.danger(
+            NotificationManager.error(
                 error,
                "Opps",
                3000

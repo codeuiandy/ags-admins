@@ -22,3 +22,9 @@
     </div>
   </div>
 </div>
+
+
+type="button"
+data-toggle="modal" 
+data-target="#CourseModal"
+data-toggle="modal" data-target="#CourseModal"

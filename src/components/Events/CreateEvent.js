@@ -239,21 +239,7 @@ console.log(this.state)
                  hideLoader()
           console.log(res)
           this.getEditEvent()
-          // this.setState({
-          //   eventName:"",
-          //   eventMaxCapacity:"",
-          //   enentDescrpion:"",
-          //   eventMedium:"",
-          //   eventType:"null",
-          //   eventAddress :"",
-          //   eventLink:"",
-          //   eventType:"",
-          //   paidOrFree:"",
-          //   CTABtn:"",
-          //   eventImage:"",
-          //   editImage:""
-            
-          // })
+          
   
           NotificationManager.success(
              "Event edited successfully.",
@@ -388,7 +374,7 @@ getEditEvent=async()=>{
       
   } catch (error) {
       hideLoader()
-      NotificationManager.danger(
+      NotificationManager.error(
           error,
          "Opps",
          3000

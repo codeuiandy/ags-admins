@@ -3,7 +3,7 @@ import Profolepic from '../Tables/profilePic.jpg'
 import Table from "../Tables/customTable";
 import { Link } from "react-router-dom";
 import { data } from "jquery";
-
+import truncateWithEllipses from '../helpers/truncate'
 export default class allPosts extends Component {
 	constructor(props) {
 		super(props);
@@ -11,35 +11,41 @@ export default class allPosts extends Component {
 	}
 
 	bodyRow = () => {
-	
 		const body = this.props.afinityNetwork.map((data, index) => ({
-            HeaderImage: <img className="userProfilePic" src={data.LogoImage} />,
-            LogoImage:<img className="userProfilePic" src={data.LogoImage} />,
+            // HeaderImage: <img className="userProfilePic" src={data.LogoImage} />,
+            // LogoImage:<img className="userProfilePic" src={data.LogoImage} />,
             name:data.name,
-            expiration:data.expiration,
-            description:data.description,
-            longDescription:data.longDescription,
-            HowWorks:data.HowWorks,
-            Termsconditions :data.Termsconditions,
+            contactPerson:data.contact_person,
+            description:data.description === null ? "" : truncateWithEllipses(data.description, 50),
+            industry:data.industry,
+            serviceRendered:data.service_rendered === null ? truncateWithEllipses(data.service_rendered,50) : "",
+			phone :data.phone,
+			website:data.website === null ? "" : truncateWithEllipses(data.website,50),
 			action: (
 				<a>
 
-<Link to="/view_group" >
+
 						{" "}
 						<span
 						style={{fontSize:"14px"}}
 							className="edit"
+							type="button"
+						data-toggle="modal" 
+						data-target="#addOffereModal"
 							className="fas fa-edit mr-4 add-cursor"
+							onClick={() => this.props.getModalEditData(data)} 
 						></span>
-					</Link>
+		
 
 				
                           
 					<span
-					style={{fontSize:"14px"}}
-						className="del"
-					
+						type="button"
+						data-toggle="modal" 
+						data-target="#ComfirmModal"
+						onClick={() => this.props.getDeletId(data.id)}
 						className="fa fa-trash mr-4 add-cursor"
+						data-toggle="modal" data-target="#ComfirmModal"
 					></span>
 
 
@@ -52,34 +58,33 @@ export default class allPosts extends Component {
 
 	header = () => {
 		const header = [
-			{
-				title: "Header Image",
-				prop: "HeaderImage",
+		
+            { title: "Name", prop: "name" ,
+            prop: "name",
 				sortable: true,
 				filterable: true,
 			},
-			{ title: "Logo Image", prop: "LogoImage" ,
-			},
 
-            { title: "Name", prop: "name" ,
-            sortable: true,
-			filterable: true,
-			},
-
-			{ title: "Expiration", prop: "expiration" ,
+			{ title: "Contact person", prop: "contactPerson" ,
+			}, 
+			
+            { title: "Industry", prop: "industry" ,
             },
 
-            { title: "Short Description", prop: "description" ,
+            { title: "Description", prop: "description" ,
         },
+           
             
-            { title: "Long Description", prop: "longDescription" ,
+            { title: "Service", prop: "serviceRendered" ,
             },
             
-            { title: "How It Works", prop: "HowWorks" ,
-            },
-            
-            { title: "Terms conditions", prop: "Termsconditions" ,
+            { title: "Company phone number", prop: "phone" ,
 			},
+
+			{ title: "Company website", prop: "website" ,
+		},
+
+			
 
 			
 			{ title: "Action", prop: "action" ,

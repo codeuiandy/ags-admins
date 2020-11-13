@@ -5,73 +5,76 @@ export default function AddOfferModal(props) {
 
     return (
         <div>
-            <div class="modal fade" id="CourseModal" tabindex="-1" role="dialog" aria-labelledby="CourseModal" aria-hidden="true">
+            <div class="modal fade" id="SessionModal" tabindex="-1" role="dialog" aria-labelledby="SessionModal" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="CourseModal">{props.pageType === "edit" ? "Edit" : "Create" } course</h5>
+        <h5 class="modal-title" id="SessionModal">{props.pageType === "edit" ? "Edit" : "Create" } Session</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
       <form onSubmit={props.handleSubmit} className="">
+
                             <div className="funding-inputes addOffer-inputes">
                             <div className="add-investment-details-wrap">
 
                             <div className="investment-details-input-wrap">
-                  <label>Course  cover Image <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
+                  <label>Session  cover Image <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
      <div className="upload-investment-details">
                     <div className="uploadInvesmet-input-submit">
-                    <button>Choose file </button>
+                    <button>Choose file</button>
                     <input  
-                     required={props.pageType === "edit" ? false : true}
-                    // value={props.courseData.courseCover}
+                    required={props.pageType === "edit" ? false : true}
                     accept=".jpg,.jpeg,.png"
                     onChange={(e)=>props.handleFileChange(e)} 
-                    name="courseCover" type="file"/>
-                    
+                    name="sessionCover" type="file"/>
                     </div>
 
                     <div className="uploadInvesmet-input-submit">
-
-
-                  {
-                    props.courseData.courseCover === "" ? 
+                    {
+                    props.sessionData.sessionCover === "" ? 
                     <img style={{width:"60px",height:"50px"}} 
-                    src={props.courseData.previewImg} alt="" srcset=""/> : 
-                     props.courseData.courseCover.name
+                    src={props.sessionData.previewImg} alt="" srcset=""/> : 
+                     props.sessionData.sessionCover.name
                   }
-                     
-                    
              </div>
         </div>
     </div>
 
     <div className="investment-details-input-wrap">
-  <label>Course Title <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
+  <label>Session Title <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
   <input type="text" required placeholder="e,g your text here"
-  value={props.courseData.courseTitle} 
+  value={props.sessionData.sessionTitle} 
   onChange={(e)=>props.handleChange(e)} 
-  name="courseTitle"
+  name="sessionTitle"
+  />
+</div>
+
+<div className="investment-details-input-wrap">
+  <label>Speaker <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
+  <input required type="text" placeholder="e,g your text here"
+  value={props.sessionData.speaker} 
+  onChange={(e)=>props.handleChange(e)} 
+  name="speaker"
   />
 </div>
 
 
 
 <div className="investment-details-input-wrap">
-  <label>Course  Description <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
-  <textarea type="text" required placeholder="e,g your text here"
-   value={props.courseData.courseDescription} 
+  <label>Session  Description <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
+  <textarea required type="text" placeholder="e,g your text here"
+   value={props.sessionData.sessionDescription} 
    onChange={(e)=>props.handleChange(e)} 
-   name="courseDescription"
+   name="sessionDescription"
   />
 </div>
 
 <div className="investment-details-input-wrap">
   <label>Choose a category <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
-  <select required   
-  value={props.courseData.category} 
+  <select required  value={props.sessionData.category} 
   onChange={(e)=>props.handleChange(e)} 
   name="category">
       <option value="Personal development">Personal development</option>
@@ -93,33 +96,35 @@ export default function AddOfferModal(props) {
 </div>
 
 
+<div className="investment-details-input-wrap">
+  <label>Session  Link <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
+  <input required type="url" placeholder="e,g your text here"
+   value={props.sessionData.link} 
+   onChange={(e)=>props.handleChange(e)} 
+   name="link"
+  />
+</div>
 
-     <div className="investment-details-input-wrap">
-                  <label>Course  File <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
-     <div className="upload-investment-details">
-                    <div className="uploadInvesmet-input-submit">
-                    <button>Choose file</button>
-                    <input type="file" 
-                     required={props.pageType === "edit" ? false : true}
-                    accept=".pdf,.doc"
-                    onChange={(e)=>props.handleFileChange(e)} 
-                    name="courseFile" />
-                    </div>
+    <div className="investment-details-input-wrap">
+  <label>Date <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
+  <DatePicker
+      selected={startDate} 
+      closeOnScroll={true}
+      selected={props.sessionData.startDate} 
+      onChange={date => props.Setsessiondata({...props.sessionData,startDate:date})  }
+      name="date"
+      
+    />
+</div>
 
-                    <div className="uploadInvesmet-input-submit">
-                      
-                    {
-                      props.courseData.courseFile === "" ? props.courseData.PreviewcourseFile :  props.courseData.courseFile.name
-                 
-                   } 
-             </div>
-        </div>
-    </div>
+
+    
+
+   
 
     
 <div className="add-offerbtn">
-    <button >{props.pageType === "edit" ? "Edit" : "Create" }
-    </button>
+    <button >{props.pageType === "edit" ? "Edit" : "Create" }</button>
 </div>
 
 

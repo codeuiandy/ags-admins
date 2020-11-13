@@ -3,13 +3,16 @@ import Profolepic from '../Tables/profilePic.jpg'
 import Table from "../Tables/customTable";
 import { Link } from "react-router-dom";
 import { data } from "jquery";
+import DateFormater from '../helpers/dateFormater'
+import Truncate from '../helpers/truncate'
 
 export default class allPosts extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {};
 		console.log(this.props)
-	}
+    }
+
 
 	bodyRow = () => {
 
@@ -18,9 +21,11 @@ export default class allPosts extends Component {
             cover_image: <img className="userProfilePic" src={data.cover_image} />,
             title:data.title,
             category:data.category,
-            description:data.description,
+            description:data.description === null ? "" : Truncate(data.description,50),
             longDescription:data.longDescription,
-            file:data.file,
+            file:data.link,
+            speaker:data.speaker,
+            date:DateFormater(data.event_date),
 			action: (
 				<a>
 
@@ -31,7 +36,7 @@ export default class allPosts extends Component {
 							className="edit"
 							type="button"
 						data-toggle="modal" 
-						data-target="#CourseModal"
+						data-target="#SessionModal"
 							className="fas fa-edit mr-4 add-cursor"
 							onClick={() => this.props.getModalEditData(data)} 
 						></span>
@@ -39,7 +44,7 @@ export default class allPosts extends Component {
 
 				
                           
-					<span
+                   <span
 					style={{fontSize:"14px"}}
 					type="button"
 					data-toggle="modal" 
@@ -77,8 +82,20 @@ export default class allPosts extends Component {
             { title: "Description", prop: "description" ,
         },
             
-            { title: "Course Link", prop: "file" ,
+            { title: "Session Link", prop: "file" ,
             },
+
+            { title: "Speaker", prop: "speaker" ,
+            sortable: true,
+			filterable: true,
+        },
+
+            
+
+            { title: "Event Date", prop: "date" ,
+            },
+
+            
             
 
 			

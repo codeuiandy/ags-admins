@@ -31,7 +31,7 @@ export default class allPosts extends Component {
 							className="edit"
 							type="button"
 						data-toggle="modal" 
-						data-target="#CourseModal"
+						data-target="#PDFModal"
 							className="fas fa-edit mr-4 add-cursor"
 							onClick={() => this.props.getModalEditData(data)} 
 						></span>
@@ -77,7 +77,7 @@ export default class allPosts extends Component {
             { title: "Description", prop: "description" ,
         },
             
-            { title: "Course Link", prop: "file" ,
+            { title: "PDF File", prop: "file" ,
             },
             
 

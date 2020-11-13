@@ -64,7 +64,7 @@ export default class eventList extends Component {
             
         } catch (error) {
             hideLoader()
-            NotificationManager.danger(
+            NotificationManager.error(
                 error,
                "Opps",
                3000
