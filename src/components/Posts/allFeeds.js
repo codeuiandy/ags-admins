@@ -8,9 +8,9 @@ import PostToFeed from '../Tables/allFeedsTable/feedToPost'
 import Icebreaker from '../Tables/allFeedsTable/icebreaker'
 import AskQuestion from '../Tables/allFeedsTable/askAQuestion'
 import {httpGet, httpPatch, httpPostFormData,httpPost, httpDelete} from '../helpers/httpMethods'
-import DeleteModal from '../Modals/comfirmModal'
 import {hideLoader, showLoader} from '../helpers/loader'
 import {NotificationManager} from 'react-notifications'
+import DeleteModal from '../Modals/comfirmModal'
 import CreateFeedModal from '../Modals/createFeed.jsx'
 import CreatIcebreakerModal from '../Modals/createIcebreaker.jsx'
 import GetImageUrl from '../../components/helpers/getImageUrl'
@@ -18,6 +18,7 @@ import moment from 'moment'
 import $ from 'jquery'
 import AskAQuestion from '../Modals/createQuestion'
 import AdvertModal from '../Modals/createAdverts.jsx'
+import {Link} from 'react-router-dom'
 export default class allFeeds extends Component {
     constructor(props){
         super(props)
@@ -635,7 +636,7 @@ export default class allFeeds extends Component {
 
                     <div onClick={(e)=>{this.SwitchPostType("Advert")}}  className={`postTypes2
                     ${Switch === "Advert" ? "activePost" : ""}`}>
-                        Advert
+                        Sponsored post
                     </div>
 
                     <div onClick={(e)=>{this.SwitchPostType("Icebreaker")}}  className={`postTypes1 
@@ -668,8 +669,11 @@ export default class allFeeds extends Component {
 {
                 Switch === "Advert" ? (
                     <div className="postTofeedLayout">
-                        <div type="button"  data-toggle="modal" data-target="#advertModal" className="createPostBtn-new">
-                             <button>Create new Advert</button>
+                        <div className="createPostBtn-new">
+                            <button>
+                                 <Link style={{color:"white"}} to="/create_advert/create_new_advert/create">Create new sponsored post</Link>
+                            </button>
+                           
                         </div>
                        
                     <PostToFeed 

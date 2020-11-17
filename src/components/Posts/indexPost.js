@@ -216,7 +216,7 @@ export default class IndexPost extends Component {
 
                     <div onClick={(e)=>{this.SwitchPostType("Advert")}}  className={`postTypes2
                     ${Switch === "Advert" ? "activePost" : ""}`}>
-                        Advert
+                        Sponsored post
                     </div>
 
                     <div onClick={(e)=>{this.SwitchPostType("Icebreaker")}}  className={`postTypes1 

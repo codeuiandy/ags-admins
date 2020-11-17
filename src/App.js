@@ -9,7 +9,6 @@ import EventList from './components/Events/eventList'
 import ViewEvent from './components/Events/viewEvent'
 import Group from './components/Groups/group'
 import {AllGroups} from './components/Groups/allGroups'
-import './App.css'
 import Plans from './components/Plan/overview'
 import {CreateGroup} from './components/Groups/createGroup'
 import PostsOverview from './components/Posts/overview'
@@ -42,7 +41,7 @@ import OtherOpportunities from './components/OpportunityBoard/otherOpturnity.jsx
 import AddOthers from './components/OpportunityBoard/AddOthers.jsx'
 import AffinityNetwork from './components/AffinityNetwork/AffinityNetwork.jsx'
 import Resources from './components/Resources/indexResource.jsx'
-
+import CreateAdvertPost from './components/Posts/createAdvertPost'
 import {NotificationManager,NotificationContainer} from 'react-notifications'
 function App() {
 	return (
@@ -77,6 +76,7 @@ function App() {
 						<Route exact path="/group_members/:id" component={GrpMembersView} />
 						<Route exact path="/event_overview" component={EventOverview} />
 						<Route exact path="/all_feeds" component={AllFeeds} />
+						<Route exact path="/create_advert/:create/:create" component={CreateAdvertPost} />
 						<Route exact path="/topic_followers/:id" component={TopicFollowers} />
 						<Route exact path="/edit_group/:id" component={EditGroup} />
 						<Route exact path="/edit_topic/:id" component={EditTopic} />
