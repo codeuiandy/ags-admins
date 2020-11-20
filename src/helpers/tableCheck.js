@@ -1,3 +1,5 @@
+const { TableComponentsProvider } = require("react-bs-datatable")
+
 const addGroup = (id)=>{
 setSelectedGroups([...selectedGroups,id])
 }
@@ -23,3 +25,34 @@ console.log(">>>>selectedd>>>",selectedGroups)
 
             })
         });
+
+
+     FOR CLASS Table COMPONENT
+
+  removePrivilage=(id)=>{
+     let selectedPrivilages = this.state.selectedPrivilages;
+
+     let newArray = []
+
+    let res =  selectedPrivilages.filter((res)=>{
+         return(
+             res !== id
+         )
+     })
+
+     newArray.push(res)
+
+     this.setState({
+         selectedPrivilages:res
+     })
+    }
+
+    addPrivlage=(id)=>{
+        let NewArray = this.state.selectedPrivilages.slice()
+        NewArray.push(id)
+
+        this.setState({
+            selectedPrivilages:NewArray
+        })
+     console.log("ids",this.state.selectedPrivilages)
+    }

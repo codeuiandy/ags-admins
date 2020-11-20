@@ -1,526 +1,500 @@
-.center-event-form{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin:auto;
-    width: 80%;
-    flex-direction: column;
+.center-event-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: 80%;
+  flex-direction: column;
 }
 
-.center-event-form form{
-    width: 100%;
-    position: relative;
+.center-event-form form {
+  width: 100%;
+  position: relative;
 }
 
-.center-event-form h1{
-    font-style: normal;
-font-weight: bold;
-font-size: 25px;
-color: #334D6E;
-margin-top: 35px;
-margin-bottom: 25px;
-    
+.center-event-form h1 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 25px;
+  color: #334d6e;
+  margin-top: 35px;
+  margin-bottom: 25px;
 }
 
-.eventErrorMessage{
-    color: red;
-    position: absolute;
-    right: 0;
-    font-size: 10px;
-    font-style: italic;
-    margin-top: 3px;
-
+.eventErrorMessage {
+  color: red;
+  position: absolute;
+  right: 0;
+  font-size: 10px;
+  font-style: italic;
+  margin-top: 3px;
 }
 
-.eventType{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 27px;
+.eventType {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 27px;
 }
 
-.eventType span{
-   border: none;
-   width: 80px;
-   height: 36px;
+.eventType span {
+  border: none;
+  width: 80px;
+  height: 36px;
   font-weight: 600;
   text-align: center;
   padding-top: 5px;
   cursor: pointer;
 }
 
-.activeEventBtn{
-    background: #FDAD00;
-    color: white;
-    /* border-radius: 5px 0 0px 5px; */
+.activeEventBtn {
+  background: #fdad00;
+  color: white;
+  /* border-radius: 5px 0 0px 5px; */
 }
 
-.noneActiveEventBtn{
-    color: #FDAD00;
-    /* border-radius: 0px 5px 5px 0px;  */
- background-color: #E5E5E5;
+.noneActiveEventBtn {
+  color: #fdad00;
+  /* border-radius: 0px 5px 5px 0px;  */
+  background-color: #e5e5e5;
 }
 
-.datePickerEvent{
-    display: flex;
-    justify-content: space-between;
+.datePickerEvent {
+  display: flex;
+  justify-content: space-between;
 }
 
-.datePickerEvent .form-group{
-    display: grid;
+.datePickerEvent .form-group {
+  display: grid;
 }
 
-
-.datePickerEvent .form-group .react-datepicker__input-container input{
-    width: 100%;
-    background: #FCFCFD;
-    border: 1px solid rgba(207, 208, 215, 0.5);
-    border-radius: 4px;
-    height: 45px;
-    font-size: 12px;
+.datePickerEvent .form-group .react-datepicker__input-container input {
+  width: 100%;
+  background: #fcfcfd;
+  border: 1px solid rgba(207, 208, 215, 0.5);
+  border-radius: 4px;
+  height: 45px;
+  font-size: 12px;
+  color: black;
 }
 
-.getEventImage{
-  
-    width: 40%;
-    height: 180px;
-    display: flex;
-    flex-direction: column;
-    justify-self: center;
-    align-self: center;
-    margin: auto;
-    border: 1px dashed #ced4da;
-border-radius: 5px;
-margin-top: 30px;
-position: relative;
-
+.getEventImage {
+  width: 40%;
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  align-self: center;
+  margin: auto;
+  border: 1px dashed #ced4da;
+  border-radius: 5px;
+  margin-top: 30px;
+  position: relative;
 }
-.centerAddEventImg{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
+.centerAddEventImg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
 }
 
-.getEventImage img{
-    margin-top: 3px;
-    margin-bottom: 3px;
+.getEventImage img {
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
-.getEventImage input{
-    width: 100% !important;
-    height: 100% !important;
-    opacity: 0;
-    cursor: pointer;
-   position: relative;
-   z-index: 20;
-}
-
-.eventImageInfo{
-   position: absolute;
-   top: 35px;
-   left: 23%;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   margin: auto;
-  
-   flex-direction: column;
+.getEventImage input {
+  width: 100% !important;
+  height: 100% !important;
+  opacity: 0;
+  cursor: pointer;
+  position: relative;
+  z-index: 20;
 }
 
-.eventImageInfo button{
-    border: none;
-    background: #FDAD00;
-border-radius: 5px;
-width: fit-content;
-height: 40px;
-color: white;
-font-weight: 600;
-padding: 0 15px 0 15px;
-margin-top: 6px;
+.eventImageInfo {
+  position: absolute;
+  top: 35px;
+  left: 23%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+
+  flex-direction: column;
 }
 
-.eventImageInfo p:nth-child(1){
-    font-size: 25px;
-font-weight: 300;
-color: #151522;
-margin: 0;
+.eventImageInfo button {
+  border: none;
+  background: #fdad00;
+  border-radius: 5px;
+  width: fit-content;
+  height: 40px;
+  color: white;
+  font-weight: 600;
+  padding: 0 15px 0 15px;
+  margin-top: 6px;
 }
 
-.eventImageInfo p:nth-child(2){
-    font-size: 20px;
-font-weight: 200;
-color: #151522;
-margin: 0;
+.eventImageInfo p:nth-child(1) {
+  font-size: 25px;
+  font-weight: 300;
+  color: #151522;
+  margin: 0;
 }
 
-.Esubmitbtn{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-    flex-direction: column;
-    margin-top: 60px;
-    width: 40%;
+.eventImageInfo p:nth-child(2) {
+  font-size: 20px;
+  font-weight: 200;
+  color: #151522;
+  margin: 0;
 }
 
-.Esubmitbtn button{
-    background: orange;
-border-radius: 5px;
-width: 100%;
-border: none;
-height: 50px;
-color: white;
-font-weight: 500;
+.Esubmitbtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  flex-direction: column;
+  margin-top: 60px;
+  width: 40%;
 }
 
-#event-wraper{
-    padding-bottom: 0;
-    background-color: white;
-    width: 50vw;
-    height: fit-content;
-    margin-bottom: 20px;
-    padding-bottom: 50px;
-    margin-top: 15px;
+.Esubmitbtn button {
+  background: orange;
+  border-radius: 5px;
+  width: 100%;
+  border: none;
+  height: 50px;
+  color: white;
+  font-weight: 500;
 }
 
-#event-wraper label{
-    font-size: 12px;
-    color: #334D6E;
-    font-weight: 600;
-    margin-bottom: 3px;
+#event-wraper {
+  padding-bottom: 0;
+  background-color: white;
+  width: 50vw;
+  height: fit-content;
+  margin-bottom: 20px;
+  padding-bottom: 50px;
+  margin-top: 15px;
 }
 
-
-
-#event-list-wraper{
-    width:100%;
-    height: fit-content;
-    padding: 50px;
-    background-color: white;
-    border-radius: 5px;
-    margin-bottom: 30px;
-    padding-bottom: 10px;
+#event-wraper label {
+  font-size: 12px;
+  color: #334d6e;
+  font-weight: 600;
+  margin-bottom: 3px;
 }
 
-
-
+#event-list-wraper {
+  width: 100%;
+  height: fit-content;
+  padding: 50px;
+  background-color: white;
+  border-radius: 5px;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+}
 
 .ButtonGroup__root button {
-	/* width: 40px !important;
+  /* width: 40px !important;
 	text-align: center;
 	font-size: 10px;
 	padding: 0px 10px 0 10px !important; */
-	background-color: #516884 !important;
-    border: 1px solid #516884 !important;
-   
+  background-color: #516884 !important;
+  border: 1px solid #516884 !important;
 }
 /* .controlRow__root .input-group-append button{
     display: none !important;
     } */
 
 .view-appraisal .controlRow__root {
-	margin-bottom: 20px;
-	margin-top: 10px;
+  margin-bottom: 20px;
+  margin-top: 10px;
 }
 
 .view-appraisal .input-group-append {
-	display: none;
+  display: none;
 }
 
 .view-appraisal .pull-right {
-	float: unset;
+  float: unset;
 }
 
-.input-group-append button{
-    background-color: #516884 !important;
-    border: 1px solid #516884 !important;
-    width: 60px;
+.input-group-append button {
+  background-color: #516884 !important;
+  border: 1px solid #516884 !important;
+  width: 60px;
 }
 
-.confirmWrapper{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
+.confirmWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
 }
 
-.confirmWrapper button{
-    width: 120px;
-    margin: 10px;
+.confirmWrapper button {
+  width: 120px;
+  margin: 10px;
 }
 
-.confirmWrapper p{
+.confirmWrapper p {
   font-weight: 600;
 }
 
-.view-event{
-    display: flex;
-   
-    flex-direction: column;
-    width: 50vw;
+.view-event {
+  display: flex;
+
+  flex-direction: column;
+  width: 50vw;
 }
 
-.view-event h1{
-    justify-self: center;
-    align-self: center;
-    font-size: 25px;
-margin: 0;
-color: #151522;
-
+.view-event h1 {
+  justify-self: center;
+  align-self: center;
+  font-size: 25px;
+  margin: 0;
+  color: #151522;
 }
 
-
-.view-event img{
-    width: 100%;
-    height: 279px;
-    border: 1px solid #E4E4E4;
-box-sizing: border-box;
-background-repeat: no-repeat;
-margin-top: 20px;
+.view-event img {
+  width: 100%;
+  height: 279px;
+  border: 1px solid #e4e4e4;
+  box-sizing: border-box;
+  background-repeat: no-repeat;
+  margin-top: 20px;
 }
 
-.aboutEvent h1{
-    font-size: 18px;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    color: #2F2E41;
-    font-weight: bold;
-
+.aboutEvent h1 {
+  font-size: 18px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #2f2e41;
+  font-weight: bold;
 }
 
-.aboutEvent p{
-    font-size: 16px;
-    margin-top: 5px;
-    
-    color: #2F2E41;
-  
-    
+.aboutEvent p {
+  font-size: 16px;
+  margin-top: 5px;
+
+  color: #2f2e41;
 }
 
-
-.evenTiming{
-    display: grid;
-    grid-template-areas: "evt1 evt2"
-                              "evt3 evt4";
-                              justify-content: space-between;
-                              align-items: center;
+.evenTiming {
+  display: grid;
+  grid-template-areas:
+    "evt1 evt2"
+    "evt3 evt4";
+  justify-content: space-between;
+  align-items: center;
 }
 
-.evenTiming h1{
-    font-size: 18px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    color: #2F2E41;
-    font-weight: bold;
+.evenTiming h1 {
+  font-size: 18px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: #2f2e41;
+  font-weight: bold;
 }
 
-.evenTiming p{
-    color: #2F2E41;
-font-size: 15px;
+.evenTiming p {
+  color: #2f2e41;
+  font-size: 15px;
 }
 
-.eventTiming1{
-    grid-area: evt1;
+.eventTiming1 {
+  grid-area: evt1;
 }
 
-.eventTiming2{
-    grid-area: evt2;
+.eventTiming2 {
+  grid-area: evt2;
 }
 
-.eventTiming3{
-    grid-area: evt3;
+.eventTiming3 {
+  grid-area: evt3;
 }
 
-.eventTiming4{
-    grid-area: evt4;
+.eventTiming4 {
+  grid-area: evt4;
 }
 
-.evenStatictics{
-    display: flex;
-    flex-direction: column;
+.evenStatictics {
+  display: flex;
+  flex-direction: column;
 }
 
-.evenStatictics h1{
-    justify-self: center;
-    align-self: center;
-    font-size: 21px;
-margin-top: 40px;
-color: #151522;
-
+.evenStatictics h1 {
+  justify-self: center;
+  align-self: center;
+  font-size: 21px;
+  margin-top: 40px;
+  color: #151522;
 }
 
-.evenStatictics h2{
-   
-    font-size: 18px;
-margin-top: 40px;
-color: #2F2E41;
-
+.evenStatictics h2 {
+  font-size: 18px;
+  margin-top: 40px;
+  color: #2f2e41;
 }
 
-.viewEventOverView{
-    width: 100%;
-    background: #FFFFFF;
-border: 1px solid #C2CFE0;
-box-sizing: border-box;
-padding: 0px 20px 0px 20px;
+.viewEventOverView {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #c2cfe0;
+  box-sizing: border-box;
+  padding: 0px 20px 0px 20px;
 }
 
-.santictic-nums{
-    display: flex;
-    justify-content: space-between;
-
+.santictic-nums {
+  display: flex;
+  justify-content: space-between;
 }
 
-.santictic-nums div h1{
-    margin-top: 0;
-    padding-top: 15px;
-    font-weight: bold;
-    font-size: 18px;
+.santictic-nums div h1 {
+  margin-top: 0;
+  padding-top: 15px;
+  font-weight: bold;
+  font-size: 18px;
 }
 
-.santictic-nums div p{
-    margin-top: 0;
- 
-    font-size: 16px;
-}
+.santictic-nums div p {
+  margin-top: 0;
 
+  font-size: 16px;
+}
 
 .box {
-	position: relative;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	margin-bottom: 20px;
-
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 20px;
 }
 
 .box .percentage {
-	position: relative;
-	width: 150px;
-	height: 150px;
+  position: relative;
+  width: 150px;
+  height: 150px;
 }
 
 .box .percentage svg {
-	position: relative;
-	width: 150px;
-	height: 150px;
+  position: relative;
+  width: 150px;
+  height: 150px;
 }
 
 .box .percentage svg circle {
-	width: 150px;
-	height: 150px;
-	fill: none;
-	stroke-width: 10;
-	stroke: #000;
-	transform: translate(5px, 5px);
-	stroke-dasharray: 440;
-	stroke-dashoffset: 440;
-	stroke-linecap: round;
+  width: 150px;
+  height: 150px;
+  fill: none;
+  stroke-width: 10;
+  stroke: #000;
+  transform: translate(5px, 5px);
+  stroke-dasharray: 440;
+  stroke-dashoffset: 440;
+  stroke-linecap: round;
 }
 
 .box .percentage svg circle:nth-child(1) {
-	stroke-dashoffset: 0;
-	stroke: #F2F2F2;
+  stroke-dashoffset: 0;
+  stroke: #f2f2f2;
 }
 
 .box .percentage svg circle:nth-child(2) {
-	animation: all 1s ease-in forwards;
+  animation: all 1s ease-in forwards;
 }
 
 .box .percentage .atendeNumber {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-    color: black;
-    
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
 }
 
 .box .percentage .atendeNumber h2 {
-	font-weight: 600;
-	font-size: 20px;
-	font-style: normal;
-	font-weight: 600;
-	font-size: 27px;
-	line-height: 48px;
-	/* identical to box height */
-	color: rgba(13, 13, 13, 0.8);
+  font-weight: 600;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 27px;
+  line-height: 48px;
+  /* identical to box height */
+  color: rgba(13, 13, 13, 0.8);
 }
 
-.eventListHeader{
-    font-size: 18px;
-    margin-bottom: 20px;
-    color: #6A707E;
-font-weight: 700;
+.eventListHeader {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #6a707e;
+  font-weight: 700;
 }
 
-.eventForm input::placeholder{
-font-size: 12px;
-color: rgba(128, 128, 128, 0.315);
-
+.eventForm input::placeholder {
+  font-size: 12px;
+  color: rgba(128, 128, 128, 0.315);
 }
 
-.eventForm textarea::placeholder{
-    font-size: 12px;
-    color: rgba(128, 128, 128, 0.315);
-    
-    }
+.eventForm textarea::placeholder {
+  font-size: 12px;
+  color: rgba(128, 128, 128, 0.315);
+}
 
-    .eventForm input{
-        width: 100%;
-        background: #FCFCFD;
-        border: 1px solid rgba(207, 208, 215, 0.5);
-        border-radius: 4px;
-        height: 45px;
-        font-size: 12px;
-        }
-        
-    
-        .eventForm textarea{
-            width: 100%;
-            background: #FCFCFD;
-            border: 1px solid rgba(207, 208, 215, 0.5);
-            border-radius: 4px;
-            height:90px;
-            font-size: 12px;
-            }
-    
-.eventForm select{
-    width: 100%;
-    background: #FCFCFD;
-    border: 1px solid rgba(207, 208, 215, 0.5);
-    border-radius: 4px;
-    height: 45px;
-    font-size: 12px;
-    }
+.eventForm input {
+  width: 100%;
+  background: #fcfcfd;
+  border: 1px solid rgba(207, 208, 215, 0.5);
+  border-radius: 4px;
+  height: 45px;
+  font-size: 12px;
+  color: black;
+}
 
-    .react-datepicker__input-container input{
-        font-size: 15px;
-    color: rgba(128, 128, 128, 0.616);
-    cursor: pointer;
-    }
+.eventForm textarea {
+  width: 100%;
+  background: #fcfcfd;
+  border: 1px solid rgba(207, 208, 215, 0.5);
+  border-radius: 4px;
+  height: 90px;
+  font-size: 12px;
+}
 
-    .seletEventRecent{
-        width: 200px;
-        cursor: pointer;
-    }
+.eventForm select {
+  width: 100%;
+  background: #fcfcfd;
+  border: 1px solid rgba(207, 208, 215, 0.5);
+  border-radius: 4px;
+  height: 45px;
+  font-size: 12px;
+}
 
-    #event-list-wraper2{
-        width: 70vw;
-        background-color: white;
-        border-radius: 5px;
-        display: flex;
-        justify-content: center;
-        height: fit-content;
-        padding-bottom: 70px;
-        margin-top: 15px;
-    }
+.react-datepicker__input-container input {
+  font-size: 15px;
+  color: rgba(128, 128, 128, 0.616);
+  cursor: pointer;
+}
 
-  
+.seletEventRecent {
+  width: 200px;
+  cursor: pointer;
+}
+
+#event-list-wraper2 {
+  width: 70vw;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  height: fit-content;
+  padding-bottom: 70px;
+  margin-top: 15px;
+}

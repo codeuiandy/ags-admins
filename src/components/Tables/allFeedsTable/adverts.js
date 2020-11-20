@@ -2,123 +2,47 @@ import React, { Component } from "react";
 import Profolepic from '../profilePic.jpg'
 import Table from "../customTable";
 import { Link } from "react-router-dom";
-
-export default class adverts extends Component {
+import _ from 'lodash';
+import avatar from '../../Tables/avatar.png'
+import moment from 'moment'
+export default class GroupTable extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {};
+		console.log(props)
 	}
 
+
 	bodyRow = () => {
-		const datas = [
+		console.log("props>>>>",this.props)
 
-			{
-				postTofeedIMG: <img className="userProfilePic" src={Profolepic} />,
-				Createdby: "Nwachukwu Davis",
-				postdata: "A live webinar with our guest Omolara Yeku on strategies to transition .",
-				postsDate: "12/2/2020",
-			
-			},
-
-			{
-				postTofeedIMG:  <img className="userProfilePic" src={Profolepic} />,
-				Createdby: "Nwachukwu Davis",
-				postdata: "A live webinar with our guest Omolara Yeku on strategies to transition .",
-				postsDate: "12/2/2020",
-			
-			},
-
-			{
-				postTofeedIMG:  <img className="userProfilePic" src={Profolepic} />,
-				Createdby: "Nwachukwu Davis",
-				postdata: "A live webinar with our guest Omolara Yeku on strategies to transition .",
-				postsDate: "12/2/2020",
-			
-			},	{
-				postTofeedIMG:  <img className="userProfilePic" src={Profolepic} />,
-				Createdby: "Nwachukwu Davis",
-				postdata: "A live webinar with our guest Omolara Yeku on strategies to transition .",
-				postsDate: "12/2/2020",
-			
-			},	{
-				postTofeedIMG:  <img className="userProfilePic" src={Profolepic} />,
-				Createdby: "Nwachukwu Davis",
-				postdata: "A live webinar with our guest Omolara Yeku on strategies to transition .",
-				postsDate: "12/2/2020",
-			
-			},	{
-				postTofeedIMG:  <img className="userProfilePic" src={Profolepic} />,
-				Createdby: "Nwachukwu Davis",
-				postdata: "A live webinar with our guest Omolara Yeku on strategies to transition .",
-				postsDate: "12/2/2020",
-			
-			},
-			{
-				postTofeedIMG:  <img className="userProfilePic" src={Profolepic} />,
-				Createdby: "Nwachukwu Davis",
-				postdata: "A live webinar with our guest Omolara Yeku on strategies to transition .",
-				postsDate: "12/2/2020",
-			
-			},
-			{
-				postTofeedIMG:  <img className="userProfilePic" src={Profolepic} />,
-				Createdby: "Nwachukwu Davis",
-				postdata: "A live webinar with our guest Omolara Yeku on strategies to transition .",
-				postsDate: "12/2/2020",
-			
-			},
-			{
-				postTofeedIMG:  <img className="userProfilePic" src={Profolepic} />,
-				Createdby: "Nwachukwu Davis",
-				postdata: "A live webinar with our guest Omolara Yeku on strategies to transition .",
-				postsDate: "12/2/2020",
-			
-			},
-			{
-				postTofeedIMG:  <img className="userProfilePic" src={Profolepic} />,
-				Createdby: "Nwachukwu Davis",
-				postdata:"A live webinar with our guest Omolara Yeku on strategies to transition .",
-				postsDate: "12/2/2020",
-			
-			},
-			{
-				postTofeedIMG:  <img className="userProfilePic" src={Profolepic} />,
-				Createdby: "Nwachukwu Davis",
-				postdata: "A live webinar with our guest Omolara Yeku on strategies to transition .",
-				postsDate: "12/2/2020",
-			
-			},
-
-	
-
-			
-		];
-		const body = datas.map((data, index) => ({
-			postTofeedIMG: data.postTofeedIMG,
-			Createdby: data.Createdby,
-
-			postdata: data.postdata,
-			postsDate: data.postsDate,
-			location: data.location,
+		const body = this.props.adverts.map((data, index) => ({
+			// Createdby:<Link to={`user_info/${data.post.user.id}`}>{data.post.user.first_name}  {data.post.user.last_name}</Link>,
+			postdata: data.body,
+			postsDate: _.startCase(_.lowerCase(`${moment(data.created_at).format("DD/MM/YYYY")}`)),
+			file: <img className="userProfilePic" src={data.image === null ? avatar:data.image} />,
 			action: (
 				<a>
 
-<Link to="/view_group" >
+
 						{" "}
-						<span
-						style={{fontSize:"14px"}}
-							className="edit"
-							className="fas fa-edit mr-4 add-cursor"
-						></span>
-					</Link>
+						<Link
+						to={`/create_advert/${data.id}/edit`}
+					style={{fontSize:"14px"}}
+						className="fas fa-pen mr-4 add-cursor"
+						></Link>
+
 
 				
                           
 					<span
 					style={{fontSize:"14px"}}
-						className="del"
-					
-						className="fa fa-trash mr-4 add-cursor"
+					type="button" 
+					data-toggle="modal"
+					 data-target="#ComfirmModal"
+				  style={{fontSize:"14px"}}
+					 className="fa fa-trash mr-4 add-cursor"
+					 onClick={()=>this.props.getDeletId(data.id)}
 					></span>
 
 
@@ -131,18 +55,15 @@ export default class adverts extends Component {
 
 	header = () => {
 		const header = [
-			{
-				title: "Post Avatar",
-				prop: "postTofeedIMG",
-				sortable: true,
-				filterable: true,
-			},
-			{ title: "Created By (filterable)", prop: "Createdby" ,
-			sortable: true,
-			filterable: true,},
+	
+			{ title: "Image", prop: "file" ,
+		},
 
-			{ title: "Post", prop: "postdata" ,
+			{ title: "Adverts", prop: "postdata" ,
 			},
+
+		
+
 
 			{ title: "Date Added", prop: "postsDate" ,
 			},

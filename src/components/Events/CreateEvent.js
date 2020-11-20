@@ -433,12 +433,7 @@ handleEventTime= (e,startTime) =>{
      placeholder="Enter Title" required="required"/>
               <span className="eventErrorMessage">{this.state.TitleError}</span>
   </div>
-  <div class="form-group">
-    <label >Event Maximum Capacity</label>
-    <input onChange={(e)=>this.handleChange(e)} name="eventMaxCapacity" type="number" value={this.state.eventMaxCapacity} class="form-control"
-     id="Presenter" placeholder="How many people are you expecting?"/>
-     
-  </div>
+  
 
   <div class="form-group">
     <label >Description</label>
@@ -450,7 +445,7 @@ handleEventTime= (e,startTime) =>{
 
 
   <div class="form-group">
-    <label >Medium</label>
+    <label >Medium <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
     <select
     value={this.state.eventMedium}
     name="eventMedium"
@@ -465,11 +460,12 @@ handleEventTime= (e,startTime) =>{
     </select>
     <span className="eventErrorMessage">{this.state.eventMediumError}</span>
   </div>
+  
 
 {
   this.state.eventMedium === "virtual" || this.state.eventMedium === "hybrid" ? (
     <div class="form-group">
-    <label >Enter Link</label>
+    <label >Enter Link <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
     <input onChange={(e)=>this.handleChange(e)} name="eventLink"  type="text" 
     class="form-control" id="address" placeholder="eg https://zoom.com" value={this.state.eventLink}/>
     <span className="eventErrorMessage">{this.state.iventLinkError}</span>
@@ -483,7 +479,7 @@ handleEventTime= (e,startTime) =>{
   this.state.eventMedium === "hybrid" || this.state.eventMedium === "in_person"  ? 
   (
     <div class="form-group">
-      <label >Address</label>
+      <label >Address <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
       <input onChange={(e)=>this.handleChange(e)} name="eventAddress" type="text" class="form-control" 
       id="address" placeholder="Enter Event Venue" value={this.state.eventAddress}/>
       <span className="eventErrorMessage">{this.state.adressCityError}</span>
@@ -497,7 +493,7 @@ handleEventTime= (e,startTime) =>{
   this.state.eventMedium === "hybrid" || this.state.eventMedium === "in_person"  ? 
   (
     <div class="form-group">
-      <label >City</label>
+      <label >City <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
       <input onChange={(e)=>this.handleChange(e)} name="eventCity" type="text" class="form-control"
        id="city" placeholder="Enter Event City" value={this.state.eventCity}/>
        <span className="eventErrorMessage">{this.state.adressCityError}</span>
@@ -508,7 +504,14 @@ handleEventTime= (e,startTime) =>{
   : ""}
 
   <div class="form-group">
-    <label >Event Type</label>
+    <label >Event Maximum Capacity</label>
+    <input onChange={(e)=>this.handleChange(e)} name="eventMaxCapacity" type="number" value={this.state.eventMaxCapacity} class="form-control"
+     id="Presenter" placeholder="How many people are you expecting?"/>
+     
+  </div>
+
+  <div class="form-group">
+    <label >Event Type <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
     <select
      value={this.state.eventType}
      name="eventType"
@@ -528,7 +531,7 @@ handleEventTime= (e,startTime) =>{
   {
     this.state.eventType === "internal" || this.state.eventType ===  "external" ?(
       <div class="form-group">
-      <label >Is it paid or free?</label>
+      <label >Is it paid or free? <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
       <select
   value={this.state.paidOrFree}
   name="paidOrFree"
@@ -555,7 +558,7 @@ handleEventTime= (e,startTime) =>{
   </div>
 
         <div class="form-group">
-    <label >Registration Link</label>
+    <label >Registration Link <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
     <input onChange={(e)=>this.handleChange(e)} name="registrationLink" 
     type="text" class="form-control" id="register" placeholder="Event registration link"
     value={this.state.registrationLink}
@@ -574,7 +577,7 @@ handleEventTime= (e,startTime) =>{
 
 
 <div class="form-group">
-    <label >Event Fee</label>
+    <label >Event Fee <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
     <input onChange={(e)=>this.handleChange(e)} name="eventFee" type="number"
      class="form-control" id="register" placeholder="$ 50,000"
      value={this.state.eventFee}
@@ -599,7 +602,7 @@ handleEventTime= (e,startTime) =>{
   </div>
 
         <div class="form-group">
-    <label>Registration Link</label>
+    <label>Registration Link <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
     <input onChange={(e)=>this.handleChange(e)} name="registrationLink" 
     type="text" class="form-control" id="register" placeholder="Event registration link"
     value={this.state.registrationLink}
@@ -633,7 +636,7 @@ handleEventTime= (e,startTime) =>{
   </div>
 
   <div class="form-group">
-    <label>Event Fee</label>
+    <label>Event Fee <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
     <input onChange={(e)=>this.handleChange(e)} name="eventFee" type="number" class="form-control" id="register" 
     placeholder="$ 50,000" value={this.state.eventFee}/>
     <span className="eventErrorMessage">{this.state.eventFeeError}</span>
@@ -645,7 +648,7 @@ handleEventTime= (e,startTime) =>{
  
 <div className="datePickerEvent">
 <div class="form-group">
-    <label >Event Start Date</label>
+    <label >Event Start Date <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
     <DatePicker
    
       closeOnScroll={true}
@@ -659,7 +662,7 @@ handleEventTime= (e,startTime) =>{
 
 
   <div class="form-group">
-    <label >Event End Date</label>
+    <label >Event End Date <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
       <DatePicker
       placeholderText="Click to select a date"
       closeOnScroll={true}
@@ -676,7 +679,7 @@ handleEventTime= (e,startTime) =>{
 
 <div className="datePickerEvent">
 <div class="form-group">
-    <label >Event Start Time</label>
+    <label >Event Start Time <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
 
     <DatePicker
       selected={this.state.startTime} 
@@ -693,7 +696,7 @@ handleEventTime= (e,startTime) =>{
 
 
   <div class="form-group">
-    <label >Event End Time</label>
+    <label >Event End Time <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
     <DatePicker
     style={{display:"none"}}
       selected={this.state.endTime} 

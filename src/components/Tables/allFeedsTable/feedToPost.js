@@ -15,7 +15,7 @@ export default class GroupTable extends Component {
 
 	bodyRow = () => {
 
-		const body = this.props.Icebreaker.map((data, index) => ({
+		const body = this.props.feeds.map((data, index) => ({
 			Createdby:<Link to={`user_info/${data.post.user.id}`}>{data.post.user.first_name}  {data.post.user.last_name}</Link>,
 			postdata: data.post.body,
 			postsDate: _.startCase(_.lowerCase(`${moment(data.created_at).format("DD-MM-YYYY")}`)),

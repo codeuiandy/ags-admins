@@ -7,6 +7,7 @@ import {Images} from './selectMutipleImages'
 import PostToFeed from '../Tables/allFeedsTable/feedToPost'
 import Icebreaker from '../Tables/allFeedsTable/icebreaker'
 import AskQuestion from '../Tables/allFeedsTable/askAQuestion'
+import Adverts from '../Tables/allFeedsTable/adverts'
 import {httpGet, httpPatch, httpPostFormData,httpPost, httpDelete} from '../helpers/httpMethods'
 import {hideLoader, showLoader} from '../helpers/loader'
 import {NotificationManager} from 'react-notifications'
@@ -224,6 +225,30 @@ export default class allFeeds extends Component {
                 showLoader()
                 if (res.status === 204) {
                     this.getFeeds()
+                    NotificationManager.success(
+                        "Data successfully removed.",
+                       "Yepp",
+                       3000
+                   );
+                  
+                    hideLoader()  
+                }
+                hideLoader()  
+            } catch (error) {
+                hideLoader()  
+            }
+        }
+
+
+
+        if (this.state.postController === "Advert") {
+            showLoader()
+            try {
+                const res = await httpDelete(`adverts/${deleteId}/`)
+                console.log(res)
+                showLoader()
+                if (res.status === 204) {
+                    this.getAdvers()
                     NotificationManager.success(
                         "Data successfully removed.",
                        "Yepp",
@@ -581,8 +606,6 @@ export default class allFeeds extends Component {
        
            }
 
-        //    const [Criteria, setCriteria] = useState([])
-        //    const [EligibilityCriteriaDataInput, setEligibilityCriteriaInput] = useState("")
 
         handleImageChange=(data)=>{
             this.setState({adverImageInput:data})
@@ -658,7 +681,7 @@ export default class allFeeds extends Component {
                         </div>
                        
                     <PostToFeed 
-                    Icebreaker={this.state.feeds} 
+                    feeds={this.state.feeds} 
                     getDeletId={this.getDeletId}
                     GetEditDataModals={this.GetEditDataModals}/>
                     </div>
@@ -676,8 +699,8 @@ export default class allFeeds extends Component {
                            
                         </div>
                        
-                    <PostToFeed 
-                    Icebreaker={this.state.feeds} 
+                    <Adverts 
+                    adverts={this.state.adverts} 
                     getDeletId={this.getDeletId}
                     GetEditDataModals={this.GetEditDataModals}/>
                     </div>
@@ -707,7 +730,7 @@ export default class allFeeds extends Component {
                              <button>Create new question</button>
                         </div>
                     <AskQuestion
-                    Icebreaker={this.state.AskQuestion} 
+                    AskQuestion={this.state.AskQuestion} 
                     getDeletId={this.getDeletId}
                     GetEditDataModals={this.GetEditDataModals}/>
                   </div>

@@ -76,7 +76,7 @@ function App() {
 						<Route exact path="/group_members/:id" component={GrpMembersView} />
 						<Route exact path="/event_overview" component={EventOverview} />
 						<Route exact path="/all_feeds" component={AllFeeds} />
-						<Route exact path="/create_advert/:create/:create" component={CreateAdvertPost} />
+						<Route exact path="/create_advert/:id/:create" component={CreateAdvertPost} />
 						<Route exact path="/topic_followers/:id" component={TopicFollowers} />
 						<Route exact path="/edit_group/:id" component={EditGroup} />
 						<Route exact path="/edit_topic/:id" component={EditTopic} />

@@ -30,9 +30,44 @@ export default function CreateAdvertPost(props) {
 
 
      useEffect(() => {
+         GetSingleAdvert()
         getAllGroups()
         getAllTopics()
+        
+        console.log("ddd",props.match.params)
+        if (props.match.params.create === "edit") {
+            setpageType("edit")
+        }
      }, [])
+
+
+      const GetSingleAdvert = async()=>{
+     showLoader()
+   const res = await httpGet(`adverts/${props.match.params.id}/`);
+   if (res.status === 200) {
+    hideLoader()
+    let grpId = res.data.group
+     let topicId = res.data.topic
+
+     grpId.map((el) => {
+         console.log("grpID>>>",el)
+           return el;
+       })
+        topicId.map((el) => {
+         console.log("grpID>>>",el)
+           return el;
+       })
+            setSelectedTopics(topicId)
+                    setSelectedGroups(grpId)
+                     setAdvertData({
+                         ...advertData,
+      body:res.data.body,
+      })
+
+       setStartDate(new Date(res.data.start_date));
+    setEndDate(new Date(res.data.end_date))
+   }
+}
 
      
  const getAllGroups = async()=>{
@@ -70,17 +105,28 @@ console.log(topicID)
       image:"",
   })
 
+
       const  handleChange=(e)=>{
 
             setAdvertData({...advertData, [e.target.name]: e.target.value })
   
        }
 
-
-      const handleFileChange=(e)=>{
-        setAdvertData({...advertData, [e.target.name]:e.target.files[0] })
-            
-      }
+const handleImageChange=(e) =>{
+    e.preventDefault();
+    let file = e.target.files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+    //   this.setState({
+    //     file: file,
+    //     base64: reader.result
+    //   });
+       setAdvertData({...advertData, image:reader.result })
+   console.log("base 64>>>>>",advertData.image)
+    };
+    
+  }
 
 
 
@@ -90,26 +136,91 @@ console.log(topicID)
         e.preventDefault();
       
            e.preventDefault();
+
+           if (pageType==="edit") {
+
            try {
              showLoader()
-                const formData = new FormData()
-                    formData.append("topic",advertAllTopics.advertAll === true ? topicID : selectedTopics)
-                    formData.append("group",advertAllGroups.advertAll === true ? groupID : selectedGroups)
-                    formData.append("body",advertData.body)
-                    formData.append("feeds",showOnFeed === true ? true : false)
-                     formData.append('start_date', moment(startDate).format("YYYY-MM-DDThh:mm"));
-                     formData.append('end_date',  moment(endDate).format("YYYY-MM-DDThh:mm"));
-           
-               let res = await httpPost(`adverts/`,formData)
+             
+                const data = {
+                    topic:advertAllTopics.advertAll === true ? topicID : selectedTopics,
+                    group:advertAllGroups.advertAll === true ? groupID : selectedGroups,
+                    body:advertData.body,
+                     image:advertData.image,
+                    feeds:showOnFeed === true ? true : false,
+                    start_date: moment(startDate).format("YYYY-MM-DDThh:mm"),
+                    end_date: moment(endDate).format("YYYY-MM-DDThh:mm")
+                }
+
+                  const NoImagedata = {
+                    topic:advertAllTopics.advertAll === true ? topicID : selectedTopics,
+                    group:advertAllGroups.advertAll === true ? groupID : selectedGroups,
+                    body:advertData.body,
+                    feeds:showOnFeed === true ? true : false,
+                    start_date: moment(startDate).format("YYYY-MM-DDThh:mm"),
+                    end_date: moment(endDate).format("YYYY-MM-DDThh:mm")
+                }
+
+               let res = await httpPatch(`adverts/${props.match.params.id}/`,advertData.image===""?NoImagedata:data)
   
               console.log("res status",res) 
               if (res.status === 201 || res.status === 200) {
                       hideLoader()
-               console.log(res)
-               
-     
-              
+                    GetSingleAdvert()
+                   setadvertAllGroups({advertAll:false,
+                    decide:true,})
+                    setadvertAllTopics({ advertAll:false,
+                        decide:true,})
+         
+               NotificationManager.success(
+                  "Data edited successfully.",
+                 "Yepp",
+                 3000
+             );
+              }
              
+           
+               hideLoader()
+         } catch (error) {
+             console.log(error.response)
+             NotificationManager.success(
+                 error,
+                "Opps",
+                3000
+            );
+             hideLoader()
+         // }
+         }
+           }
+
+
+           if (pageType==="create") {
+           try {
+             showLoader()
+                const data = {
+                    topic:advertAllTopics.advertAll === true ? topicID : selectedTopics,
+                    group:advertAllGroups.advertAll === true ? groupID : selectedGroups,
+                    body:advertData.body,
+                    image:advertData.image,
+                    feeds:showOnFeed === true ? true : false,
+                    start_date: moment(startDate).format("YYYY-MM-DDThh:mm"),
+                    end_date: moment(endDate).format("YYYY-MM-DDThh:mm")
+                }
+               let res = await httpPost(`adverts/`,data)
+  
+              console.log("res status",res) 
+              if (res.status === 201 || res.status === 200) {
+                      hideLoader()
+                setAdvertData({
+                    body:"",
+                    image:"",})
+
+                    setSelectedTopics([])
+                    setSelectedGroups([])
+                   setadvertAllGroups({advertAll:false,
+                    decide:true,})
+                    setadvertAllTopics({ advertAll:false,
+                        decide:true,})
          
                NotificationManager.success(
                   "Data created successfully.",
@@ -130,14 +241,9 @@ console.log(topicID)
              hideLoader()
          // }
          }
-         
-  
-  
-        
-   
-        
-       
-     
+           }
+           
+
        }
   
   
@@ -206,7 +312,7 @@ return (
                
              <div className="advertPostImage">
                  <label htmlFor="">Post Image</label>
-                 <input onChange={handleFileChange} required name="image" type="file"/>
+                 <input onChange={(e)=>handleImageChange(e)}  name="image" type="file"/>
                  <div className="button-adver-wrap">
                      <button>Upload Image</button>
                  </div>
@@ -259,7 +365,7 @@ return (
                         
                        </div>
                        <div className="createAdvertPostbtn">
-                           <button onClick={()=>handleSubmit}>Create sponsored post</button>
+                           <button onClick={()=>handleSubmit}>{pageType==="edit"?"Edit" :"Create"} sponsored post</button>
                        </div>
                        
                    </div>

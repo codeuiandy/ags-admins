@@ -15,7 +15,7 @@ export default class GroupTable extends Component {
 
 	bodyRow = () => {
 
-		const body = this.props.Icebreaker.map((data, index) => ({
+		const body = this.props.AskQuestion.map((data, index) => ({
 			Createdby:<Link to={`user_info/${data.user.id}`}>{data.user.first_name}  {data.user.last_name}</Link>,
 			postdata: data.body,
 			postsDate: _.startCase(_.lowerCase(`${moment(data.created_at).format("DD-MM-YYYY")}`)),
