@@ -40,6 +40,7 @@ import AddFunding from './components/OpportunityBoard/AddFunding.jsx'
 import OtherOpportunities from './components/OpportunityBoard/otherOpturnity.jsx'
 import AddOthers from './components/OpportunityBoard/AddOthers.jsx'
 import AffinityNetwork from './components/AffinityNetwork/AffinityNetwork.jsx'
+import Offers from './components/AffinityNetwork/Offer'
 import Resources from './components/Resources/indexResource.jsx'
 import CreateAdvertPost from './components/Posts/createAdvertPost'
 import {NotificationManager,NotificationContainer} from 'react-notifications'
@@ -88,7 +89,8 @@ function App() {
 						<Route exact path="/add_funding" component={AddFunding} />
 						<Route exact path="/other_opportunities" component={OtherOpportunities} />
 						<Route exact path="/add_others" component={AddOthers} />
-						<Route exact path="/affinity_network" component={AffinityNetwork} />
+						<Route exact path="/affinity_network/partners" component={AffinityNetwork} />
+						<Route exact path="/affinity_network/offers" component={Offers} />
 						<Route exact path="/resources" component={Resources} />
 				</Switch>
 			</Router>

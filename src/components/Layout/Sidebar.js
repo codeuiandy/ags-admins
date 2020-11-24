@@ -12,6 +12,8 @@ export default class Sidebar extends Component {
 			dropDownTopics:false,
 			dropDownUsers:false,
 			dropDownBoard:false,
+			dropDownAffinity:false,
+
 		}
 		console.log(this.props)
 		
@@ -81,6 +83,19 @@ if (events==="board") {
 		
 	})	
 }
+
+if (events==="Affinity") {
+	this.setState({
+		dropDownEvent:false,
+		dropDownGroup:false,
+		dropDownUsers:false,
+		dropDownBoard:false,
+		dropDownAffinity:!this.state.dropDownAffinity,
+		
+	})	
+}
+
+
 
 
 	}
@@ -162,6 +177,19 @@ dropDownEvent:true,
 			
 			
 		}
+
+		if (this.props.activepage === "affinity_network/offers"  
+		|| this.props.activepage === "affinity_network/partners"
+		 ) {
+			this.setState({
+			
+			
+				dropDownAffinity:true,
+			})
+			
+			
+		}
+		
 		
 	}
 	render() {
@@ -369,12 +397,31 @@ dropDownEvent:true,
 							<div className="hoverActiveRoute"></div>
 							<li className={`${this.props.page==="settings"?"activeClass":""}`}><i class="fas fa-cogs"></i> Settings</li>
 
-							<div onClick={()=>{
-									this.props.RouteUserLayout.push("/affinity_network")
-								}} className="hoverActiveRoute"></div>
-							<li  className={`${this.props.page==="affinity_network"?"activeClass":""}`}><i class="fas fa-th">
+						
+
+
+								<div onClick={(e)=>this.dropDown('Affinity')} className="hoverActiveRoute"></div>
+<li ><i class="fas fa-users"></i> Affinity Network</li>
+							{this.state.dropDownAffinity===true?
+							
+							<ul className="dropdownlist">
 								
-								</i>Affinity Network</li>
+
+								<div onClick={()=>{
+									this.props.RouteUserLayout.push("/affinity_network/offers")
+								}} className="hoverActiveRoute"></div>
+
+								<li className={`${this.props.page==="affinity_network/offers"?"activeClass":""}`}>
+								<Link className={`${this.props.page==="affinity_network/offers"?"activeClass":""}`} to="/affinity_network/offers">
+									Offers</Link></li>
+
+								<li className={`${this.props.page==="affinity_network/partners"?"activeClass":""}`}> <Link 
+								className={`${this.props.page==="affinity_network/partners"?"activeClass":""}`} to="/affinity_network/partners">
+									Partners</Link></li>
+
+									
+							</ul>
+							:""}
 
 
 

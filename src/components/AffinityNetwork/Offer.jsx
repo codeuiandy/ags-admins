@@ -5,8 +5,8 @@ import AddInvestMentModal from '../Modals/AddInvestMentModal.jsx'
 import AddInvestMentDetailsModal from '../Modals/addInvestmentDetails.jsx'
 import {Link} from 'react-router-dom'
 import GalleryIcon from '../mediaIcon.png'
-import AffinityNetworkTable from '../Tables/AffinityNetwork'
-import AddPartnersModal from '../Modals/addPartnersModal'
+import AffinityNetworkTable from '../Tables/OffersTable'
+import OffersModal from '../Modals/offerModal'
 import CloseModal from '../helpers/closeModal'
 import {NotificationContainer, NotificationManager} from 'react-notifications'
 import {httpPostFormData,httpPut,httpPatch,httpGet, httpPost, httpDelete} from '../helpers/httpMethods'
@@ -16,7 +16,7 @@ import DeleteModal from '../Modals/comfirmModal'
 export default function AffinityNetwork(props) {
 
   
-  const [partners, Setpartners] = useState({
+  const [offers, Setoffers] = useState({
     contact_person:"",
     industry:"",
     name:"",
@@ -24,17 +24,15 @@ export default function AffinityNetwork(props) {
     phone:"",
     service_rendered:"",
     website:"",
-    address:"",
-    logo:"",
-    banner:"",
+    address:""
 
 
   })
 
   const  handleChange=(e)=>{
 
-    Setpartners({...partners, [e.target.name]: e.target.value })
-    console.log(partners)
+    Setoffers({...offers, [e.target.name]: e.target.value })
+    console.log(offers)
   
   }
 
@@ -55,7 +53,7 @@ export default function AffinityNetwork(props) {
 
       try {
         showLoader()
-          const res = await httpGet(`partners/`)
+          const res = await httpGet(`offers/`)
           if (res.status === 200) {
             setgetNetwork(res.data)
           }
@@ -72,28 +70,26 @@ export default function AffinityNetwork(props) {
          e.preventDefault();
          try {
            showLoader()
+           
+           const Data = {
+            contact_person: offers.contact_person, 
+            industry: offers.industry,
+            name:  offers.name,
+            partner_user:  "e87af4c4-b718-4496-b5a1-7aa6d8983818",
+            phone:  offers.phone,
+            service_rendered:  offers.service_rendered,
+            website:  offers.website,
+           address:  offers.address
+           }
+         
 
-             const formData = new FormData();
-        formData.append('contact_person', partners.contact_person);
-        formData.append('industry', partners.industry);
-        formData.append('name', partners.name);
-        formData.append('partner_user', "e87af4c4-b718-4496-b5a1-7aa6d8983818");
-        formData.append('phone', partners.phone);
-        formData.append('service_rendered', partners.service_rendered);
-        formData.append('website', partners.website);
-        formData.append('address', partners.address);
-        let logo = partners.logo === "" ? "":formData.append('logo', partners.logo);
-        let banner = partners.banner === "" ? "":formData.append('banner', partners.banner);
-    
-        
-
-             let res = await httpPost(`partners/`,formData)
+             let res = await httpPost(`offers/`,Data)
 
             console.log("res status",res) 
             if (res.status === 201 || res.status === 200) {
                     hideLoader()
              console.log(res)
-             Setpartners
+             Setoffers
              ({
                contact_person:"",
               industry:"",
@@ -138,24 +134,24 @@ export default function AffinityNetwork(props) {
           showLoader()
           
           const Data = {
-           contact_person: partners.contact_person, 
-           industry: partners.industry,
-           name:  partners.name,
+           contact_person: offers.contact_person, 
+           industry: offers.industry,
+           name:  offers.name,
            partner_user:  "e87af4c4-b718-4496-b5a1-7aa6d8983818",
-           phone:  partners.phone,
-           service_rendered:  partners.service_rendered,
-           website:  partners.website,
-          address:  partners.address
+           phone:  offers.phone,
+           service_rendered:  offers.service_rendered,
+           website:  offers.website,
+          address:  offers.address
           }
         
 
-            let res = await httpPatch(`partners/${EditId}/`,Data)
+            let res = await httpPatch(`offers/${EditId}/`,Data)
 
            console.log("res status",res) 
            if (res.status === 201 || res.status === 200) {
                    hideLoader()
             console.log(res)
-            Setpartners
+            Setoffers
             ({
               contact_person:"",
              industry:"",
@@ -204,7 +200,7 @@ export default function AffinityNetwork(props) {
   const handleDelete=async()=>{
     showLoader()
     try {
-        let res = await httpDelete(`partners/${DeleteId}/`)
+        let res = await httpDelete(`offers/${DeleteId}/`)
         if (res.status===204 || res.status===200 || res.status===201) {
             NotificationManager.success(
             "deleted successfully",
@@ -228,7 +224,7 @@ export default function AffinityNetwork(props) {
 
       const getModalEditData=(data)=>{
       console.log(data)
-        Setpartners
+        Setoffers
         ({
           contact_person:data.contact_person,
          industry:data.industry,
@@ -245,10 +241,6 @@ export default function AffinityNetwork(props) {
 
       }
 
-        const  handleFileChange=(e)=>{
-     Setpartners({...partners, [e.target.name]: e.target.files[0] })
-    }
-
 
   
   return (
@@ -256,7 +248,7 @@ export default function AffinityNetwork(props) {
       <Layout 
        RouteUserLayout={
                         props.history
-                     } activepage="affinity_network/partners" page="affinity_network/partners">
+                     } activepage="affinity_network/offers" page="affinity_network/offers">
 	
                                 <div className="table-wrap">
                                 <div className="addInvestmentBtn">
@@ -264,7 +256,7 @@ export default function AffinityNetwork(props) {
                                 <button type="button" 
                                 data-toggle="modal" 
                                 data-target="#addOffereModal"
-                                >Add Partner</button>
+                                >Add Offer</button>
                                 
                               </div>
 
@@ -273,9 +265,8 @@ export default function AffinityNetwork(props) {
                               
 
                             </Layout>
-      <AddInvestMentDetailsModal/>
       <DeleteModal deletData={handleDelete}  />  
-      <AddPartnersModal handleFileChange={handleFileChange} handleChange={handleChange} handleSubmit={handleSubmit} partners={partners} pageType={pageType}/>
+      <OffersModal handleChange={handleChange} handleSubmit={handleSubmit} offers={offers} pageType={pageType}/>
     </div>
   )
 }

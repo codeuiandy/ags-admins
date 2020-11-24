@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import DatePicker from 'react-datepicker'
-export default function AddOfferModal(props) {
+export default function AddPartnersModal(props) {
     const [startDate, setStartDate] = useState(new Date())
 
     return (
@@ -54,6 +54,35 @@ export default function AddOfferModal(props) {
 <div className="investment-details-input-wrap">
   <label className="required-input">Address</label>
   <input  value={props.partners.address} type="text" required name="address" onChange={props.handleChange} placeholder="e,g your text here"/>
+</div>
+
+<div className="investment-details-input-wrap">
+  <label>Company Logo</label>
+<div className="upload-investment-details">
+    <div className="uploadInvesmet-input-submit">
+      <button>Choose file</button>
+      <input name="logo" onChange={props.handleFileChange} required type="file"/>
+    </div>
+
+    <div className="uploadInvesmet-input-submit">
+      <span>No file chosen</span>
+    </div>
+</div>
+</div>
+
+
+<div className="investment-details-input-wrap">
+  <label>Banner</label>
+<div className="upload-investment-details">
+    <div className="uploadInvesmet-input-submit">
+      <button>Choose file</button>
+      <input name="banner" required onChange={props.handleFileChange} type="file"/>
+    </div>
+
+    <div className="uploadInvesmet-input-submit">
+      <span>No file chosen</span>
+    </div>
+</div>
 </div>
 
 

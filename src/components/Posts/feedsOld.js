@@ -249,6 +249,8 @@ export default class allFeeds extends Component {
             questionpreviewImage:"",
         })
     }
+
+    
       
     handleSubmit=async()=>{
     
