@@ -13,21 +13,14 @@ export default class Offers extends Component {
 
 	bodyRow = () => {
 		const body = this.props.afinityNetwork.map((data, index) => ({
-            // HeaderImage: <img className="userProfilePic" src={data.LogoImage} />,
-            // LogoImage:<img className="userProfilePic" src={data.LogoImage} />,
-
-//             discount_expire: "2020-11-27"
-// discount_rate: "10"
-// header_image: "https://stagging.agstribe.org/media/lab-3498584_640_MrNhsvb.jpg"
-// how_to_redeem: "Contact us"
-// id: "0fed8ad3-6fe7-4f67-8d91-b2f1360bc36e"
-// logo_image: "https://stagging.agstribe.org/media/monkey-2500919_640_JFasB3w.jpg"
-// partner: {id: "ae1a83a4-b25d-405d-b92f-d79134ae8ab2",…}
-// status: "open"
-// tos: "lorem"
-
+            HeaderImage: <img className="userProfilePic" src={data.header_image} />,
+            LogoImage:<img className="userProfilePic" src={data.logo_image} />,
             name:data.partner.name,
             how_to_redeem:data.how_to_redeem,
+            how_it_works:data.how_it_works,
+            long_description:data.long_description,
+            offer_valid_description:data.offer_valid_description,
+            short_description:data.short_description,
             tos:data.tos,
             status :data.status,
             expires:DateFormater(data.discount_expire),
@@ -68,30 +61,42 @@ export default class Offers extends Component {
 
 	header = () => {
 		const header = [
+
+            { title: "Logo image", prop: "LogoImage" ,
+            },
+            
+            { title: "Header image", prop: "HeaderImage" ,
+			},
 		
-            { title: "Name", prop: "name" ,
+            { title: "Partner name", prop: "name" ,
             prop: "name",
 				sortable: true,
 				filterable: true,
 			},
 
-			{ title: "Contact person", prop: "how_to_redeem" ,
-			}, 
-			
-            { title: "tos", prop: "tos" ,
+
+            { title: "Terms and Conditions", prop: "tos" ,
             },
 
-    
-           
-            
-            { title: "Service", prop: "service_rendered" ,
+
+             { title: "Long description", prop: "long_description" ,
             },
+            
+
+             { title: "Offer valid description", prop: "offer_valid_description" ,
+            },
+            
+
+             { title: "Short description", prop: "short_description" ,
+            },
+            
             
             { title: "Status", prop: "status" ,
 			},
 
 			{ title: "Discount expires", prop: "expires" ,
-		},
+        },
+        
 
 			
 

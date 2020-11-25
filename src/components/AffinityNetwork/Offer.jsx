@@ -12,19 +12,24 @@ import {NotificationContainer, NotificationManager} from 'react-notifications'
 import {httpPostFormData,httpPut,httpPatch,httpGet, httpPost, httpDelete} from '../helpers/httpMethods'
 import {hideLoader, showLoader} from '../helpers/loader'
 import DeleteModal from '../Modals/comfirmModal'
-
+import moment from 'moment'
 export default function AffinityNetwork(props) {
 
   
   const [offers, Setoffers] = useState({
-    contact_person:"",
-    industry:"",
-    name:"",
-    partner_user:"",
-    phone:"",
-    service_rendered:"",
-    website:"",
-    address:""
+        discount_expire: "",
+    header_image: "",
+    how_it_works: "",
+    id: "",
+    logo_image: "",
+    long_description: "",
+    offer_valid_description: "",
+    short_description: "",
+    tos: "",
+    previewLogo:"",
+    previewHeaderImg:"",
+    partner:"",
+    status:"",
 
 
   })
@@ -36,14 +41,29 @@ export default function AffinityNetwork(props) {
   
   }
 
+     const  handleFileChange=(e)=>{
+   
+    if (e.target.name === "header_image") {
+      Setoffers({...offers,header_image:e.target.files[0], previewHeaderImg: URL.createObjectURL(e.target.files[0])}) 
+    }
+
+    if (e.target.name === "logo_image") {
+      Setoffers({...offers,logo_image:e.target.files[0], previewLogo: URL.createObjectURL(e.target.files[0])}) 
+    }
+
+    }
+
+
   
     const [DeleteId, setDeleteId] = useState("")
+     const [startDate, setStartDate] = useState(new Date())
     const [EditId, setEditId] = useState("")
     const [getNetworks, setgetNetwork] = useState([])
     const [pageType, setpageType] = useState("create")
 
     useEffect(() => {
       getData()
+      partners()
       return () => {
       
       }
@@ -64,41 +84,64 @@ export default function AffinityNetwork(props) {
       }
   }
 
+  const [Allpartners, setAllpartners] = useState([])
+
+   const  partners =async()=>{
+
+      try {
+        showLoader()
+          const res = await httpGet(`partners/`)
+          if (res.status === 200) {
+            setAllpartners(res.data)
+          }
+          console.log(res)
+          hideLoader()
+      } catch (error) {
+        hideLoader()
+      }
+  }
+
+
     const handleSubmit=async(e)=>{
       e.preventDefault();
        if (pageType === "create") {
+         let date =   moment(startDate).format("YYYY-MM-DDThh:mm");
+         console.log(date)
          e.preventDefault();
          try {
            showLoader()
-           
-           const Data = {
-            contact_person: offers.contact_person, 
-            industry: offers.industry,
-            name:  offers.name,
-            partner_user:  "e87af4c4-b718-4496-b5a1-7aa6d8983818",
-            phone:  offers.phone,
-            service_rendered:  offers.service_rendered,
-            website:  offers.website,
-           address:  offers.address
-           }
-         
-
-             let res = await httpPost(`offers/`,Data)
-
+              const formData = new FormData();
+        formData.append('discount_expire', date);
+        formData.append('how_it_works', offers.how_it_works);
+        formData.append('long_description', offers.long_description);
+        formData.append('offer_valid_description', offers.offer_valid_description);
+        formData.append('short_description', offers.short_description);
+        formData.append('tos', offers.tos);
+        formData.append('partner', offers.partner);
+        formData.append('status', offers.status);
+        let logo = offers.header_image === "" ? "":formData.append('header_image', offers.header_image);
+        let banner = offers.logo_image === "" ? "":formData.append('logo_image', offers.logo_image);
+              let res = await httpPostFormData(`offers/`,formData)
             console.log("res status",res) 
             if (res.status === 201 || res.status === 200) {
                     hideLoader()
              console.log(res)
              Setoffers
              ({
-               contact_person:"",
-              industry:"",
-              name:"",
-              partner_user:"",
-              phone:"",
-              service_rendered:"",
-              website:"",
-              address:""
+                  ...offers,
+                       discount_expire: "",
+                        header_image: "",
+                        how_it_works: "",
+                        id: "",
+                        logo_image: "",
+                        long_description: "",
+                        offer_valid_description: "",
+                        short_description: "",
+                        tos: "",
+                        previewLogo:"",
+                        previewHeaderImg:"",
+                        partner:"",
+                        status:"",
             })
    
              CloseModal()
@@ -126,6 +169,7 @@ export default function AffinityNetwork(props) {
        }
        }
 
+        
 
 
        if (pageType === "edit") {
@@ -133,39 +177,43 @@ export default function AffinityNetwork(props) {
         try {
           showLoader()
           
-          const Data = {
-           contact_person: offers.contact_person, 
-           industry: offers.industry,
-           name:  offers.name,
-           partner_user:  "e87af4c4-b718-4496-b5a1-7aa6d8983818",
-           phone:  offers.phone,
-           service_rendered:  offers.service_rendered,
-           website:  offers.website,
-          address:  offers.address
-          }
-        
-
-            let res = await httpPatch(`offers/${EditId}/`,Data)
-
-           console.log("res status",res) 
-           if (res.status === 201 || res.status === 200) {
-                   hideLoader()
-            console.log(res)
-            Setoffers
-            ({
-              contact_person:"",
-             industry:"",
-             name:"",
-             partner_user:"",
-             phone:"",
-             service_rendered:"",
-             website:"",
-             address:""
-           })
-  
-            CloseModal()
-            getData()
-          
+              const formData = new FormData();
+        formData.append('discount_expire',moment(startDate).format("YYYY-MM-DDThh:mm"));
+        formData.append('how_it_works', offers.how_it_works);
+        formData.append('long_description', offers.long_description);
+        formData.append('offer_valid_description', offers.offer_valid_description);
+        formData.append('short_description', offers.short_description);
+        formData.append('tos', offers.tos);
+        formData.append('partner', offers.partner);
+        formData.append('status', offers.status);
+        let logo = offers.header_image === "" ? "":formData.append('header_image', offers.header_image);
+        let banner = offers.logo_image === "" ? "":formData.append('logo_image', offers.logo_image);
+              let res = await httpPatch(`offers/${EditId}/`,formData)
+            console.log("res status",res) 
+            if (res.status === 201 || res.status === 200) {
+                    hideLoader()
+             console.log(res)
+             Setoffers
+             ({
+                  ...offers,
+                                        discount_expire: "",
+                        header_image: "",
+                        how_it_works: "",
+                        id: "",
+                        logo_image: "",
+                        long_description: "",
+                        offer_valid_description: "",
+                        short_description: "",
+                        tos: "",
+                        previewLogo:"",
+                        previewHeaderImg:"",
+                        partner:"",
+                        status:"",
+            })
+   
+             CloseModal()
+             getData()
+         
       
             NotificationManager.success(
                "Data edited successfully.",
@@ -226,14 +274,18 @@ export default function AffinityNetwork(props) {
       console.log(data)
         Setoffers
         ({
-          contact_person:data.contact_person,
-         industry:data.industry,
-         name:data.name,
-         partner_user:data.partner_user,
-         phone:data.phone,
-         service_rendered:data.service_rendered,
-         website:data.website,
-         address:data.address
+          ...offers,
+              discount_expire:data.discount_expire,
+              how_it_works:data.how_it_works,
+              id:data.id,
+              long_description:data.long_description,
+              offer_valid_description:data.offer_valid_description,
+              short_description:data.short_description,
+              tos:data.tos,
+              partner:data.partner.id,
+              previewHeaderImg:data.header_image,
+              previewLogo:data.logo_image,
+              status:data.status
        })
 
        setpageType("edit")
@@ -253,7 +305,25 @@ export default function AffinityNetwork(props) {
                                 <div className="table-wrap">
                                 <div className="addInvestmentBtn">
                                 
-                                <button type="button" 
+                                <button
+                                onClick={()=> Setoffers
+             ({
+                  ...offers,
+                          discount_expire: "",
+                          header_image: "",
+                          how_it_works: "",
+                          id: "",
+                          logo_image: "",
+                          long_description: "",
+                          offer_valid_description: "",
+                          short_description: "",
+                          tos: "",
+                          previewLogo:"",
+                          previewHeaderImg:"",
+                          partner:"",
+                          status:"",
+            })}
+                                type="button" 
                                 data-toggle="modal" 
                                 data-target="#addOffereModal"
                                 >Add Offer</button>
@@ -266,7 +336,7 @@ export default function AffinityNetwork(props) {
 
                             </Layout>
       <DeleteModal deletData={handleDelete}  />  
-      <OffersModal handleChange={handleChange} handleSubmit={handleSubmit} offers={offers} pageType={pageType}/>
+      <OffersModal startDate={startDate} setStartDate={setStartDate} Allpartners={Allpartners} handleFileChange={handleFileChange} handleChange={handleChange} handleSubmit={handleSubmit} offers={offers} pageType={pageType}/>
     </div>
   )
 }

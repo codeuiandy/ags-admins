@@ -61,7 +61,7 @@ export default function AddPartnersModal(props) {
 <div className="upload-investment-details">
     <div className="uploadInvesmet-input-submit">
       <button>Choose file</button>
-      <input name="logo" onChange={props.handleFileChange} required type="file"/>
+      <input name="logo" onChange={props.handleFileChange}  type="file"/>
     </div>
 
     <div className="uploadInvesmet-input-submit">
@@ -76,7 +76,7 @@ export default function AddPartnersModal(props) {
 <div className="upload-investment-details">
     <div className="uploadInvesmet-input-submit">
       <button>Choose file</button>
-      <input name="banner" required onChange={props.handleFileChange} type="file"/>
+      <input name="banner"  onChange={props.handleFileChange} type="file"/>
     </div>
 
     <div className="uploadInvesmet-input-submit">
