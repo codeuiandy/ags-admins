@@ -19,7 +19,6 @@ export default class CreateEvent extends Component {
             endDate:new Date(),
             startTime:new Date(),
             endTime:new Date(),
-            eventFee:"null",
             CTA:"Pay",
             editImage:"",
 
@@ -282,7 +281,7 @@ else{
     formData.append('cta_button', this.state.paidOrFree === "free_event" && this.state.eventType
      === "interanl" ? "Attend" : this.state.CTABtn);
     formData.append('registration_link', this.state.registrationLink);
-    formData.append('price', this.state.eventFee);
+   formData.append('price', this.state.eventFee === "" ? 0 : this.state.eventFee);
     formData.append('banner', this.state.eventImage);
     formData.append('start_datetime', FormatStartDate);
     formData.append('end_datetime', FormatEndDate);
