@@ -227,7 +227,7 @@ console.log(this.state)
         formData.append('cta_button', this.state.paidOrFree === "free_event" && this.state.eventType
          === "interanl" ? "Attend" : this.state.CTABtn);
         formData.append('registration_link', this.state.registrationLink);
-        formData.append('price', this.state.eventFee);
+        formData.append('price', this.state.eventFee === "" ? 0 : this.state.eventFee);
         let img = this.state.eventImage === "" ? "":formData.append('banner', this.state.eventImage);
         formData.append('start_datetime', FormatStartDate);
         formData.append('end_datetime', FormatEndDate);
