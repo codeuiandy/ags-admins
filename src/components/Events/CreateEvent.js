@@ -45,6 +45,7 @@ export default class CreateEvent extends Component {
                 DescrpionError:"",
                 adressCityError:"",
                 iventLinkError:"",
+                status:"open",
                 edit:false
         }
         
@@ -131,7 +132,7 @@ handleInputErrors=()=>{
     return false 
   }
 
-  if (this.state.eventMedium === "hybrid" || this.state.eventMedium === "in_person" ) {
+  if (this.state.eventMedium === "hybrid" || this.state.eventMedium === "in-person" ) {
   
     if ( this.state.eventAddress === "" || this.state.eventAddress === undefined 
     || this.state.eventAddress === null  || this.state.eventCity === "" ||
@@ -231,6 +232,7 @@ console.log(this.state)
         formData.append('start_datetime', FormatStartDate);
         formData.append('end_datetime', FormatEndDate);
         formData.append('city', this.state.eventCity);
+        formData.append('status', this.state.status);
         
           let res = await httpPatch(`events/${this.props.match.params.id}/`,formData)
       
@@ -285,6 +287,7 @@ else{
     formData.append('start_datetime', FormatStartDate);
     formData.append('end_datetime', FormatEndDate);
     formData.append('city', this.state.eventCity);
+    formData.append('status', this.state.status);
     
     
       let res = await httpPostFormData(`events/`,formData)
@@ -453,7 +456,7 @@ handleEventTime= (e,startTime) =>{
       class="form-control"
        id="exampleFormControlSelect1">
          <option value="null">Select Event Medium</option>
-      <option value="in_person">In-Person</option>
+      <option value="in-person">In-Person</option>
       <option value="virtual">Virtual</option>
       <option value="hybrid">Hybrid</option>
       
@@ -476,7 +479,7 @@ handleEventTime= (e,startTime) =>{
 
 
 {
-  this.state.eventMedium === "hybrid" || this.state.eventMedium === "in_person"  ? 
+  this.state.eventMedium === "hybrid" || this.state.eventMedium === "in-person"  ? 
   (
     <div class="form-group">
       <label >Address <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
@@ -490,7 +493,7 @@ handleEventTime= (e,startTime) =>{
   : ""}
 
 {
-  this.state.eventMedium === "hybrid" || this.state.eventMedium === "in_person"  ? 
+  this.state.eventMedium === "hybrid" || this.state.eventMedium === "in-person"  ? 
   (
     <div class="form-group">
       <label >City <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
@@ -644,6 +647,22 @@ handleEventTime= (e,startTime) =>{
       </div>
     ) : ""
   }
+
+  <div class="form-group">
+    <label >Status<span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
+    <select
+     value={this.state.status}
+     name="status"
+     onChange={(e)=>this.handleChange(e)}
+     required 
+    class="form-control" id="exampleFormControlSelect1">
+        <option value="open">Open </option>
+      <option value="close">Close </option>
+
+      
+    </select>
+
+  </div>
 
  
 <div className="datePickerEvent">
