@@ -98,10 +98,11 @@ const handleIndustryData=(type,deleteData)=>{
 
 
 <div className="investment-details-input-wrap">
-  <label>Category Type</label>
+  <label>Category</label>
   <select name="" id="">
-  <option value="select">Eg. Select your type here</option>
-  <option value="Agric Tech">Active</option>
+  <option value="select">Select</option>
+  <option value="Grants & Funding:">Grants & Funding </option>
+   <option value="scholarships">Scholarships</option>
  
 </select> 
 </div>

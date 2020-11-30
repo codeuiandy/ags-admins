@@ -13,3 +13,17 @@ const handleImageChange=(e) =>{
     };
     
   }
+
+
+
+  const handleImageChange=(imageFile) =>{
+    let file = imageFile;
+    console.log(imageFile)
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+    setjobs({...jobs,logo:reader.result,previewImg: GetImageUrl(file) });
+   console.log("base 64>>>>>",jobs.logo)
+    };
+    
+  }

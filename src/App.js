@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
+import {NotificationManager,NotificationContainer} from 'react-notifications'
 import "./App.css";
 import Layout from "./components/Layout/index";
 import {Index} from "./components/Dashboard/index";
@@ -43,7 +43,7 @@ import AffinityNetwork from './components/AffinityNetwork/AffinityNetwork.jsx'
 import Offers from './components/AffinityNetwork/Offer'
 import Resources from './components/Resources/indexResource.jsx'
 import CreateAdvertPost from './components/Posts/createAdvertPost'
-import {NotificationManager,NotificationContainer} from 'react-notifications'
+// import OthersType from './components/Modals/othersTypeModal'
 function App() {
 	return (
 		<div className="App">
@@ -88,7 +88,7 @@ function App() {
 						<Route exact path="/funding_opportunities" component={FundingOpportunities} />
 						<Route exact path="/add_funding" component={AddFunding} />
 						<Route exact path="/other_opportunities" component={OtherOpportunities} />
-						<Route exact path="/add_others" component={AddOthers} />
+						<Route exact path="/add_others/:type/:action/:id" component={AddOthers} />
 						<Route exact path="/affinity_network/partners" component={AffinityNetwork} />
 						<Route exact path="/affinity_network/offers" component={Offers} />
 						<Route exact path="/resources" component={Resources} />
