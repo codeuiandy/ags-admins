@@ -16,6 +16,8 @@ import {hideLoader, showLoader} from '../helpers/loader'
 import axios from 'axios'
 import Truncate from '../helpers/truncate'
 import DeleteModal from '../Modals/comfirmModal'
+import Schoolarship from '../Tables/schoolarship'
+import FellowShip from '../Tables/fellowship'
 export default function InvestmentOpportunities(props) {
   const [tableSwitch, setTableSwitch] = useState("jobs")
 
@@ -23,33 +25,7 @@ export default function InvestmentOpportunities(props) {
    getData()
   }, [])
 
-  const [realEstateData, SetRealEstateData] = useState([{
-    title:"Low cost housing Estates ",
-    description:"Urban Estates ",
-    openDate:"2/12/2020",
-    endDate:"2/12/2020"
-  },
 
-  {
-  title:"Low cost housing Estates ",
-    description:"Urban Estates ",
-    openDate:"2/12/2020",
-    endDate:"2/12/2020"
-  },
-
-  {
-  title:"Low cost housing Estates ",
-    description:"Urban Estates ",
-    openDate:"2/12/2020",
-    endDate:"2/12/2020"
-  },{
-  title:"Low cost housing Estates ",
-    description:"Urban Estates ",
-    openDate:"2/12/2020",
-    endDate:"2/12/2020"
-  }
-
-])
 
   const setTableSwitchHandle=(type)=>{
    
@@ -58,33 +34,31 @@ export default function InvestmentOpportunities(props) {
      
     }
 
-    if (type === "agriculture") {
-      setTableSwitch("agriculture")
+    if (type === "scholarships") {
+      setTableSwitch("scholarships")
     }
 
 
-    if (type === "fixedIncome") {
-      setTableSwitch("fixedIncome")
+    if (type === "FellowShip") {
+      setTableSwitch("FellowShip")
     }
   }
   console.log(props)
 
   
     const [jobs,setJobs] = useState([])
-    const [getAllcategory,setgetAllcategory] = useState([])
-    const [Merchants, settMerchants] = useState([])
+    const [ScholarshipsFellowships,setScholarshipsFellowships] = useState([])
     const  getData =async()=>{
 
         try {
           showLoader()
             const res0 = await httpGet(`jobs/`)
             const res1 = await httpGet(`scholarships/`)
-            const res2 = await httpGet(`jobs/`)
-            const all = await axios.all([res0, res1,res2])
+            const all = await axios.all([res0, res1])
             console.log(all[0].data)
+            console.log(">>>>>",all[1].data)
             setJobs(all[0].data)
-            setgetAllcategory(all[1].categories)
-            settMerchants(all[2]);
+            setScholarshipsFellowships(all[1].data)
             hideLoader()
            
         } catch (error) {
@@ -93,15 +67,17 @@ export default function InvestmentOpportunities(props) {
     }
 
     const [DeleteId,setDeleteId] = useState("")
+    const [endpoint,setendpoint] = useState("")
 
-         const getDeletId=(id)=>{
+         const getDeletId=(id,enpoint)=>{
         setDeleteId(id)
+        setendpoint(enpoint)
     }
   
     const handleDelete=async()=>{
       showLoader()
       try {
-          let res = await httpDelete(`jobs/${DeleteId}/`)
+          let res = await httpDelete(`${endpoint}/${DeleteId}/`)
           if (res.status===204 || res.status===200 || res.status===201) {
               NotificationManager.success(
               "deleted successfully",
@@ -154,16 +130,16 @@ export default function InvestmentOpportunities(props) {
                                 </span>
 
                                 <span className="category-options">
-                                    <div onClick={()=>setTableSwitchHandle("agriculture")} className="cat-one">Scholarship</div>
+                                    <div onClick={()=>setTableSwitchHandle("scholarships")} className="cat-one">Scholarship</div>
                                     {
-                                      tableSwitch==="agriculture"?<div className="active-cat"></div>:""
+                                      tableSwitch==="scholarships"?<div className="active-cat"></div>:""
                                     }
                                 </span>
 
                                 <span className="category-options">
-                                    <div onClick={()=>setTableSwitchHandle("agriculture")} className="cat-one">Fellowership</div>
+                                    <div onClick={()=>setTableSwitchHandle("FellowShip")} className="cat-one">Fellowership</div>
                                     {
-                                      tableSwitch==="agriculture"?<div className="active-cat"></div>:""
+                                      tableSwitch==="FellowShip"?<div className="active-cat"></div>:""
                                     }
                                 </span>
 
@@ -183,8 +159,15 @@ export default function InvestmentOpportunities(props) {
                                     
                                
                                     {
-                                      tableSwitch==="agriculture"?<Loans realEstateData={realEstateData}/>:""
+                                      tableSwitch==="scholarships"?<Schoolarship getDeletId={getDeletId} scholarships={ScholarshipsFellowships}/>:""
                                     }
+
+                                         {
+                                      tableSwitch==="FellowShip"?<FellowShip getDeletId={getDeletId} fellowships={ScholarshipsFellowships}/>:""
+                                    }
+
+
+                                    
                               
                                    
                                 

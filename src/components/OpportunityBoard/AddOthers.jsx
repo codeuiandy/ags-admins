@@ -35,12 +35,22 @@ useEffect(() => {
  SetType(props.match.params.type)
  SetAction(props.match.params.action)
  SetID(props.match.params.id)
- if (props.match.params.action === "edit") {
-   getEditData()
+ if (props.match.params.action === "edit" && props.match.params.type === "scholarships" ) {
+   getEditDatascholarship()
  }
+
+ if (props.match.params.action === "edit" && props.match.params.type === "jobs" ) {
+   getEditDataJob()
+ }
+
+  if (props.match.params.action === "edit" && props.match.params.type === "fellowship" ) {
+   getEditDataFellowship()
+ }
+
+ 
 }, [])
 
- const getEditData=async()=>{
+ const getEditDataJob=async()=>{
    
         try {
           showLoader()
@@ -64,6 +74,70 @@ useEffect(() => {
               })
               setRequirements(res.data.requirements)
               setStartDate(new Date(res.data.end_date))
+            }
+            hideLoader()
+           
+        } catch (error) {
+            hideLoader()
+        }
+    }
+
+        const getEditDataFellowship=async()=>{
+   
+        try {
+          showLoader()
+            const res = await httpGet(`scholarships/${props.match.params.id}/`)
+            if (res.status === 200) {
+              setFellowship({
+              title:res.data.title,
+              summary:res.data.summary,
+              How_to_Apply:res.data.how_to,
+              benefits:res.data.benefits,
+              process:res.data.selection_process,
+              link:res.data.link,
+              industry:res.data.industry,
+              cta_text:res.data.cta_text,
+              status:res.data.status,
+              banner:"",
+              previewImg:res.data.banner,
+
+              })
+
+               setRequirements(res.data.eligibility)
+              setStartDate(new Date(res.data.end_date))
+
+            }
+            hideLoader()
+           
+        } catch (error) {
+            hideLoader()
+        }
+    }
+
+    const getEditDatascholarship=async()=>{
+   
+        try {
+          showLoader()
+            const res = await httpGet(`scholarships/${props.match.params.id}/`)
+            if (res.status === 200) {
+              setscholarshipsFellowship({
+              title:res.data.title,
+              summary:res.data.summary,
+              How_to_Apply:res.data.how_to,
+              benefits:res.data.benefits,
+              process:res.data.selection_process,
+              link:res.data.link,
+              industry:res.data.industry,
+              cta_text:res.data.cta_text,
+              status:res.data.status,
+              banner:"",
+              previewImg:res.data.banner,
+
+              })
+
+               setRequirements(res.data.eligibility)
+              setStartDate(new Date(res.data.end_date))
+
             }
             hideLoader()
            
@@ -136,10 +210,324 @@ previewImg:"",
 
 })
 
+const [scholarshipsFellowship,setscholarshipsFellowship]= useState({
+title:"",
+summary:"",
+How_to_Apply:"",
+link:"",
+industry:"",
+cta_text:"",
+process:"",
+status:"active",
+benefits:"",
+banner:"",
+previewImg:"",
+
+})
+
+const [Fellowship,setFellowship]= useState({
+title:"",
+summary:"",
+How_to_Apply:"",
+link:"",
+industry:"",
+cta_text:"",
+process:"",
+status:"active",
+benefits:"",
+banner:"",
+previewImg:"",
+
+})
 const [pageType, setPageType]=useState("create")
 
  const handleSubmit=async(e)=>{
       e.preventDefault();
+
+
+         if (props.match.params.type === "fellowship" ) {
+       if (pageType === "create") {
+         
+         e.preventDefault();
+         try {
+           showLoader()
+
+           let date =moment(startDate).format("YYYY-MM-DD")
+  
+    
+                const data  = {
+
+             title: Fellowship.title,
+              summary: Fellowship.summary,
+              how_to: Fellowship.How_to_Apply,
+              benefits: Fellowship.benefits,
+              link: Fellowship.link,
+              industry: Fellowship.industry,
+              cta_text: Fellowship.cta_text,
+                status: Fellowship.status,
+                 selection_process: Fellowship.process,
+                  industry: Fellowship.industry,
+                    banner:Fellowship.banner,
+                    category:"fellowship",
+                    end_date:date,
+                    eligibility:Requirements
+              
+             };
+             let res = await httpPost(`scholarships/`,data)
+            console.log("res status",res) 
+            if (res.status === 201 || res.status === 200) {
+                 setFellowship({
+                  title:"",
+                  summary:"",
+                  How_to_Apply:"",
+                  link:"",
+                  industry:"",
+                  cta_text:"",
+                  process:"",
+                  status:"active",
+                  benefits:"",
+                  banner:"",
+                  previewImg:"",
+
+                  })
+             NotificationManager.success(
+                "Data created successfully.",
+               "Yepp",
+               3000
+           );
+            }
+                
+                 
+         
+             hideLoader()
+       } catch (error) {
+           console.log(error.response)
+           NotificationManager.success(
+               error,
+              "Opps",
+              3000
+          );
+           hideLoader()
+       }
+       }
+
+
+        if (action === "edit") {
+         e.preventDefault();
+         try {
+           showLoader()
+alert(4)
+           let date =moment(startDate).format("YYYY-MM-DD")
+  
+    
+                const data  = {
+
+             title: Fellowship.title,
+              summary: Fellowship.summary,
+              how_to: Fellowship.How_to_Apply,
+              benefits: Fellowship.benefits,
+              link: Fellowship.link,
+              industry: Fellowship.industry,
+              cta_text: Fellowship.cta_text,
+                status: Fellowship.status,
+                 selection_process: Fellowship.process,
+                  industry: Fellowship.industry,
+                    category:"fellowship",
+                    end_date:date,
+                    eligibility:Requirements
+              
+             };
+
+             if (Fellowship.banner !== "") {
+              let newData = {...data,banner:Fellowship.banner}
+
+               let res = await httpPatch(`scholarships/${props.match.params.id}/`,newData)
+            console.log("res status",res) 
+            if (res.status === 201 || res.status === 200) {
+             NotificationManager.success(
+                "Data updated successfully.",
+               "Yepp",
+               3000
+           );
+            }
+            getEditDataFellowship()
+
+          
+             }
+               else{
+
+               let res = await httpPatch(`scholarships/${props.match.params.id}/`,data)
+            console.log("res status",res) 
+            if (res.status === 201 || res.status === 200) {
+             NotificationManager.success(
+                "Data updated successfully.",
+               "Yepp",
+               3000
+           );}
+           getEditDataFellowship()
+
+            }
+            
+                
+                 
+         
+             hideLoader()
+       } catch (error) {
+           console.log(error.response)
+           NotificationManager.success(
+               error,
+              "Opps",
+              3000
+          );
+           hideLoader()
+       }
+       }
+      }
+
+
+       if (props.match.params.type === "scholarships" ) {
+       if (pageType === "create") {
+         
+         e.preventDefault();
+         try {
+           showLoader()
+
+           let date =moment(startDate).format("YYYY-MM-DD")
+  
+    
+                const data  = {
+
+             title: scholarshipsFellowship.title,
+              summary: scholarshipsFellowship.summary,
+              how_to: scholarshipsFellowship.How_to_Apply,
+              benefits: scholarshipsFellowship.benefits,
+              link: scholarshipsFellowship.link,
+              industry: scholarshipsFellowship.industry,
+              cta_text: scholarshipsFellowship.cta_text,
+                status: scholarshipsFellowship.status,
+                 selection_process: scholarshipsFellowship.process,
+                  industry: scholarshipsFellowship.industry,
+                    banner:scholarshipsFellowship.banner,
+                    category:"scholarship",
+                    end_date:date,
+                    eligibility:Requirements
+              
+             };
+             let res = await httpPost(`scholarships/`,data)
+            console.log("res status",res) 
+            if (res.status === 201 || res.status === 200) {
+                 setscholarshipsFellowship({
+                  title:"",
+                  summary:"",
+                  How_to_Apply:"",
+                  link:"",
+                  industry:"",
+                  cta_text:"",
+                  process:"",
+                  status:"active",
+                  benefits:"",
+                  banner:"",
+                  previewImg:"",
+
+                  })
+             NotificationManager.success(
+                "Data created successfully.",
+               "Yepp",
+               3000
+           );
+            }
+                
+                 
+         
+             hideLoader()
+       } catch (error) {
+           console.log(error.response)
+           NotificationManager.success(
+               error,
+              "Opps",
+              3000
+          );
+           hideLoader()
+       }
+       }
+
+
+        if (action === "edit") {
+         e.preventDefault();
+         try {
+           showLoader()
+
+           let date =moment(startDate).format("YYYY-MM-DD")
+  
+    
+                const data  = {
+
+             title: scholarshipsFellowship.title,
+              summary: scholarshipsFellowship.summary,
+              how_to: scholarshipsFellowship.How_to_Apply,
+              benefits: scholarshipsFellowship.benefits,
+              link: scholarshipsFellowship.link,
+              industry: scholarshipsFellowship.industry,
+              cta_text: scholarshipsFellowship.cta_text,
+                status: scholarshipsFellowship.status,
+                 selection_process: scholarshipsFellowship.process,
+                    category:"scholarship",
+                    end_date:date,
+                    eligibility:Requirements
+              
+             };
+
+             if (scholarshipsFellowship.banner !== "") {
+              let newData = {...data,banner:scholarshipsFellowship.banner}
+
+               let res = await httpPatch(`scholarships/${props.match.params.id}/`,newData)
+            console.log("res status",res) 
+            if (res.status === 201 || res.status === 200) {
+             NotificationManager.success(
+                "Data updated successfully.",
+               "Yepp",
+               3000
+           );
+            }
+            getEditDatascholarship()
+
+          
+             }
+               else{
+
+               let res = await httpPatch(`scholarships/${props.match.params.id}/`,data)
+            console.log("res status",res) 
+            if (res.status === 201 || res.status === 200) {
+             NotificationManager.success(
+                "Data updated successfully.",
+               "Yepp",
+               3000
+           );}
+           getEditDatascholarship()
+
+            }
+            
+                
+                 
+         
+             hideLoader()
+       } catch (error) {
+           console.log(error.response)
+           NotificationManager.success(
+               error,
+              "Opps",
+              3000
+          );
+           hideLoader()
+       }
+       }
+      }
+
+
+
+
+
+          if (props.match.params.type === "jobs" ) {
        if (pageType === "create") {
          
          e.preventDefault();
@@ -237,7 +625,7 @@ const [pageType, setPageType]=useState("create")
              if (jobs.logo !== "") {
               let newData = {...data,logo:jobs.logo}
 
-               let res = await httpPost(`jobs/`,newData)
+               let res = await httpPatch(`jobs/${props.match.params.id}/`,newData)
             console.log("res status",res) 
             if (res.status === 201 || res.status === 200) {
              NotificationManager.success(
@@ -246,7 +634,7 @@ const [pageType, setPageType]=useState("create")
                3000
            );
             }
-            getEditData()
+            getEditDataJob()
 
           
              }
@@ -260,7 +648,7 @@ const [pageType, setPageType]=useState("create")
                "Yepp",
                3000
            );}
-           getEditData()
+           getEditDataJob()
 
             }
             
@@ -278,6 +666,10 @@ const [pageType, setPageType]=useState("create")
            hideLoader()
        }
        }
+      }
+
+
+
        }
 
 const handleImageChange=(imageFile) =>{
@@ -286,8 +678,24 @@ const handleImageChange=(imageFile) =>{
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-    setjobs({...jobs,logo:reader.result,previewImg: GetImageUrl(file) });
-   console.log("base 64>>>>>",jobs.logo)
+         if (props.match.params.type === "jobs" ) {
+   setjobs({...jobs,logo:reader.result,previewImg: GetImageUrl(file) });
+     console.log(jobs)
+
+    }
+
+    if (props.match.params.type === "scholarships") {
+       setscholarshipsFellowship({...scholarshipsFellowship, banner:reader.result,previewImg: GetImageUrl(file) })
+     console.log(scholarshipsFellowship)
+
+    }
+
+      if (props.match.params.type === "fellowship"  ) {
+       setFellowship({...Fellowship, banner:reader.result,previewImg: GetImageUrl(file) })
+     console.log(Fellowship)
+
+    }
+  
     };
     
   }
@@ -298,9 +706,26 @@ const handleImageChange=(imageFile) =>{
      
     }
 
+    
+
      const handleChange=(e)=>{
-     setjobs({...jobs, [e.target.name]: e.target.value });
+      if (props.match.params.type === "jobs" ) {
+       setjobs({...jobs, [e.target.name]: e.target.value });
      console.log(jobs)
+
+    }
+
+    if (props.match.params.type === "scholarships") {
+       setscholarshipsFellowship({...scholarshipsFellowship, [e.target.name]: e.target.value })
+     console.log(scholarshipsFellowship)
+
+    }
+
+    if (props.match.params.type === "fellowship"  ) {
+       setFellowship({...Fellowship, [e.target.name]: e.target.value })
+     console.log(Fellowship)
+
+    }
 
     }
 
@@ -314,7 +739,7 @@ const handleImageChange=(imageFile) =>{
                 
         <div className="funding-opt-wrap">
         <div className="add_funding_header">
-          <h1>Add New {Type}</h1>
+          <h1>{action === "edit" ? "Edit" : "Create"} {Type}</h1>
                 </div>
           <div className="funding-inputes">
             {
@@ -327,44 +752,26 @@ const handleImageChange=(imageFile) =>{
 </div>
 
 <div className="investment-details-input-wrap">
-  <label>description</label>
+  <label>Description</label>
   <textarea required value={jobs.description} onChange={handleChange} name="description" type="text" placeholder="Eg. your text here"/>
 </div>
 
 
 
 <div className="investment-details-input-wrap">
-  <label>position</label>
+  <label>Position</label>
   <input value={jobs.position} onChange={handleChange} name="position" type="text" placeholder="Eg. your text here"/>
 </div>
 
 <div className="investment-details-input-wrap">
-  <label>salary</label>
+  <label>Salary</label>
   <input value={jobs.salary} onChange={handleChange}  name="salary" type="text" placeholder="Eg. your text here"/>
 </div>
 
 
 <div className="investment-details-input-wrap">
-  <label>location</label>
+  <label>Location</label>
   <input value={jobs.location} onChange={handleChange} name="location" type="text" placeholder="Eg. your text here"/>
-</div>
-
-
-<div className="investment-details-input-wrap">
-  <label>link</label>
-  <input value={jobs.link} onChange={handleChange} name="link" type="text" placeholder="Eg. your text here"/>
-</div>
-
-
-<div className="investment-details-input-wrap">
-  <label>country</label>
-  <input value={jobs.country} onChange={handleChange} name="country" type="text" placeholder="Eg. your text here"/>
-</div>
-
-
-<div className="investment-details-input-wrap">
-  <label>industry</label>
-  <input value={jobs.industry} onChange={handleChange} name="industry" type="text" placeholder="Eg. your text here"/>
 </div>
 
 
@@ -374,12 +781,31 @@ const handleImageChange=(imageFile) =>{
 </div>
 
 <div className="investment-details-input-wrap">
+  <label> CTA Link</label>
+  <input value={jobs.link} onChange={handleChange} name="link" type="text" placeholder="Eg. your text here"/>
+</div>
+
+
+<div className="investment-details-input-wrap">
+  <label>Industry</label>
+  <input value={jobs.industry} onChange={handleChange} name="industry" type="text" placeholder="Eg. your text here"/>
+</div>
+
+
+
+<div className="investment-details-input-wrap">
   <label> Work Time</label>
   <select value={jobs.workTime} onChange={handleChange} name="workTime" id="">
     <option value="fulltime">full Time</option>
     <option value="part-time"> Part Time</option>
   </select>
 </div>
+
+<div className="investment-details-input-wrap">
+  <label>country</label>
+  <input value={jobs.country} onChange={handleChange} name="country" type="text" placeholder="Eg. your text here"/>
+</div>
+
 
 <div className="investment-details-input-wrap">
   <label> Status</label>
@@ -408,7 +834,7 @@ const handleImageChange=(imageFile) =>{
 </div>
 
 <div className="investment-details-input-wrap">
-  <label>End date</label>
+  <label>Deadline</label>
   <DatePicker
       closeOnScroll={true}
       selected={startDate} 
@@ -449,7 +875,7 @@ const handleImageChange=(imageFile) =>{
 
 
 <div className="fundingOp-btn">
-  <button onClick={handleSubmit}>Submit </button>
+  <button onClick={handleSubmit}>{action === "edit" ? "Edit" : "Create"} </button>
 </div>
 
 
@@ -461,6 +887,276 @@ const handleImageChange=(imageFile) =>{
               )
               :""
             }
+
+
+
+
+             {
+              Type === "scholarships" ? (
+   <div className="add-investment-details-wrap">
+
+<div className="investment-details-input-wrap">
+  <label>Title</label>
+  <input required name="title" value={scholarshipsFellowship.title} onChange={handleChange} type="text" placeholder="Eg. your text here"/>
+</div>
+
+<div className="investment-details-input-wrap">
+  <label>Summary</label>
+  <textarea required value={scholarshipsFellowship.summary} onChange={handleChange} name="summary" type="text" placeholder="Eg. your text here"/>
+</div>
+
+
+
+<div className="investment-details-input-wrap">
+  <label>How to Apply</label>
+  <textarea value={scholarshipsFellowship.How_to_Apply} onChange={handleChange} name="How_to_Apply" type="text" placeholder="Eg. your text here"/>
+</div>
+
+
+<div className="investment-details-input-wrap">
+  <label>CTA</label>
+  <input value={scholarshipsFellowship.cta_text} onChange={handleChange} name="cta_text" type="text" placeholder="Eg. your text here"/>
+</div>
+
+<div className="investment-details-input-wrap">
+  <label> CTA Link</label>
+  <input value={scholarshipsFellowship.link} onChange={handleChange} name="link" type="text" placeholder="Eg. your text here"/>
+</div>
+
+
+<div className="investment-details-input-wrap">
+  <label>Selection Process</label>
+  <textarea value={scholarshipsFellowship.process} onChange={handleChange} name="process" type="text" placeholder="Eg. your text here"/>
+</div>
+
+
+<div className="investment-details-input-wrap">
+  <label>Industry</label>
+  <input value={scholarshipsFellowship.industry} onChange={handleChange} name="industry" type="text" placeholder="Eg. your text here"/>
+</div>
+
+<div className="investment-details-input-wrap">
+  <label>Benefits</label>
+  <textarea required value={scholarshipsFellowship.benefits} onChange={handleChange} name="benefits" type="text" placeholder="Eg. your text here"/>
+</div>
+
+
+<div className="investment-details-input-wrap">
+  <label>Eligibility</label>
+
+  <div className="funding-industry-div">
+     <input  style={{borderRadius:"5px 0px 0 5px"}} onChange={(e)=>setRequirementsInput(e.target.value)} type="text"
+      placeholder="eg, your text here"/><button
+   onClick={(data)=>handleRequirements("add","")}>Add</button>
+  </div>
+ 
+   <div className="funding-industry-tags">
+  {
+    Requirements.map((data,index)=>{
+    return<span className="funding-industry-tags-span" onClick={(data)=>handleRequirements("remove",index)}>{`${data}`} <span className="x" >X</span></span>
+    })
+  }
+  </div>
+</div>
+
+<div className="investment-details-input-wrap">
+  <label> Status</label>
+  <select value={scholarshipsFellowship.status} onChange={handleChange} name="status" id="">
+    <option value="active">Active</option>
+    <option value="inactive">Inactive</option>
+  </select>
+</div>
+
+<div className="investment-details-input-wrap">
+  <label>Deadline</label>
+  <DatePicker
+      closeOnScroll={true}
+      selected={startDate} 
+      onChange={date => setStartDate(date)  }
+      minDate={new Date()}
+      showTimeSelect
+      timeFormat="HH:mm"
+      timeIntervals={15}
+      timeCaption="time"
+      dateFormat="MMMM d, yyyy h:mm aa"
+    />
+</div>
+
+
+   <div className="investment-details-input-wrap">
+                   <label>Banner</label>
+     <div className="upload-investment-details">
+                    <div className="uploadInvesmet-input-submit">
+                    <button>Choose file</button>
+                    <input name="banner" type="file" onChange={handleFileChange} />
+                    </div>
+
+                    <div className="uploadInvesmet-input-submit">
+                    <span>{scholarshipsFellowship.previewImg === "" ? "No file chosen" : ""}</span>
+             </div>
+        </div>
+      
+                        {
+                            scholarshipsFellowship.previewImg === "" ? "" :
+                        
+                      <img title="Change Image" 
+                      style={{width:"60px",height:"50px",marginBottom:"-5px",borderRadius: "4px",marginTop:"10px"}}
+                       src={scholarshipsFellowship.previewImg} />
+             
+                        }
+   
+                   </div>
+
+
+<div className="fundingOp-btn">
+  <button onClick={handleSubmit}>{action === "edit" ? "Edit" : "Create"} </button>
+</div>
+
+
+
+
+
+</div>
+      
+              )
+              :""
+            }
+
+
+
+
+
+             {
+              Type === "fellowship" ? (
+   <div className="add-investment-details-wrap">
+
+<div className="investment-details-input-wrap">
+  <label>Title</label>
+  <input required name="title" value={Fellowship.title} onChange={handleChange} type="text" placeholder="Eg. your text here"/>
+</div>
+
+<div className="investment-details-input-wrap">
+  <label>Summary</label>
+  <textarea required value={Fellowship.summary} onChange={handleChange} name="summary" type="text" placeholder="Eg. your text here"/>
+</div>
+
+
+
+<div className="investment-details-input-wrap">
+  <label>How to Apply</label>
+  <textarea value={Fellowship.How_to_Apply} onChange={handleChange} name="How_to_Apply" type="text" placeholder="Eg. your text here"/>
+</div>
+
+
+<div className="investment-details-input-wrap">
+  <label>CTA</label>
+  <input value={Fellowship.cta_text} onChange={handleChange} name="cta_text" type="text" placeholder="Eg. your text here"/>
+</div>
+
+<div className="investment-details-input-wrap">
+  <label> CTA Link</label>
+  <input value={Fellowship.link} onChange={handleChange} name="link" type="text" placeholder="Eg. your text here"/>
+</div>
+
+
+<div className="investment-details-input-wrap">
+  <label>Selection Process</label>
+  <textarea value={Fellowship.process} onChange={handleChange} name="process" type="text" placeholder="Eg. your text here"/>
+</div>
+
+
+<div className="investment-details-input-wrap">
+  <label>Industry</label>
+  <input value={Fellowship.industry} onChange={handleChange} name="industry" type="text" placeholder="Eg. your text here"/>
+</div>
+
+<div className="investment-details-input-wrap">
+  <label>Benefits</label>
+  <textarea required value={Fellowship.benefits} onChange={handleChange} name="benefits" type="text" placeholder="Eg. your text here"/>
+</div>
+
+
+<div className="investment-details-input-wrap">
+  <label>Eligibility</label>
+
+  <div className="funding-industry-div">
+     <input  style={{borderRadius:"5px 0px 0 5px"}} onChange={(e)=>setRequirementsInput(e.target.value)} type="text"
+      placeholder="eg, your text here"/><button
+   onClick={(data)=>handleRequirements("add","")}>Add</button>
+  </div>
+ 
+   <div className="funding-industry-tags">
+  {
+    Requirements.map((data,index)=>{
+    return<span className="funding-industry-tags-span" onClick={(data)=>handleRequirements("remove",index)}>{`${data}`} <span className="x" >X</span></span>
+    })
+  }
+  </div>
+</div>
+
+<div className="investment-details-input-wrap">
+  <label> Status</label>
+  <select value={Fellowship.status} onChange={handleChange} name="status" id="">
+    <option value="active">Active</option>
+    <option value="inactive">Inactive</option>
+  </select>
+</div>
+
+<div className="investment-details-input-wrap">
+  <label>Deadline</label>
+  <DatePicker
+      closeOnScroll={true}
+      selected={startDate} 
+      onChange={date => setStartDate(date)  }
+      minDate={new Date()}
+      showTimeSelect
+      timeFormat="HH:mm"
+      timeIntervals={15}
+      timeCaption="time"
+      dateFormat="MMMM d, yyyy h:mm aa"
+    />
+</div>
+
+
+   <div className="investment-details-input-wrap">
+                   <label>Banner</label>
+     <div className="upload-investment-details">
+                    <div className="uploadInvesmet-input-submit">
+                    <button>Choose file</button>
+                    <input name="banner" type="file" onChange={handleFileChange} />
+                    </div>
+
+                    <div className="uploadInvesmet-input-submit">
+                    <span>{Fellowship.previewImg === "" ? "No file chosen" : ""}</span>
+             </div>
+        </div>
+      
+                        {
+                            Fellowship.previewImg === "" ? "" :
+                        
+                      <img title="Change Image" 
+                      style={{width:"60px",height:"50px",marginBottom:"-5px",borderRadius: "4px",marginTop:"10px"}}
+                       src={Fellowship.previewImg} />
+             
+                        }
+   
+                   </div>
+
+
+<div className="fundingOp-btn">
+  <button onClick={handleSubmit}>{action === "edit" ? "Edit" : "Create"} </button>
+</div>
+
+
+
+
+
+</div>
+      
+              )
+              :""
+            }
+
 
            </div>
         </div>

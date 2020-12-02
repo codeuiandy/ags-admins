@@ -6,7 +6,7 @@ import _ from 'lodash';
 import avatar from '../Users/avatar.png'
 import moment from 'moment'
 import Truncate from '../helpers/truncate'
-export default class Jobs extends Component {
+export default class Scholarships extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {};
@@ -14,10 +14,10 @@ export default class Jobs extends Component {
 
 	bodyRow = () => {
         console.log(this.props.jobs)
-		const body = this.props.jobs.map((data, index) => ({
+		const body = this.props.scholarships.scholarships.map((data, index) => ({
 		
 			title: <Link to={`view_investment/${data.id}`}>{data.title}  </Link>,
-			description:  _.startCase(_.lowerCase(`${Truncate(data.description,100)}`)),
+			description:  _.startCase(_.lowerCase(`${Truncate(data.summary,100)}`)),
             status:  data.status,
 			endDate:  data.end_date,
 
@@ -26,7 +26,7 @@ export default class Jobs extends Component {
 
 
 						{" "}
-						<Link to={`/add_others/jobs/edit/${data.id}`}>
+						<Link to={`/add_others/scholarships/edit/${data.id}`}>
 						<i
 						style={{fontSize:"14px"}}
 							className="fas fa-pen mr-4 add-cursor"
@@ -43,7 +43,7 @@ export default class Jobs extends Component {
 					style={{fontSize:"14px"}}
 						className="fa fa-trash mr-4 add-cursor"
 						type="button" data-toggle="modal" data-target="#ComfirmModal"
-						onClick={()=>this.props.getDeletId(data.id,"jobs")}
+						onClick={()=>this.props.getDeletId(data.id,"scholarships")}
 					></i>
 
 				
@@ -65,7 +65,7 @@ export default class Jobs extends Component {
 				filterable: true,
 			},
 	
-			{ title: "Description", prop: "description", sortable: true },
+			{ title: "Summary", prop: "description", sortable: true },
              { title: "End Date", prop: "endDate", sortable: true },
             { title: "status", prop: "status", sortable: true },
 			{ title: "Actions", prop: "action" },
