@@ -1,13 +1,22 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import OverViewCards from './overviewCards'
 import Layout from '../Layout/index'
 import './index.css'
 import RealEstateTable from '../Tables/realEstate.jsx'
 import Agriculture from '../Tables/agricuture.jsx'
 import FixedIncome from "../Tables/fixedIncome.jsx"
+import OthersTable from "../Tables/othersTable"
 import AddInvestMentModal from '../Modals/AddInvestMentModal.jsx'
 import AddInvestMentDetailsModal from '../Modals/addInvestmentDetails.jsx'
+import {NotificationContainer, NotificationManager} from 'react-notifications'
+import {httpPostFormData,httpPut,httpPatch,httpGet, httpPost, httpDelete} from '../helpers/httpMethods'
+import {hideLoader, showLoader} from '../helpers/loader'
+import DeleteModal from '../Modals/comfirmModal'
 export default function InvestmentOpportunities(props) {
+   useEffect(() => {
+    getData()
+  }, [])
+
   const [tableSwitch, setTableSwitch] = useState("realEstate")
 
   const [realEstateData, SetRealEstateData] = useState([{
@@ -37,6 +46,79 @@ export default function InvestmentOpportunities(props) {
   }
 
 ])
+ 
+   const [agricTech, setagricTech] = useState([])
+   const [fixedIncome, setfixedIncome] = useState([])
+   const [Others, setOthers] = useState([])
+   const  getData =async()=>{
+
+      try {
+        showLoader()
+          const res = await httpGet(`investments/`)
+          if (res.status === 200) {
+            let getAgricTech = res.data.filter((res)=>{
+              return(
+                res.investment_type === "agric tech"
+              )
+            })
+
+             let getfixedIncome = res.data.filter((res)=>{
+              return(
+                res.investment_type === "fixed income"
+              )
+            })
+
+              let getOthers = res.data.filter((res)=>{
+              return(
+                res.investment_type === "others"
+              )
+            })
+
+            setagricTech(getAgricTech)
+            setfixedIncome(getfixedIncome)
+             setOthers(getOthers)
+          }
+          
+          
+          hideLoader()
+      } catch (error) {
+        hideLoader()
+      }
+  }
+
+
+  
+  const [DeleteId,setDeleteId] = useState("")
+
+
+     const getDeletId=(id,enpoint)=>{
+        setDeleteId(id)
+    }
+  
+    const handleDelete=async()=>{
+      showLoader()
+      try {
+          let res = await httpDelete(`investments/${DeleteId}/`)
+          if (res.status===204 || res.status===200 || res.status===201) {
+              NotificationManager.success(
+              "deleted successfully",
+             "Yepp",
+             3000
+         );
+         getData()
+         hideLoader()
+          }
+          
+      } catch (error) {
+          hideLoader()
+          NotificationManager.error(
+              error,
+             "Opps",
+             3000
+         );
+      }
+  
+  }
 
   const setTableSwitchHandle=(type)=>{
    
@@ -52,6 +134,10 @@ export default function InvestmentOpportunities(props) {
 
     if (type === "fixedIncome") {
       setTableSwitch("fixedIncome")
+    }
+
+    if (type === "others") {
+      setTableSwitch("others")
     }
   }
   return (
@@ -95,6 +181,13 @@ export default function InvestmentOpportunities(props) {
                                     }
                                 </span>
 
+                                 <span onClick={()=>setTableSwitchHandle("others")} className="category-options">
+                                    <div className="cat-one">Others</div>
+                                    {
+                                      tableSwitch==="others"?<div className="active-cat"></div>:""
+                                    }
+                                </span>
+
                               </div>
 
                               <div className="switch-demacator"></div>
@@ -108,11 +201,15 @@ export default function InvestmentOpportunities(props) {
                                     
                                
                                     {
-                                      tableSwitch==="agriculture"?<Agriculture realEstateData={realEstateData}/>:""
+                                      tableSwitch==="agriculture"?<Agriculture setDeleteId={setDeleteId} agricTech={agricTech}/>:""
                                     }
                               
                                     {
-                                      tableSwitch==="fixedIncome"? <FixedIncome realEstateData={realEstateData}/>:""
+                                      tableSwitch==="fixedIncome"? <FixedIncome setDeleteId={setDeleteId} agricTech={fixedIncome}/>:""
+                                    }
+
+                                     {
+                                      tableSwitch==="others"? <OthersTable setDeleteId={setDeleteId} agricTech={Others}/>:""
                                     }
                                 
                                 
@@ -120,7 +217,8 @@ export default function InvestmentOpportunities(props) {
                               </div>
                               
       </Layout>
-      <AddInvestMentModal/>
+      <AddInvestMentModal push={props.history.push}/>
+      <DeleteModal deletData={handleDelete}/>
       <AddInvestMentDetailsModal/>
     </div>
   )

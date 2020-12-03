@@ -83,7 +83,7 @@ function App() {
 						<Route exact path="/edit_topic/:id" component={EditTopic} />
 						<Route exact path="/edit_post/:type/:id" component={EditPost} />
 						<Route exact path="/investment_opportunities" component={InvestmentOpportunities} />
-						<Route exact path="/investment_opportunities_step2" component={InvestmentOpportunitiesSlide2} />
+						<Route exact path="/investment_opportunities/:type/:action/:id" component={InvestmentOpportunitiesSlide2} />
 						<Route exact path="/view_investment/:id" component={ViewInvestment} />
 						<Route exact path="/funding_opportunities" component={FundingOpportunities} />
 						<Route exact path="/add_funding" component={AddFunding} />

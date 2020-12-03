@@ -3,11 +3,6 @@ import React,{useState} from 'react'
 import OverViewCards from './overviewCards'
 import Layout from '../Layout/index'
 import './index.css'
-import RealEstateTable from '../Tables/realEstate.jsx'
-import Agriculture from '../Tables/agricuture.jsx'
-import FixedIncome from "../Tables/fixedIncome.jsx"
-import AddInvestMentModal from '../Modals/AddInvestMentModal.jsx'
-import AddInvestMentDetailsModal from '../Modals/addInvestmentDetails.jsx'
 import DatePicker from "react-datepicker";
 export default function FundingOptionity(props) {
   const [industryData, setindustryData] = useState([])

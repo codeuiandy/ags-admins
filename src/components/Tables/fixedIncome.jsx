@@ -12,44 +12,35 @@ export default class realEstate extends Component {
 	}
 
 	bodyRow = () => {
-		const body = this.props.realEstateData.map((data, index) => ({
+		const body = this.props.agricTech.map((data, index) => ({
 		
 			title: <Link to={`view_investment/${data.id}`}>{data.title}  </Link>,
-			Partner:  _.startCase(_.lowerCase(`${data.partner}`)),
-			ROI:data.rio,
-			Maturity:  data.maturity,
+			Partner:  _.startCase(_.lowerCase(`${data.company}`)),
+			ROI:`${data.roi}%`,
+			Maturity:  data.maturity_date,
 
 			action: (
 				<a>
 
 
 						{" "}
-						<Link to={`view_investment/${data.id}`}>
+						<Link to={`/investment_opportunities/fixed_income/editSameInvestment/${data.id}`}>
 						<i
 						style={{fontSize:"14px"}}
-							className="edit"
-							className="fas fa-eye mr-4 add-cursor"
+							className="fas fa-pen mr-4 add-cursor"
 						></i>
 						</Link>
 
             
-						<i
-						data-dismiss="modal"  data-toggle="modal" 
-						data-target="#addInvestmentDetailsModal"
-						style={{fontSize:"14px"}}
-							className="edit"
-							className="fas fa-pen mr-4 add-cursor"
-						></i>
 					
-						
             
 
                           
 					<i
 					style={{fontSize:"14px"}}
 						className="fa fa-trash mr-4 add-cursor"
-						type="button" data-toggle="modal" data-target="#blockUser"
-						onClick={()=>this.props.getUserId(data.id)}
+						type="button" data-toggle="modal" data-target="#ComfirmModal"
+						onClick={()=>this.props.setDeleteId(data.id)}
 					></i>
 
 				
@@ -71,7 +62,7 @@ export default class realEstate extends Component {
 				filterable: true,
 			},
 	
-			{ title: "Partner", prop: "Partner", sortable: true },
+			{ title: "Company", prop: "Partner", sortable: true },
 
 
 			{ title: "ROI", prop: "ROI", sortable: true },

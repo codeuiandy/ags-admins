@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-export default function AddInvestMentModal() {
+export default function AddInvestMentModal(props) {
   return (
     <div>
       <div class="modal fade" id="investmentModal" tabindex="-1" role="dialog" aria-labelledby="investmentModal" aria-hidden="true">
@@ -14,18 +14,15 @@ export default function AddInvestMentModal() {
       </div>
       <div class="modal-body">
         <div className="add-investment-wrap">
-          <h1>Choose Your type of Investment</h1>
-          <label>Investment Type*</label>
-          <select name="" id="">
-            <option value="select">Select</option>
-            <option value="Agric Tech">Agric Tech</option>
-            <option value="Agric Tech">Real Estate </option>
-            <option value="Agric Tech">Fixed Income</option>
-            <option value="Agric Tech">Others</option>
+          <h1>Select Investment Type</h1>
+          <select onChange={(e)=>props.push(`/investment_opportunities/${e.target.value}/create/no_id`)} name="" id="">
+            <option value="">Select</option>
+               <option value="agric_tech">Agric Tech</option>
+            <option value="real_estate">Real Estate </option>
+            <option value="fixed_income">Fixed Income</option>
+            <option value="others">Others</option>
+        
           </select> 
-          <Link to="/investment_opportunities_step2">
-          <button>Create</button>
-          </Link>
         </div>
       </div>
       <div class="modal-footer">

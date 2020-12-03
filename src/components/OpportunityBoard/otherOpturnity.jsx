@@ -56,7 +56,6 @@ export default function InvestmentOpportunities(props) {
             const res1 = await httpGet(`scholarships/`)
             const all = await axios.all([res0, res1])
             console.log(all[0].data)
-            console.log(">>>>>",all[1].data)
             setJobs(all[0].data)
             setScholarshipsFellowships(all[1].data)
             hideLoader()

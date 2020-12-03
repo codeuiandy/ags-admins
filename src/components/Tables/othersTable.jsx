@@ -23,13 +23,17 @@ export default class realEstate extends Component {
 				<a>
 
 
-						<Link to={`/investment_opportunities/agric_tech/editSameInvestment/${data.id}`}>
+						<Link to={`/investment_opportunities/others/editSameInvestment/${data.id}`}>
 						<i
 						style={{fontSize:"14px"}}
 							className="fas fa-pen mr-4 add-cursor"
 						></i>
 						</Link>
-        
+					
+						
+            
+
+                          
 					<i
 					style={{fontSize:"14px"}}
 						className="fa fa-trash mr-4 add-cursor"

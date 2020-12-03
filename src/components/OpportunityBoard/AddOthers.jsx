@@ -10,7 +10,6 @@ import AddInvestMentModal from '../Modals/AddInvestMentModal.jsx'
 import AddInvestMentDetailsModal from '../Modals/addInvestmentDetails.jsx'
 import HideModal from '../helpers/closeModal'
 import DatePicker from "react-datepicker";
-import GetimageURL from '../helpers/getImageUrl'
 import {NotificationContainer, NotificationManager} from 'react-notifications'
 import {httpPostFormData,httpPut,httpPatch,httpGet, httpPost, httpDelete} from '../helpers/httpMethods'
 import {hideLoader, showLoader} from '../helpers/loader'
@@ -316,7 +315,7 @@ const [pageType, setPageType]=useState("create")
          e.preventDefault();
          try {
            showLoader()
-alert(4)
+
            let date =moment(startDate).format("YYYY-MM-DD")
   
     
