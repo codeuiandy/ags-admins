@@ -455,7 +455,7 @@ dropDownEvent:true,
 
 								<li className={`${this.props.page==="other_opportunities" ? "activeClass":""}`}>
 								<Link className={`${this.props.page==="other_opportunities"?"activeClass":""}`} to="/other_opportunities">
-								Others Opportunities</Link></li>
+								Other Opportunities</Link></li>
 
 								
 									

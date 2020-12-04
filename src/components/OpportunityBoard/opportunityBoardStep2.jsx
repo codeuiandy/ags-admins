@@ -12,6 +12,7 @@ export default function OpportunityBoardStep2(props) {
     const [action, SetAction] = useState("")
     const [ID, SetID] = useState("")
     const [pageType, setPageType]=useState("create")
+     const [hideForm, sethideForm]=useState(false)
     useEffect(()=>{
       SetType(props.match.params.type)
       SetAction(props.match.params.action)
@@ -20,14 +21,17 @@ export default function OpportunityBoardStep2(props) {
 
          if (props.match.params.type === "agric_tech" ) {
            setinvestmentType("agric tech")
+           sethideForm(true)
          }
 
           if (props.match.params.type === "fixed_income" ) {
            setinvestmentType("fixed income")
+             sethideForm(true)
          }
 
           if (props.match.params.type === "others" ) {
            setinvestmentType("others")
+             sethideForm(true)
          }
 
            if (props.match.params.action === "editSameInvestment" ) {
@@ -273,6 +277,63 @@ const handleImageChange=(imageFile) =>{
       }
     }
 
+    
+
+
+     const [Features, setFeatures] = useState([])
+  const [FeaturesInput, setFeaturesInput] = useState("")
+  
+const handleFeatures=(type,deleteData)=>{
+  if (type === "add") {
+    if (FeaturesInput === "" || FeaturesInput === null || FeaturesInput === undefined) {
+      return
+    }
+     if (Features.find(data=>data === FeaturesInput)) {
+    alert(`${FeaturesInput} already added`)
+    return
+  }
+  setFeatures([...Features,FeaturesInput])
+  }
+  else{
+    let deletData = Features[deleteData]
+    let filterData = Features.filter(data=>{
+     return data !== deletData
+    })
+    console.log(filterData)
+    setFeatures(filterData)
+  }
+ 
+}
+
+
+ const [PricingPlans, setPricingPlans] = useState([])
+  const [PricingPlansInput, setPricingPlansInput] = useState("")
+  
+const handlePricingPlans=(type,deleteData)=>{
+  if (type === "add") {
+    if (PricingPlansInput === "" || PricingPlansInput === null || PricingPlansInput === undefined) {
+      return
+    }
+     if (PricingPlans.find(data=>data === PricingPlansInput)) {
+    alert(`${PricingPlansInput} already added`)
+    return
+  }
+  setPricingPlans([...PricingPlans,PricingPlansInput])
+  }
+  else{
+    let deletData = PricingPlans[deleteData]
+    let filterData = PricingPlans.filter(data=>{
+     return data !== deletData
+    })
+    console.log(filterData)
+    setPricingPlans(filterData)
+  }
+ 
+}
+
+
+   
+
 
     return (
         <div>
@@ -287,11 +348,16 @@ const handleImageChange=(imageFile) =>{
              { props.match.params.type === "agric_tech" ? <h1>Agric Tech Investment</h1> : "" }
            { props.match.params.type === "fixed_income" ? <h1>Fixed Income Investment</h1> : "" }
             { props.match.params.type === "others" ? <h1>Other Investment</h1> : "" }
+            { props.match.params.type === "real_estate" ? <h1>Real Estate</h1> : "" }
             </div>
 
+           
+{
+   hideForm === true ? (
+  <div>
 <div className="investment-details-input-wrap">
   <label>title</label>
-  <input value={investment.title} onChange={handleChange} name="title" type="text" placeholder="Low Cost housing estates"/>
+  <input value={investment.title} onChange={handleChange} name="title" type="text" placeholder="Enter your text here "/>
 </div>
 
 <div className="investment-details-input-wrap">
@@ -419,12 +485,183 @@ const handleImageChange=(imageFile) =>{
                        src={investment.previewImg} />
              
                         }
+                        
+                      <button onClick={handleSubmit} className="submit-investment-btn">Submit</button>
    
                    </div>
 
 
 
-<button onClick={handleSubmit} className="submit-investment-btn">Submit</button>
+     
+   </div>) :
+
+
+   (
+
+    <div>
+            <div className="investment-details-input-wrap">
+                    <label>title</label>
+                    <input value={investment.title} onChange={handleChange} name="title" type="text" placeholder="Enter your text here "/>
+                  </div>
+
+                  <div className="investment-details-input-wrap">
+                    <label>Description </label>
+                    <textarea value={investment.company} onChange={handleChange} name="company" type="text" placeholder="Enter your text here "/>
+                  </div>
+                  
+                  <div className="investment-details-input-wrap">
+                    <label>Partner Company</label>
+                    <select value={investment.tenor_type} onChange={handleChange} name="tenor_type" id="">
+                    <option value="">Select</option>
+                    <option value="flat">Flat</option>
+                  <option value="pa">Pa</option>
+                  </select> 
+                  </div>
+
+
+                 <div className="investment-details-input-wrap">
+                  <label>Features</label>
+
+                  <div className="funding-industry-div">
+                    <input  style={{borderRadius:"5px 0px 0 5px"}} onChange={(e)=>setFeaturesInput(e.target.value)} type="text"
+                      placeholder="eg, your text here"/><button
+                  onClick={(data)=>handleFeatures("add","")}>Add</button>
+                  </div>
+                
+                  <div className="funding-industry-tags">
+                  {
+                    Features.map((data,index)=>{
+                    return<span className="funding-industry-tags-span" onClick={(data)=>handleFeatures("remove",index)}>{`${data}`} <span className="x" >X</span></span>
+                    })
+                  }
+                  </div>
+                </div>
+
+                <div className="investment-details-input-wrap">
+                    <label>Location</label>
+                    <input value={investment.title} onChange={handleChange} name="title" type="text" placeholder="Enter your text here "/>
+                  </div>
+
+                   <div className="investment-details-input-wrap">
+                    <label>Benefits  </label>
+                    <textarea value={investment.company} onChange={handleChange} name="company" type="text" placeholder="Enter your text here "/>
+                  </div>
+
+                   <div className="investment-details-input-wrap">
+                    <label>Deadline Date</label>
+                    <DatePicker
+                        closeOnScroll={true}
+                        selected={startDate} 
+                        onChange={date => setStartDate(date)  }
+                        minDate={new Date()}
+                        showTimeSelect
+                        timeFormat="HH:mm"
+                        timeIntervals={15}
+                        timeCaption="time"
+                        dateFormat="MMMM d, yyyy h:mm aa"
+                      />
+                  </div>
+
+                   <div className="investment-details-input-wrap">
+                    <label>CTA Text</label>
+                    <input value={investment.title} onChange={handleChange} name="title" type="text" placeholder="Enter your text here "/>
+                  </div>
+
+
+                   <div className="investment-details-input-wrap">
+                    <label>CTA Link</label>
+                    <input value={investment.title} onChange={handleChange} name="title" type="text" placeholder="Enter your text here "/>
+                  </div>
+
+
+                   <div className="investment-details-input-wrap">
+                  <label>Pricing and plans</label>
+
+                  <div className="funding-industry-div">
+                    <input  style={{borderRadius:"5px 0px 0 5px"}} onChange={(e)=>setPricingPlansInput(e.target.value)} type="text"
+                      placeholder="eg, your text here"/><button
+                  onClick={(data)=>handlePricingPlans("add","")}>Add</button>
+                  </div>
+                
+                  <div className="funding-industry-tags">
+                  {
+                    PricingPlans.map((data,index)=>{
+                    return<span className="funding-industry-tags-span" onClick={(data)=>handlePricingPlans("remove",index)}>{`${data}`} <span className="x" >X</span></span>
+                    })
+                  }
+                  </div>
+                </div>
+
+
+
+                <div className="investment-details-input-wrap">
+                        <label>Status</label>
+                        <select value={investment.status} onChange={handleChange} name="status">
+                        <option value="">Select</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                          <option value="closed">Closed</option>
+                          <option value="soldout">Soldout</option>
+                          <option value="coming soon">Coming soon</option>
+
+                      </select> 
+                 </div>
+
+
+                  <div className="investment-details-input-wrap">
+                   <label>Header Image </label>
+     <div className="upload-investment-details">
+                    <div className="uploadInvesmet-input-submit">
+                    <button>Choose file</button>
+                    <input name="banner" type="file" onChange={handleFileChange} />
+                    </div>
+
+                    <div className="uploadInvesmet-input-submit">
+                    <span>{investment.previewImg === "" ? "No file chosen" : ""}</span>
+             </div>
+        </div>
+      
+                        {
+                            investment.previewImg === "" ? "" :
+                        
+                      <img title="Change Image" 
+                      style={{width:"60px",height:"50px",marginBottom:"-5px",borderRadius: "4px",marginTop:"10px"}}
+                       src={investment.previewImg} />
+             
+                        }
+                        </div>
+
+
+                          <div className="investment-details-input-wrap">
+                   <label>Images of layout or Survey <span style={{fontSize:"10px",color:"orange"}}>Could be more than 1 image</span></label>
+     <div className="upload-investment-details">
+                    <div className="uploadInvesmet-input-submit">
+                    <button>Layout Images </button>
+                    <input name="banner" type="file" onChange={handleFileChange} />
+                    </div>
+
+                    <div className="uploadInvesmet-input-submit">
+                    <span>{investment.previewImg === "" ? "No file chosen" : ""}</span>
+             </div>
+        </div>
+      
+                        {
+                            investment.previewImg === "" ? "" :
+                        
+                      <img title="Change Image" 
+                      style={{width:"60px",height:"50px",marginBottom:"-5px",borderRadius: "4px",marginTop:"10px"}}
+                       src={investment.previewImg} />
+             
+                        }
+                        </div>
+
+                                              <button onClick={handleSubmit} className="submit-investment-btn">Submit</button>
+
+
+    </div>
+   )
+}
+
 </div>
                 </div>
             
