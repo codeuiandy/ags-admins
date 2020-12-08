@@ -480,7 +480,7 @@ export default function AffinityNetwork(props) {
     
     ])
 
-    const [resourceType, SetResourceType] = useState("course")
+    const [resourceType, SetResourceType] = useState("session")
    
 
    const  handleFileChange=(e)=>{
@@ -620,9 +620,10 @@ export default function AffinityNetwork(props) {
                                 <select
                                  onChange={(e)=>SetResourceType(e.target.value)}
                                   >
-                                  <option  value="course">Courses</option>
+                                  {/* <option  value="course">Courses</option> */}
+                                   <option value="session">Sessions</option>
                                   <option value="pdf">pdf</option>
-                                  <option value="session">Sessions</option>
+                                 
                                  
                                 </select> 
                                 }
