@@ -27,6 +27,8 @@ export default function AffinityNetwork(props) {
     address:"",
     logo:"",
     banner:"",
+    previewBanner:"",
+    previewLogo:"",
 
 
   })
@@ -242,7 +244,9 @@ export default function AffinityNetwork(props) {
          phone:data.phone,
          service_rendered:data.service_rendered,
          website:data.website,
-         address:data.address
+         address:data.address,
+          previewBanner:data.banner,
+        previewLogo:data.logo,
        })
 
        setpageType("edit")
@@ -250,10 +254,17 @@ export default function AffinityNetwork(props) {
 
       }
 
-        const  handleFileChange=(e)=>{
-     Setpartners({...partners, [e.target.name]: e.target.files[0] })
+      const  handleFileChange=(e)=>{
+   
+    if (e.target.name === "banner") {
+      Setpartners({...partners,banner:e.target.files[0], previewBanner: URL.createObjectURL(e.target.files[0])}) 
     }
 
+    if (e.target.name === "logo") {
+      Setpartners({...partners,logo:e.target.files[0], previewLogo: URL.createObjectURL(e.target.files[0])}) 
+    }
+
+    }
 
   
   return (

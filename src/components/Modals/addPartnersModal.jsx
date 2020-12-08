@@ -49,6 +49,8 @@ export default function AddPartnersModal(props) {
 <div className="investment-details-input-wrap">
   <label className="required-input">Website Link</label>
   <input  value={props.partners.website} type="url" required name="website" onChange={props.handleChange} placeholder="e,g http://website.com"/>
+   <span style={{fontSize:"10px",color: "orange",
+    fontStyle: "italic"}}>input only accept http and https protocol</span>
 </div>
 
 <div className="investment-details-input-wrap">
@@ -56,34 +58,57 @@ export default function AddPartnersModal(props) {
   <input  value={props.partners.address} type="text" required name="address" onChange={props.handleChange} placeholder="e,g your text here"/>
 </div>
 
-<div className="investment-details-input-wrap">
-  <label>Company Logo</label>
-<div className="upload-investment-details">
-    <div className="uploadInvesmet-input-submit">
-      <button>Choose file</button>
-      <input name="logo" onChange={props.handleFileChange}  type="file"/>
-    </div>
+ <div className="investment-details-input-wrap">
+                   <label>Company Logo</label>
+     <div className="upload-investment-details">
+                    <div className="uploadInvesmet-input-submit">
+                    <button>Choose file</button>
+                    <input name="logo" onChange={props.handleFileChange} type="file" />
+                    </div>
 
-    <div className="uploadInvesmet-input-submit">
-      <span>No file chosen</span>
-    </div>
-</div>
-</div>
+                    <div className="uploadInvesmet-input-submit">
+                    <span>{props.partners.previewLogo === "" ? "No file chosen" : ""}</span>
+             </div>
+        </div>
+      
+                        {
+                            props.partners.previewLogo === "" ? "" :
+                        
+                      <img title="Change Image" 
+                      style={{width:"60px",height:"50px",marginBottom:"-5px",borderRadius: "4px",marginTop:"10px"}}
+                       src={props.partners.previewLogo} />
+             
+                        }
+   
+                   </div>
 
 
-<div className="investment-details-input-wrap">
-  <label>Banner</label>
-<div className="upload-investment-details">
-    <div className="uploadInvesmet-input-submit">
-      <button>Choose file</button>
-      <input name="banner"  onChange={props.handleFileChange} type="file"/>
-    </div>
 
-    <div className="uploadInvesmet-input-submit">
-      <span>No file chosen</span>
-    </div>
-</div>
-</div>
+
+
+      <div className="investment-details-input-wrap">
+                   <label>Banner </label>
+     <div className="upload-investment-details">
+                    <div className="uploadInvesmet-input-submit">
+                    <button>Choose file</button>
+                    <input name="banner"  onChange={props.handleFileChange} type="file" />
+                    </div>
+
+                    <div className="uploadInvesmet-input-submit">
+                    <span>{props.partners.previewBanner === "" ? "No file chosen" : ""}</span>
+             </div>
+        </div>
+      
+                        {
+                            props.partners.previewBanner === "" ? "" :
+                        
+                      <img title="Change Image" 
+                      style={{width:"60px",height:"50px",marginBottom:"-5px",borderRadius: "4px",marginTop:"10px"}}
+                       src={props.partners.previewBanner} />
+             
+                        }
+   
+                   </div>
 
 
 

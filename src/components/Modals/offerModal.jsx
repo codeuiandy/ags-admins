@@ -1,6 +1,7 @@
 import { data } from 'jquery'
 import React,{useState} from 'react'
 import DatePicker from 'react-datepicker'
+import { Link } from 'react-router-dom'
 export default function AddPartnersModal(props) {
     const [startDate, setStartDate] = useState(new Date())
 
@@ -88,6 +89,16 @@ export default function AddPartnersModal(props) {
   }
      
   </select>
+  <div  style={{display:"flex",justifyContent:"flex-end",alignItems:"flex-end"}}>
+     <Link style={{
+       color: "white",
+    background: "orange",
+    padding: "8px",
+    borderRadius: "4px",
+    marginTop: "10px"
+     }} target="blank" to='/affinity_network/partners'>Add Partner</Link>
+  </div>
+
 </div>
 
 <p className="addoffer-expiration-head">Expiration & Offer valid</p>
