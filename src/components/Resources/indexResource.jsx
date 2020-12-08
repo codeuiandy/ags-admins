@@ -295,7 +295,7 @@ export default function AffinityNetwork(props) {
           })
   
             CloseModal()
-          
+          getResource()
       
             NotificationManager.success(
                "Resource created successfully.",
@@ -352,6 +352,7 @@ export default function AffinityNetwork(props) {
               3000
           );
            }
+           getResource()
           
         
             hideLoader()
@@ -409,6 +410,7 @@ export default function AffinityNetwork(props) {
               3000
           );
            }
+           getResource()
           
         
             hideLoader()
