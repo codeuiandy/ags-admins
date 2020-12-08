@@ -468,7 +468,7 @@ handleEventTime= (e,startTime) =>{
   this.state.eventMedium === "virtual" || this.state.eventMedium === "hybrid" ? (
     <div class="form-group">
     <label >Enter Link <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
-    <input onChange={(e)=>this.handleChange(e)} name="eventLink"  type="text" 
+    <input onChange={(e)=>this.handleChange(e)} name="eventLink"  type="url" 
     class="form-control" id="address" placeholder="eg https://zoom.com" value={this.state.eventLink}/>
     <span className="eventErrorMessage">{this.state.iventLinkError}</span>
   </div>
@@ -562,7 +562,7 @@ handleEventTime= (e,startTime) =>{
         <div class="form-group">
     <label >Registration Link <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
     <input onChange={(e)=>this.handleChange(e)} name="registrationLink" 
-    type="text" class="form-control" id="register" placeholder="Event registration link"
+    type="url" class="form-control" id="register" placeholder="Event registration link"
     value={this.state.registrationLink}
     />
 
@@ -606,7 +606,7 @@ handleEventTime= (e,startTime) =>{
         <div class="form-group">
     <label>Registration Link <span style={{color:"rgba(255, 0, 0, 0.61)"}}>*</span></label>
     <input onChange={(e)=>this.handleChange(e)} name="registrationLink" 
-    type="text" class="form-control" id="register" placeholder="Event registration link"
+    type="url" class="form-control" id="register" placeholder="Event registration link"
     value={this.state.registrationLink}
     />
 
@@ -631,8 +631,8 @@ handleEventTime= (e,startTime) =>{
   </div>
 
         <div class="form-group">
-    <label onChange={(e)=>this.handleChange(e)} name="registrationLink">Registration Link</label>
-    <input  onChange={(e)=>this.handleChange(e)} name="registrationLink" type="text" class="form-control" id="register" 
+    <label >Registration Link</label>
+    <input  onChange={(e)=>this.handleChange(e)} name="registrationLink" type="url" class="form-control" id="register" 
     placeholder="Event registration link" value={this.state.registrationLink} />
 
   </div>
