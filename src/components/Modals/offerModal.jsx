@@ -115,6 +115,10 @@ export default function AddPartnersModal(props) {
       timeIntervals={15}
       timeCaption="time"
       dateFormat="MMMM d, yyyy h:mm aa"
+      showMonthDropdown
+      useShortMonthInDropdown
+       showYearDropdown
+      useShortYearInDropdown
     />
 </div>
 

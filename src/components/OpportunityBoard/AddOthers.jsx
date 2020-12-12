@@ -294,6 +294,7 @@ const [pageType, setPageType]=useState("create")
                "Yepp",
                3000
            );
+            props.history.goBack()
             }
                 
                  
@@ -301,7 +302,7 @@ const [pageType, setPageType]=useState("create")
              hideLoader()
        } catch (error) {
            console.log(error.response)
-           NotificationManager.success(
+           NotificationManager.error(
                error,
               "Opps",
               3000
@@ -348,8 +349,9 @@ const [pageType, setPageType]=useState("create")
                "Yepp",
                3000
            );
+            props.history.goBack()
             }
-            getEditDataFellowship()
+         
 
           
              }
@@ -363,7 +365,7 @@ const [pageType, setPageType]=useState("create")
                "Yepp",
                3000
            );}
-           getEditDataFellowship()
+            props.history.goBack()
 
             }
             
@@ -373,7 +375,7 @@ const [pageType, setPageType]=useState("create")
              hideLoader()
        } catch (error) {
            console.log(error.response)
-           NotificationManager.success(
+           NotificationManager.error(
                error,
               "Opps",
               3000
@@ -434,6 +436,7 @@ const [pageType, setPageType]=useState("create")
                "Yepp",
                3000
            );
+            props.history.goBack()
             }
                 
                  
@@ -488,7 +491,7 @@ const [pageType, setPageType]=useState("create")
                3000
            );
             }
-            getEditDatascholarship()
+             props.history.goBack()
 
           
              }
@@ -501,8 +504,11 @@ const [pageType, setPageType]=useState("create")
                 "Data updated successfully.",
                "Yepp",
                3000
-           );}
-           getEditDatascholarship()
+           );
+            props.history.goBack()
+          
+          }
+          
 
             }
             
@@ -512,11 +518,12 @@ const [pageType, setPageType]=useState("create")
              hideLoader()
        } catch (error) {
            console.log(error.response)
-           NotificationManager.success(
+           NotificationManager.error(
                error,
               "Opps",
               3000
           );
+           
            hideLoader()
        }
        }
@@ -578,6 +585,7 @@ const [pageType, setPageType]=useState("create")
                "Yepp",
                3000
            );
+           props.history.goBack()
             }
                 
                  
@@ -585,7 +593,7 @@ const [pageType, setPageType]=useState("create")
              hideLoader()
        } catch (error) {
            console.log(error.response)
-           NotificationManager.success(
+           NotificationManager.error(
                error,
               "Opps",
               3000
@@ -632,9 +640,9 @@ const [pageType, setPageType]=useState("create")
                "Yepp",
                3000
            );
+            props.history.goBack()
             }
-            getEditDataJob()
-
+           
           
              }
                else{
@@ -647,7 +655,7 @@ const [pageType, setPageType]=useState("create")
                "Yepp",
                3000
            );}
-           getEditDataJob()
+            props.history.goBack()
 
             }
             
@@ -657,7 +665,7 @@ const [pageType, setPageType]=useState("create")
              hideLoader()
        } catch (error) {
            console.log(error.response)
-           NotificationManager.success(
+           NotificationManager.error(
                error,
               "Opps",
               3000
@@ -844,6 +852,10 @@ const handleImageChange=(imageFile) =>{
       timeIntervals={15}
       timeCaption="time"
       dateFormat="MMMM d, yyyy h:mm aa"
+      showMonthDropdown
+      useShortMonthInDropdown
+       showYearDropdown
+      useShortYearInDropdown
     />
 </div>
 
@@ -973,11 +985,15 @@ const handleImageChange=(imageFile) =>{
       selected={startDate} 
       onChange={date => setStartDate(date)  }
       minDate={new Date()}
-      showTimeSelect
+ showTimeSelect
       timeFormat="HH:mm"
       timeIntervals={15}
       timeCaption="time"
       dateFormat="MMMM d, yyyy h:mm aa"
+      showMonthDropdown
+      useShortMonthInDropdown
+       showYearDropdown
+      useShortYearInDropdown
     />
 </div>
 
@@ -1108,11 +1124,15 @@ const handleImageChange=(imageFile) =>{
       selected={startDate} 
       onChange={date => setStartDate(date)  }
       minDate={new Date()}
-      showTimeSelect
+ showTimeSelect
       timeFormat="HH:mm"
       timeIntervals={15}
       timeCaption="time"
       dateFormat="MMMM d, yyyy h:mm aa"
+      showMonthDropdown
+      useShortMonthInDropdown
+       showYearDropdown
+      useShortYearInDropdown
     />
 </div>
 
@@ -1232,10 +1252,14 @@ const handleImageChange=(imageFile) =>{
       selected={startDate} 
       onChange={date => setStartDate(date)  }
       minDate={new Date()}
-      showTimeSelect
+ showTimeSelect
       timeFormat="HH:mm"
       timeIntervals={15}
       timeCaption="time"
       dateFormat="MMMM d, yyyy h:mm aa"
+      showMonthDropdown
+      useShortMonthInDropdown
+       showYearDropdown
+      useShortYearInDropdown
     />
 </div> */}

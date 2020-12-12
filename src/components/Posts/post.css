@@ -483,12 +483,21 @@
 .checkbox-advert-wrap {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .checkone-advert {
   margin-right: 27px;
   display: flex;
+  flex-direction: column;
+  margin-bottom: 11px;
 }
+
+.checkone-advert div:last-child{
+margin-left: 17px;
+}
+
+
 
 .checkone-advert span {
   margin-right: 5px;

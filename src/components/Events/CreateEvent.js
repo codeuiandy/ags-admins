@@ -247,6 +247,7 @@ console.log(this.state)
             "Yepp",
             3000
         );
+        this.props.history.push("/event_list")
          }
         
       
@@ -315,6 +316,7 @@ else{
         "Yepp",
         3000
     );
+    this.props.history.push("/event_list")
      }
     
   
@@ -675,6 +677,10 @@ handleEventTime= (e,startTime) =>{
       withPortal
  
       minDate={new Date()}
+      showMonthDropdown
+      useShortMonthInDropdown
+       showYearDropdown
+      useShortYearInDropdown
     />
   </div>
 
@@ -689,6 +695,10 @@ handleEventTime= (e,startTime) =>{
       withPortal
  
       minDate={this.state.startDate}
+      showMonthDropdown
+      useShortMonthInDropdown
+       showYearDropdown
+      useShortYearInDropdown
     />
   </div>
 

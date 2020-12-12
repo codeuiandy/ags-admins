@@ -140,3 +140,29 @@ table{
 margin-left: 5px;
 font-size: 13px;
 }
+
+/* .react-datepicker__input-container{
+  color: black !important;
+} */
+
+input::placeholder{
+color:rgba(128, 128, 128, 0.616) !important;
+}
+
+textarea::placeholder {
+  color: rgba(128, 128, 128, 0.616) !important;
+}
+
+
+input{
+  color: black !important;
+}
+
+textarea{
+  color: black !important;
+}
+
+
+.DateInput_input::placeholder {
+  color: #00b0ea;
+}

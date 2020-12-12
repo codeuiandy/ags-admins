@@ -24,7 +24,7 @@ export default class allFeeds extends Component {
     constructor(props){
         super(props)
         this.state={
-            postController:"Advert",
+            postController:"post",
             startDate:new Date(),
             Icebreaker:[],
             feeds:[],

@@ -62,9 +62,9 @@ export default function CreateAdvertPost(props) {
                      setAdvertData({
                          ...advertData,
       body:res.data.body,
-      })
-
-       setStartDate(new Date(res.data.start_date));
+      previewImg:res.data.image
+      })  
+    setStartDate(new Date(res.data.start_date));
     setEndDate(new Date(res.data.end_date))
    }
 }
@@ -103,6 +103,7 @@ console.log(topicID)
   const [advertData, setAdvertData] = useState({
       body:"",
       image:"",
+      previewImg:""
   })
 
 
@@ -122,8 +123,8 @@ const handleImageChange=(e) =>{
     //     file: file,
     //     base64: reader.result
     //   });
-       setAdvertData({...advertData, image:reader.result })
-   console.log("base 64>>>>>",advertData.image)
+       setAdvertData({...advertData, image:reader.result,previewImg:URL.createObjectURL(file) })
+ 
     };
     
   }
@@ -177,6 +178,8 @@ const handleImageChange=(e) =>{
                  "Yepp",
                  3000
              );
+             props.history.goBack()
+
               }
              
            
@@ -227,6 +230,7 @@ const handleImageChange=(e) =>{
                  "Yepp",
                  3000
              );
+             props.history.goBack()
               }
              
            
@@ -239,6 +243,7 @@ const handleImageChange=(e) =>{
                 3000
             );
              hideLoader()
+             
          // }
          }
            }
@@ -306,67 +311,82 @@ return (
                                     onChange={date => setEndDate(date)}
                                     minDate={startDate}
                                     />
-             </div>
-
-              
-               
-             <div className="advertPostImage">
-                 <label htmlFor="">Post Image</label>
-                 <input onChange={(e)=>handleImageChange(e)}  name="image" type="file"/>
-                 <div className="button-adver-wrap">
-                     <button>Upload Image</button>
-                 </div>
-                 
              </div>   
 
+
+              <div className="investment-details-input-wrap">
+                   <label>Post Image</label>
+     <div className="upload-investment-details">
+                    <div className="uploadInvesmet-input-submit">
+                    <button>Choose file</button>
+                    <input  onChange={(e)=>handleImageChange(e)}  name="image" type="file" />
+                    </div>
+                    <div className="uploadInvesmet-input-submit">
+                    <span>{advertData.previewImg === "" ? "No file chosen" : ""}</span>
+             </div>
+        </div>
+      
+                        {
+                            advertData.previewImg === "" ? "" :
+                        
+                      <img title="Change Image" 
+                      style={{width:"60px",height:"50px",marginBottom:"-5px",borderRadius: "4px",marginTop:"10px"}}
+                       src={advertData.previewImg} />
+             
+                        }
+   
+                   </div>
+
               <div className="table-Checkbox-advert">
+                  
                     <label className="ck-label-head" htmlFor="">Make advert visible on</label>
                    <div className="checkbox-advert-wrap">
+
+                           <div className="checkone-advert">
+                              <div style={{marginLeft:"0"}}>
+                                   <input checked={showOnFeed} onClick={()=>setShowOnFeed(!showOnFeed)} className="ckCheckAdvert" type="checkbox"/>
+                               <span>Feeds</span>
+                          </div>
+
+                        
+                       </div>
+
                        <div className="checkone-advert">
                             <div>
-                               <span>All Topics</span>
-                           <input className="ckCheckAdvert" checked={advertAllTopics.advertAll} type="checkbox" 
+                                 <input className="ckCheckAdvert" checked={advertAllTopics.advertAll} type="checkbox" 
                            onClick={()=>{setadvertAllTopics({
                                ...advertAllTopics,advertAll:!advertAllTopics.advertAll,decide:false
                            })}}/>
+                               <span>All Topics</span>
                            </div>
 
                            <div>
-                               <span>let me decide</span>
-                           <input className="ckCheckAdvert" checked={advertAllTopics.decide} type="checkbox"
+                               <input className="ckCheckAdvert" checked={advertAllTopics.decide} type="checkbox"
                             onClick={()=>{setadvertAllTopics({
                                ...advertAllTopics,advertAll:false,decide:!advertAllTopics.decide
                            })}}/>
+                               <span>let me decide</span>
                            </div>
                            
                        </div>
                        <div className="checkone-advert">
                             <div>
-                               <span>All Groups</span>
-                           <input onClick={()=>{setadvertAllGroups({
+                                  <input onClick={()=>{setadvertAllGroups({
                                ...advertAllGroups,advertAll:!advertAllGroups.advertAll,decide:false
                            })}} className="ckCheckAdvert" checked={advertAllGroups.advertAll} type="checkbox"/>
+                               <span>All Groups</span>
                            </div>
 
                            <div>
-                               <span>let me decide</span>
-                           <input onClick={()=>{setadvertAllGroups({
+                                 <input onClick={()=>{setadvertAllGroups({
                                ...advertAllGroups,advertAll:false,decide:!advertAllGroups.decide
                            })}} className="ckCheckAdvert" checked={advertAllGroups.decide} type="checkbox"/>
+                               <span>let me decide</span>
                            </div>
                        </div>
 
-                       <div className="checkone-advert">
-                              <div>
-                               <span>Feeds</span>
-                           <input checked={showOnFeed} onClick={()=>setShowOnFeed(!showOnFeed)} className="ckCheckAdvert" type="checkbox"/>
-                           </div>
-
-                        
-                       </div>
-                       <div className="createAdvertPostbtn">
-                           <button onClick={()=>handleSubmit}>{pageType==="edit"?"Edit" :"Create"} sponsored post</button>
-                       </div>
+                   
+                      
                        
                    </div>
              </div>
@@ -409,6 +429,10 @@ return (
          :
          <p className="advertUsec">This post will be shown as sponsored post in all topic</p>
          }
+
+           <div className="createAdvertPostbtn">
+               <button onClick={handleSubmit}>{pageType==="edit"?"Edit" :"Create"} sponsored post</button>
+            </div>
        </div>
 
         

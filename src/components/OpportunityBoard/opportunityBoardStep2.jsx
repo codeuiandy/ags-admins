@@ -340,7 +340,7 @@ const handlePricingPlans=(type,deleteData)=>{
             <Layout
              RouteUserLayout={
                 props.history
-            } activepage="funding_opportunities" page="funding_opportunities">
+            } activepage="investment_opportunities" page="investment_opportunities">
             
                 <div className="wrap-op-2">
                 <div className="add-investment-details-wrap">
@@ -391,6 +391,11 @@ const handlePricingPlans=(type,deleteData)=>{
       timeIntervals={15}
       timeCaption="time"
       dateFormat="MMMM d, yyyy h:mm aa"
+      showMonthDropdown
+      useShortMonthInDropdown
+       showYearDropdown
+      useShortYearInDropdown
+
     />
 </div>
 
@@ -454,11 +459,15 @@ const handlePricingPlans=(type,deleteData)=>{
       selected={startDate} 
       onChange={date => setStartDate(date)  }
       minDate={new Date()}
-      showTimeSelect
+       showTimeSelect
       timeFormat="HH:mm"
       timeIntervals={15}
       timeCaption="time"
       dateFormat="MMMM d, yyyy h:mm aa"
+      showMonthDropdown
+      useShortMonthInDropdown
+       showYearDropdown
+      useShortYearInDropdown
     />
 </div>
 
@@ -559,6 +568,10 @@ const handlePricingPlans=(type,deleteData)=>{
                         timeIntervals={15}
                         timeCaption="time"
                         dateFormat="MMMM d, yyyy h:mm aa"
+                        showMonthDropdown
+                        useShortMonthInDropdown
+                        showYearDropdown
+                        useShortYearInDropdown
                       />
                   </div>
 
