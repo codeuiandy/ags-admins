@@ -17,12 +17,12 @@ import GetImageUrl from '../helpers/getImageUrl'
 import moment from 'moment'
 import 'moment-timezone';
 export default function FundingOptionity(props) {
-  const [Requirements, setRequirements] = useState([])
-  const [RequirementsInput, setRequirementsInput] = useState("")
+  const [Industry, setIndustry] = useState([])
+  const [IndustryInput, setIndustryInput] = useState("")
 
 
   const [Criteria, setCriteria] = useState([])
-  const [EligibilityCriteriaDataInput, setEligibilityCriteriaInput] = useState("")
+  const [requirementsCriteriaDataInput, setrequirementsCriteriaInput] = useState("")
     const [Type, SetType] = useState("")
     const [action, SetAction] = useState("")
     const [ID, SetID] = useState("")
@@ -63,7 +63,7 @@ useEffect(() => {
               location:res.data.location,
               link:res.data.link,
               country:res.data.country,
-              industry:res.data.industry,
+              requirements:res.data.requirements,
               cta_text:res.data.cta_text,
               workTime:res.data.work_time,
               status:res.data.status,
@@ -71,7 +71,7 @@ useEffect(() => {
               previewImg:res.data.logo,
 
               })
-              setRequirements(res.data.requirements)
+              setIndustry(res.data.industry)
               setStartDate(new Date(res.data.end_date))
             }
             hideLoader()
@@ -94,7 +94,7 @@ useEffect(() => {
               benefits:res.data.benefits,
               process:res.data.selection_process,
               link:res.data.link,
-              industry:res.data.industry,
+              requirements:res.data.eligibility,
               cta_text:res.data.cta_text,
               status:res.data.status,
               banner:"",
@@ -102,7 +102,7 @@ useEffect(() => {
 
               })
 
-               setRequirements(res.data.eligibility)
+               setIndustry(res.data.industry)
               setStartDate(new Date(res.data.end_date))
 
             }
@@ -126,7 +126,7 @@ useEffect(() => {
               benefits:res.data.benefits,
               process:res.data.selection_process,
               link:res.data.link,
-              industry:res.data.industry,
+              requirements:res.data.eligibility,
               cta_text:res.data.cta_text,
               status:res.data.status,
               banner:"",
@@ -134,7 +134,7 @@ useEffect(() => {
 
               })
 
-               setRequirements(res.data.eligibility)
+               setIndustry(res.data.industry)
               setStartDate(new Date(res.data.end_date))
 
             }
@@ -147,16 +147,16 @@ useEffect(() => {
 
 
 
-const setEligibilityCriteriaInputHandle=(type,deleteData)=>{
+const setrequirementsCriteriaInputHandle=(type,deleteData)=>{
   if (type === "add") {
-    if (EligibilityCriteriaDataInput === "" || EligibilityCriteriaDataInput === null || EligibilityCriteriaDataInput === undefined) {
+    if (requirementsCriteriaDataInput === "" || requirementsCriteriaDataInput === null || requirementsCriteriaDataInput === undefined) {
       return
     }
-     if (Criteria.find(data=>data === EligibilityCriteriaDataInput)) {
-    alert(`${EligibilityCriteriaDataInput} already added`)
+     if (Criteria.find(data=>data === requirementsCriteriaDataInput)) {
+    alert(`${requirementsCriteriaDataInput} already added`)
     return
   }
-  setCriteria([...Criteria,EligibilityCriteriaDataInput])
+  setCriteria([...Criteria,requirementsCriteriaDataInput])
   }
   else{
     let deletData = Criteria[deleteData]
@@ -170,24 +170,24 @@ const setEligibilityCriteriaInputHandle=(type,deleteData)=>{
 }
 
 
-const handleRequirements=(type,deleteData)=>{
+const handleIndustry=(type,deleteData)=>{
   if (type === "add") {
-    if (RequirementsInput === "" || RequirementsInput === null || RequirementsInput === undefined) {
+    if (IndustryInput === "" || IndustryInput === null || IndustryInput === undefined) {
       return
     }
-     if (Requirements.find(data=>data === RequirementsInput)) {
-    alert(`${RequirementsInput} already added`)
+     if (Industry.find(data=>data === IndustryInput)) {
+    alert(`${IndustryInput} already added`)
     return
   }
-  setRequirements([...Requirements,RequirementsInput])
+  setIndustry([...Industry,IndustryInput])
   }
   else{
-    let deletData = Requirements[deleteData]
-    let filterData = Requirements.filter(data=>{
+    let deletData = Industry[deleteData]
+    let filterData = Industry.filter(data=>{
      return data !== deletData
     })
     console.log(filterData)
-    setRequirements(filterData)
+    setIndustry(filterData)
   }
  
 }
@@ -200,7 +200,7 @@ salary:"",
 location:"",
 link:"",
 country:"",
-industry:"",
+requirements:"",
 cta_text:"",
 workTime:"fulltime",
 status:"active",
@@ -214,7 +214,7 @@ title:"",
 summary:"",
 How_to_Apply:"",
 link:"",
-industry:"",
+requirements:"",
 cta_text:"",
 process:"",
 status:"active",
@@ -229,11 +229,11 @@ title:"",
 summary:"",
 How_to_Apply:"",
 link:"",
-industry:"",
+requirements:"",
 cta_text:"",
 process:"",
 status:"active",
-benefits:"",
+eligibility:"",
 banner:"",
 previewImg:"",
 
@@ -261,34 +261,19 @@ const [pageType, setPageType]=useState("create")
               how_to: Fellowship.How_to_Apply,
               benefits: Fellowship.benefits,
               link: Fellowship.link,
-              industry: Fellowship.industry,
+              eligibility: Fellowship.requirements,
               cta_text: Fellowship.cta_text,
                 status: Fellowship.status,
                  selection_process: Fellowship.process,
-                  industry: Fellowship.industry,
                     banner:Fellowship.banner,
                     category:"fellowship",
                     end_date:date,
-                    eligibility:Requirements
+                    industry:Industry
               
              };
              let res = await httpPost(`scholarships/`,data)
             console.log("res status",res) 
             if (res.status === 201 || res.status === 200) {
-                 setFellowship({
-                  title:"",
-                  summary:"",
-                  How_to_Apply:"",
-                  link:"",
-                  industry:"",
-                  cta_text:"",
-                  process:"",
-                  status:"active",
-                  benefits:"",
-                  banner:"",
-                  previewImg:"",
-
-                  })
              NotificationManager.success(
                 "Data created successfully.",
                "Yepp",
@@ -327,14 +312,13 @@ const [pageType, setPageType]=useState("create")
               how_to: Fellowship.How_to_Apply,
               benefits: Fellowship.benefits,
               link: Fellowship.link,
-              industry: Fellowship.industry,
+              eligibility: Fellowship.requirements,
               cta_text: Fellowship.cta_text,
                 status: Fellowship.status,
                  selection_process: Fellowship.process,
-                  industry: Fellowship.industry,
                     category:"fellowship",
                     end_date:date,
-                    eligibility:Requirements
+                    industry:Industry
               
              };
 
@@ -403,34 +387,19 @@ const [pageType, setPageType]=useState("create")
               how_to: scholarshipsFellowship.How_to_Apply,
               benefits: scholarshipsFellowship.benefits,
               link: scholarshipsFellowship.link,
-              industry: scholarshipsFellowship.industry,
+              eligibility: scholarshipsFellowship.requirements,
               cta_text: scholarshipsFellowship.cta_text,
                 status: scholarshipsFellowship.status,
                  selection_process: scholarshipsFellowship.process,
-                  industry: scholarshipsFellowship.industry,
                     banner:scholarshipsFellowship.banner,
                     category:"scholarship",
                     end_date:date,
-                    eligibility:Requirements
+                    industry:Industry
               
              };
              let res = await httpPost(`scholarships/`,data)
             console.log("res status",res) 
             if (res.status === 201 || res.status === 200) {
-                 setscholarshipsFellowship({
-                  title:"",
-                  summary:"",
-                  How_to_Apply:"",
-                  link:"",
-                  industry:"",
-                  cta_text:"",
-                  process:"",
-                  status:"active",
-                  benefits:"",
-                  banner:"",
-                  previewImg:"",
-
-                  })
              NotificationManager.success(
                 "Data created successfully.",
                "Yepp",
@@ -469,13 +438,13 @@ const [pageType, setPageType]=useState("create")
               how_to: scholarshipsFellowship.How_to_Apply,
               benefits: scholarshipsFellowship.benefits,
               link: scholarshipsFellowship.link,
-              industry: scholarshipsFellowship.industry,
+              eligibility: scholarshipsFellowship.requirements,
               cta_text: scholarshipsFellowship.cta_text,
                 status: scholarshipsFellowship.status,
                  selection_process: scholarshipsFellowship.process,
                     category:"scholarship",
                     end_date:date,
-                    eligibility:Requirements
+                    industry:Industry
               
              };
 
@@ -551,35 +520,18 @@ const [pageType, setPageType]=useState("create")
               location: jobs.location,
               link: jobs.link,
               country: jobs.country,
-              industry: jobs.industry,
               cta_text: jobs.cta_text,
                 work_time: jobs.workTime,
                 status: jobs.status,
-                  industry: jobs.industry,
+                 requirements: jobs.requirements,
                     logo:jobs.logo,
                     end_date:date,
-                    requirements:Requirements
+                    industry:Industry
               
              };
              let res = await httpPost(`jobs/`,data)
             console.log("res status",res) 
             if (res.status === 201 || res.status === 200) {
-                  setjobs({
-            title:"",
-            description:"",
-            position:"",
-            salary:"",
-            location:"",
-            link:"",
-            country:"",
-            industry:"",
-            cta_text:"",
-            workTime:"fulltime",
-            status:"active",
-            logo:"",
-            previewImg:"",
-
-            })
              NotificationManager.success(
                 "Data created successfully.",
                "Yepp",
@@ -619,13 +571,12 @@ const [pageType, setPageType]=useState("create")
               location: jobs.location,
               link: jobs.link,
               country: jobs.country,
-              industry: jobs.industry,
+              requirements: jobs.requirements,
               cta_text: jobs.cta_text,
                 work_time: jobs.workTime,
                 status: jobs.status,
-                  industry: jobs.industry,
                     end_date:date,
-                    requirements:Requirements
+                    industry:Industry
               
              };
 
@@ -794,13 +745,6 @@ const handleImageChange=(imageFile) =>{
 
 
 <div className="investment-details-input-wrap">
-  <label>Industry</label>
-  <input value={jobs.industry} onChange={handleChange} name="industry" type="text" placeholder="Eg. your text here"/>
-</div>
-
-
-
-<div className="investment-details-input-wrap">
   <label> Work Time</label>
   <select value={jobs.workTime} onChange={handleChange} name="workTime" id="">
     <option value="fulltime">full Time</option>
@@ -824,17 +768,22 @@ const handleImageChange=(imageFile) =>{
 
 <div className="investment-details-input-wrap">
   <label>Requirements</label>
+  <textarea value={jobs.requirements} onChange={handleChange} name="requirements" type="text" placeholder="Eg. your text here"/>
+</div>
+
+<div className="investment-details-input-wrap">
+  <label>Industry</label>
 
   <div className="funding-industry-div">
-     <input  style={{borderRadius:"5px 0px 0 5px"}} onChange={(e)=>setRequirementsInput(e.target.value)} type="text"
+     <input  style={{borderRadius:"5px 0px 0 5px"}} onChange={(e)=>setIndustryInput(e.target.value)} type="text"
       placeholder="eg, your text here"/><button
-   onClick={(data)=>handleRequirements("add","")}>Add</button>
+   onClick={(data)=>handleIndustry("add","")}>Add</button>
   </div>
  
    <div className="funding-industry-tags">
   {
-    Requirements.map((data,index)=>{
-    return<span className="funding-industry-tags-span" onClick={(data)=>handleRequirements("remove",index)}>{`${data}`} <span className="x" >X</span></span>
+    Industry?.map((data,index)=>{
+    return<span className="funding-industry-tags-span" onClick={(data)=>handleIndustry("remove",index)}>{`${data}`} <span className="x" >X</span></span>
     })
   }
   </div>
@@ -942,29 +891,30 @@ const handleImageChange=(imageFile) =>{
 
 
 <div className="investment-details-input-wrap">
-  <label>Industry</label>
-  <input value={scholarshipsFellowship.industry} onChange={handleChange} name="industry" type="text" placeholder="Eg. your text here"/>
-</div>
-
-<div className="investment-details-input-wrap">
   <label>Benefits</label>
   <textarea required value={scholarshipsFellowship.benefits} onChange={handleChange} name="benefits" type="text" placeholder="Eg. your text here"/>
 </div>
 
 
+
 <div className="investment-details-input-wrap">
-  <label>Eligibility</label>
+  <label>Requirements</label>
+  <textarea value={scholarshipsFellowship.requirements} onChange={handleChange} name="requirements" type="text" placeholder="Eg. your text here"/>
+</div>
+
+<div className="investment-details-input-wrap">
+  <label>Industry</label>
 
   <div className="funding-industry-div">
-     <input  style={{borderRadius:"5px 0px 0 5px"}} onChange={(e)=>setRequirementsInput(e.target.value)} type="text"
+     <input  style={{borderRadius:"5px 0px 0 5px"}} onChange={(e)=>setIndustryInput(e.target.value)} type="text"
       placeholder="eg, your text here"/><button
-   onClick={(data)=>handleRequirements("add","")}>Add</button>
+   onClick={(data)=>handleIndustry("add","")}>Add</button>
   </div>
  
    <div className="funding-industry-tags">
   {
-    Requirements.map((data,index)=>{
-    return<span className="funding-industry-tags-span" onClick={(data)=>handleRequirements("remove",index)}>{`${data}`} <span className="x" >X</span></span>
+    Industry?.map((data,index)=>{
+    return<span className="funding-industry-tags-span" onClick={(data)=>handleIndustry("remove",index)}>{`${data}`} <span className="x" >X</span></span>
     })
   }
   </div>
@@ -1081,33 +1031,34 @@ const handleImageChange=(imageFile) =>{
 
 
 <div className="investment-details-input-wrap">
-  <label>Industry</label>
-  <input value={Fellowship.industry} onChange={handleChange} name="industry" type="text" placeholder="Eg. your text here"/>
-</div>
-
-<div className="investment-details-input-wrap">
   <label>Benefits</label>
   <textarea required value={Fellowship.benefits} onChange={handleChange} name="benefits" type="text" placeholder="Eg. your text here"/>
 </div>
 
 
 <div className="investment-details-input-wrap">
-  <label>Eligibility</label>
+  <label>Requirements</label>
+  <textarea value={Fellowship.requirements} onChange={handleChange} name="requirements" type="text" placeholder="Eg. your text here"/>
+</div>
+
+<div className="investment-details-input-wrap">
+  <label>Industry</label>
 
   <div className="funding-industry-div">
-     <input  style={{borderRadius:"5px 0px 0 5px"}} onChange={(e)=>setRequirementsInput(e.target.value)} type="text"
+     <input  style={{borderRadius:"5px 0px 0 5px"}} onChange={(e)=>setIndustryInput(e.target.value)} type="text"
       placeholder="eg, your text here"/><button
-   onClick={(data)=>handleRequirements("add","")}>Add</button>
+   onClick={(data)=>handleIndustry("add","")}>Add</button>
   </div>
  
    <div className="funding-industry-tags">
   {
-    Requirements.map((data,index)=>{
-    return<span className="funding-industry-tags-span" onClick={(data)=>handleRequirements("remove",index)}>{`${data}`} <span className="x" >X</span></span>
+    Industry?.map((data,index)=>{
+    return<span className="funding-industry-tags-span" onClick={(data)=>handleIndustry("remove",index)}>{`${data}`} <span className="x" >X</span></span>
     })
   }
   </div>
 </div>
+
 
 <div className="investment-details-input-wrap">
   <label> Status</label>
@@ -1189,17 +1140,17 @@ const handleImageChange=(imageFile) =>{
 
 
 // <div className="investment-details-input-wrap">
-//   <label>Eligibility Criteria</label>
+//   <label>requirements Criteria</label>
 
 //   <div className="funding-industry-div">
-//      <input style={{borderRadius:"5px 0px 0 5px"}} onChange={(e)=>setEligibilityCriteriaInput(e.target.value)} type="text" placeholder="Low Cost housing estates"/><button
-//    onClick={(data)=>setEligibilityCriteriaInputHandle("add","")}>Add</button>
+//      <input style={{borderRadius:"5px 0px 0 5px"}} onChange={(e)=>setrequirementsCriteriaInput(e.target.value)} type="text" placeholder="Low Cost housing estates"/><button
+//    onClick={(data)=>setrequirementsCriteriaInputHandle("add","")}>Add</button>
 //   </div>
  
 //    <div className="funding-industry-tags">
 //   {
 //     Criteria.map((data,index)=>{
-//     return<span className="funding-industry-tags-span" onClick={(data)=>setEligibilityCriteriaInputHandle("remove",index)}>{`${data}`} <span className="x" >X</span></span>
+//     return<span className="funding-industry-tags-span" onClick={(data)=>setrequirementsCriteriaInputHandle("remove",index)}>{`${data}`} <span className="x" >X</span></span>
 //     })
 //   }
 //   </div>
@@ -1214,15 +1165,15 @@ const handleImageChange=(imageFile) =>{
   <label>Participating Countries (optional) (for Job)</label>
 
   <div className="funding-industry-div">
-     <input style={{borderRadius:"5px 0px 0 5px"}} onChange={(e)=>setRequirementsInput(e.target.value)} type="text"
+     <input style={{borderRadius:"5px 0px 0 5px"}} onChange={(e)=>setIndustryInput(e.target.value)} type="text"
       placeholder="Select your Participating Countries here"/><button
-   onClick={(data)=>handleRequirements("add","")}>Add</button>
+   onClick={(data)=>handleIndustry("add","")}>Add</button>
   </div>
  
    <div className="funding-industry-tags">
   {
-    Requirements.map((data,index)=>{
-    return<span className="funding-industry-tags-span" onClick={(data)=>handleRequirements("remove",index)}>{`${data}`} <span className="x" >X</span></span>
+    Industry.map((data,index)=>{
+    return<span className="funding-industry-tags-span" onClick={(data)=>handleIndustry("remove",index)}>{`${data}`} <span className="x" >X</span></span>
     })
   }
   </div>
